@@ -45,7 +45,6 @@
       "esmate lint --fix"
     ],
     "check": [
-      "astro check",
       "esmate fmt --check",
       "esmate lint"
     ]
