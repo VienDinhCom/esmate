@@ -9,6 +9,15 @@
       "arguments": ["--stdin-filepath", "{buffer_path}"]
     }
   },
+  "lsp": {
+    "tailwindcss-language-server": {
+      "settings": {
+        "tailwindCSS": {
+          "classFunctions": ["cn"]
+        }
+      }
+    }
+  },
   "languages": {
     "TSX": {
       "code_actions_on_format": {
