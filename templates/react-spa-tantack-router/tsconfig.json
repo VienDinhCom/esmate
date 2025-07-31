@@ -6,20 +6,14 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "moduleDetection": "force",
     "useDefineForClassFields": true,
-
-    /* Paths */
     "baseUrl": ".",
     "module": "ESNext",
-
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "paths": {
       "@src/*": ["src/*"]
     },
     "types": ["vite/client"],
     "allowImportingTsExtensions": true,
-
-    /* Linting */
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
