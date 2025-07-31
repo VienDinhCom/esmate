@@ -6,5 +6,5 @@ export default defineConfig({
     tailwindFunctions: ["cn"],
     tailwindStylesheet: "src/main.css",
   },
-  ignores: [],
+  ignores: ["src/routeTree.gen.ts"],
 });
