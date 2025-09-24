@@ -4,10 +4,10 @@ import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
 import { orpc } from '@/backend/orpc/client'
 
 export const Route = createFileRoute('/demo/orpc-todo')({
-  component: ORPCTodos,
+  component: RouteComponent,
 })
 
-function ORPCTodos() {
+function RouteComponent() {
   const [todo, setTodo] = useState('')
   const { data, refetch } = useSuspenseQuery(
     orpc.todos.list.queryOptions({ input: {} }),
