@@ -7,7 +7,7 @@ const todosData = [
   { id: 3, name: 'Finish the project' },
 ]
 
-export const todos = os.router({
+export const todos = {
   list: os.input(z.object({})).handler(() => {
     return todosData
   }),
@@ -16,4 +16,4 @@ export const todos = os.router({
     todosData.push(newTodo)
     return newTodo
   }),
-})
+}

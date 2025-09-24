@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
+
 import { orpc } from '@/backend/orpc/client'
 
 export const Route = createFileRoute('/demo/orpc-todo')({
@@ -8,16 +9,18 @@ export const Route = createFileRoute('/demo/orpc-todo')({
 })
 
 function RouteComponent() {
-  const [todo, setTodo] = useState('')
   const { data, refetch } = useSuspenseQuery(
-    orpc.todos.list.queryOptions({ input: {} }),
+    orpc.todos.list.queryOptions({
+      input: {},
+    }),
   )
 
+  const [todo, setTodo] = useState('')
   const { mutate: addTodo } = useMutation(
     orpc.todos.add.mutationOptions({
       onSuccess: () => {
-        setTodo('')
         refetch()
+        setTodo('')
       },
     }),
   )
@@ -37,7 +40,7 @@ function RouteComponent() {
       <div className="w-full max-w-2xl p-8 rounded-xl backdrop-blur-md bg-black/50 shadow-xl border-8 border-black/10">
         <h1 className="text-2xl mb-4">oRPC Todos list</h1>
         <ul className="mb-4 space-y-2">
-          {data?.map((t) => (
+          {data.map((t) => (
             <li
               key={t.id}
               className="bg-white/10 border border-white/20 rounded-lg p-3 backdrop-blur-sm shadow-md"

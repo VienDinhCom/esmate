@@ -1,9 +1,9 @@
 {
-  "projectName": "react-orpc",
+  "projectName": "esmate-react-rpc",
   "mode": "file-router",
   "typescript": true,
   "tailwind": true,
-  "packageManager": "pnpm",
+  "packageManager": "npm",
   "git": true,
   "version": 1,
   "framework": "react-cra",
