@@ -13,6 +13,7 @@
     "check": "prettier --write . && eslint --fix"
   },
   "dependencies": {
+    "@esmate/shadcn": "^1.1.2",
     "@orpc/client": "^1.7.5",
     "@orpc/json-schema": "^1.7.5",
     "@orpc/openapi": "^1.7.5",

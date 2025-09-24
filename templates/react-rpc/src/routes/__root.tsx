@@ -8,7 +8,7 @@ import { TanstackDevtools } from '@tanstack/react-devtools'
 
 import Header from '@/frontend/components/Header'
 import TanStackQueryDevtools from '@/frontend/integrations/tanstack-query/devtools'
-import styles from '@/frontend/assets/styles.css?url'
+import globalStyles from '@/frontend/assets/styles/global.css?url'
 
 import type { QueryClient } from '@tanstack/react-query'
 
@@ -33,7 +33,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     links: [
       {
         rel: 'stylesheet',
-        href: styles,
+        href: globalStyles,
       },
     ],
   }),
