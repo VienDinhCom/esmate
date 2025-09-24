@@ -1,6 +1,5 @@
-import { addTodo, listTodos } from './todos'
+import { todos } from './todos'
 
-export default {
-  listTodos,
-  addTodo,
+export const router = {
+  todos,
 }

@@ -10,11 +10,11 @@ export const Route = createFileRoute('/demo/orpc-todo')({
 function ORPCTodos() {
   const [todo, setTodo] = useState('')
   const { data, refetch } = useSuspenseQuery(
-    orpc.listTodos.queryOptions({ input: {} }),
+    orpc.todos.list.queryOptions({ input: {} }),
   )
 
   const { mutate: addTodo } = useMutation(
-    orpc.addTodo.mutationOptions({
+    orpc.todos.add.mutationOptions({
       onSuccess: () => {
         setTodo('')
         refetch()
