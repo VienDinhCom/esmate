@@ -1,3 +1,3 @@
 import { createAuthClient } from 'better-auth/react'
 
-export const auth = createAuthClient()
+export const authService = createAuthClient()

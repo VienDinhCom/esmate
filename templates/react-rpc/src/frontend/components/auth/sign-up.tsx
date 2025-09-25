@@ -1,7 +1,7 @@
 import { useZodForm } from '@esmate/shadcn/hooks/use-zod-form'
-import { z } from 'zod'
+import { z } from '@esmate/shadcn/zod'
 
-import { auth } from '@/frontend/lib/auth'
+import { authService } from '@/frontend/services/auth.service'
 
 const FormSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -20,7 +20,7 @@ export function SignUp() {
   })
 
   const onSubmit = form.handleSubmit(async ({ email, username, password }) => {
-    await auth.signUp.email({
+    await authService.signUp.email({
       email,
       password,
       name: username,

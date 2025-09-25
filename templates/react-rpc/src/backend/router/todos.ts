@@ -1,5 +1,6 @@
 import { os } from '@orpc/server'
 import * as z from 'zod'
+import { TodoSchema } from '../schema'
 
 const todosData = [
   { id: 1, name: 'Get groceries' },
@@ -9,11 +10,13 @@ const todosData = [
 
 export const todos = {
   list: os.input(z.object({})).handler(() => {
-    return todosData
+    return z.array(TodoSchema).parse(todosData)
   }),
   add: os.input(z.object({ name: z.string() })).handler(({ input }) => {
     const newTodo = { id: todosData.length + 1, name: input.name }
+
     todosData.push(newTodo)
-    return newTodo
+
+    return TodoSchema.parse(newTodo)
   }),
 }

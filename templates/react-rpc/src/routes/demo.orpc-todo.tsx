@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
 
-import { orpc } from '@/backend/orpc/client'
+import { apiService } from '@/frontend/services/api.service'
 
 export const Route = createFileRoute('/demo/orpc-todo')({
   component: RouteComponent,
@@ -10,14 +10,14 @@ export const Route = createFileRoute('/demo/orpc-todo')({
 
 function RouteComponent() {
   const { data, refetch } = useSuspenseQuery(
-    orpc.todos.list.queryOptions({
+    apiService.todos.list.queryOptions({
       input: {},
     }),
   )
 
   const [todo, setTodo] = useState('')
   const { mutate: addTodo } = useMutation(
-    orpc.todos.add.mutationOptions({
+    apiService.todos.add.mutationOptions({
       onSuccess: () => {
         refetch()
         setTodo('')

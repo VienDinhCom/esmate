@@ -7,7 +7,7 @@ import { createIsomorphicFn } from '@tanstack/react-start'
 
 import type { RouterClient } from '@orpc/server'
 
-import { router } from '@/backend/orpc/router'
+import { router } from '@/backend/router'
 
 const getORPCClient = createIsomorphicFn()
   .server(() =>
@@ -24,6 +24,6 @@ const getORPCClient = createIsomorphicFn()
     return createORPCClient(link)
   })
 
-export const client: RouterClient<typeof router> = getORPCClient()
+const client: RouterClient<typeof router> = getORPCClient()
 
-export const orpc = createTanstackQueryUtils(client)
+export const apiService = createTanstackQueryUtils(client)
