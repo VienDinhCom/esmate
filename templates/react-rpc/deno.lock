@@ -8,6 +8,7 @@
     "npm:@orpc/server@^1.9.0": "1.9.0",
     "npm:@orpc/tanstack-query@^1.9.0": "1.9.0_@orpc+client@1.9.0_@tanstack+query-core@5.90.2",
     "npm:@orpc/zod@^1.9.0": "1.9.0_@orpc+contract@1.9.0_@orpc+server@1.9.0_zod@4.1.11",
+    "npm:@t3-oss/env-core@~0.13.8": "0.13.8_typescript@5.9.2_zod@4.1.11",
     "npm:@tailwindcss/vite@^4.1.13": "4.1.13_vite@7.1.7__@types+node@22.18.6__tsx@4.20.5__picomatch@4.0.3_@types+node@22.18.6_tsx@4.20.5",
     "npm:@tanstack/eslint-config@~0.3.2": "0.3.2_typescript@5.9.2",
     "npm:@tanstack/react-devtools@0.7": "0.7.0_@types+react@19.1.13_@types+react-dom@19.1.9__@types+react@19.1.13_react@19.1.1_react-dom@19.1.1__react@19.1.1",
@@ -2201,6 +2202,17 @@
         "espree",
         "estraverse",
         "picomatch@4.0.3"
+      ]
+    },
+    "@t3-oss/env-core@0.13.8_typescript@5.9.2_zod@4.1.11": {
+      "integrity": "sha512-L1inmpzLQyYu4+Q1DyrXsGJYCXbtXjC4cICw1uAKv0ppYPQv656lhZPU91Qd1VS6SO/bou1/q5ufVzBGbNsUpw==",
+      "dependencies": [
+        "typescript",
+        "zod@4.1.11"
+      ],
+      "optionalPeers": [
+        "typescript",
+        "zod@4.1.11"
       ]
     },
     "@tailwindcss/node@4.1.13": {
@@ -5285,6 +5297,7 @@
         "npm:@orpc/server@^1.9.0",
         "npm:@orpc/tanstack-query@^1.9.0",
         "npm:@orpc/zod@^1.9.0",
+        "npm:@t3-oss/env-core@~0.13.8",
         "npm:@tailwindcss/vite@^4.1.13",
         "npm:@tanstack/eslint-config@~0.3.2",
         "npm:@tanstack/react-devtools@0.7",
