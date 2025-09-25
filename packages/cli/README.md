@@ -22,14 +22,14 @@ npm install -D esmate
 First, you need to install Prettier:
 
 ```bash
-npm install -D prettier
+npm install -D prettier @esmate/prettier
 ```
 
 Define your Prettier configuration in a `prettier.config.js` file:
 
 ```ts
 // @ts-check
-import { defineConfig } from "esmate/prettier";
+import { defineConfig } from "@esmate/prettier";
 
 export default defineConfig({
   tailwind: {
@@ -60,14 +60,14 @@ esmate fmt
 First, you need to install ESLint:
 
 ```bash
-npm install -D eslint
+npm install -D eslint @esmate/eslint
 ```
 
 Define your ESLint configuration in a `eslintrc.config.js` file:
 
 ```ts
 // @ts-check
-import { defineConfig } from "esmate/eslint";
+import { defineConfig } from "@esmate/eslint";
 
 export default defineConfig({
   type: "app",
