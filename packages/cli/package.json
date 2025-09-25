@@ -1,7 +1,7 @@
 {
   "name": "esmate",
   "type": "module",
-  "version": "1.0.11",
+  "version": "2.0.0",
   "description": "Uncomplicate JavaScript",
   "license": "MIT",
   "repository": {
@@ -19,12 +19,6 @@
     "toolkit",
     "utility"
   ],
-  "exports": {
-    "./*": {
-      "types": "./dist/exports/*.d.ts",
-      "import": "./dist/exports/*.js"
-    }
-  },
   "bin": {
     "esm": "./dist/index.js",
     "esmate": "./dist/index.js"
@@ -39,8 +33,6 @@
     "check": "tsc && prettier --check . && eslint ."
   },
   "dependencies": {
-    "@esmate/eslint": "workspace:*",
-    "@esmate/prettier": "workspace:*",
     "citty": "^0.1.6",
     "concurrently": "^9.1.2",
     "consola": "^3.4.2",
