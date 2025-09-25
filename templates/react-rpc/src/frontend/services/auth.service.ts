@@ -1,3 +1,3 @@
-import { createAuthClient } from 'better-auth/react'
+import { createAuthClient } from "better-auth/react";
 
-export const authService = createAuthClient()
+export const authService = createAuthClient();

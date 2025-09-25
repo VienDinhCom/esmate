@@ -1,11 +1,11 @@
-import { betterAuth } from 'better-auth'
-import { drizzleAdapter } from 'better-auth/adapters/drizzle'
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
-import { database } from '@/backend/database'
+import { database } from "@/backend/database";
 
 export const auth = betterAuth({
   database: drizzleAdapter(database, {
-    provider: 'pg',
+    provider: "pg",
   }),
   emailAndPassword: {
     enabled: true,
@@ -13,6 +13,6 @@ export const auth = betterAuth({
   rateLimit: {
     enabled: true,
   },
-})
+});
 
-export const authService = auth.api
+export const authService = auth.api;

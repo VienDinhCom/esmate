@@ -1,10 +1,10 @@
-//  @ts-check
+// @ts-check
+import { defineConfig } from "@esmate/prettier";
 
-/** @type {import('prettier').Config} */
-const config = {
-  semi: false,
-  singleQuote: true,
-  trailingComma: 'all',
-}
-
-export default config
+export default defineConfig({
+  tailwind: {
+    tailwindFunctions: ["cn"],
+    tailwindStylesheet: "src/frontend/assets/styles/global.css",
+  },
+  ignores: ["bun.lock", "deno.lock", "yarn.lock", "pnpm-lock.yaml", "package-lock.json"],
+});

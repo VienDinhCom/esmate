@@ -1,5 +1,5 @@
-import { todos } from './todos'
+import { todos } from "./todos";
 
 export const router = {
   todos,
-}
+};

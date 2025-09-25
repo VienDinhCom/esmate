@@ -1,12 +1,12 @@
-import { authService } from '@/frontend/services/auth.service'
-import { SignIn } from '@/frontend/components/auth/sign-in'
-import { SignUp } from '@/frontend/components/auth/sign-up'
+import { authService } from "@/frontend/services/auth.service";
+import { SignIn } from "@/frontend/components/auth/sign-in";
+import { SignUp } from "@/frontend/components/auth/sign-up";
 
 export function Profile() {
-  const { data: session, isPending, error, refetch } = authService.useSession()
+  const { data: session, isPending, error, refetch } = authService.useSession();
 
   if (isPending) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   if (error) {
@@ -15,7 +15,7 @@ export function Profile() {
         Error:
         {error.message}
       </div>
-    )
+    );
   }
 
   if (!session) {
@@ -25,7 +25,7 @@ export function Profile() {
         <hr />
         <SignIn />
       </div>
-    )
+    );
   }
 
   return (
@@ -46,5 +46,5 @@ export function Profile() {
         Refresh Session
       </button>
     </div>
-  )
+  );
 }

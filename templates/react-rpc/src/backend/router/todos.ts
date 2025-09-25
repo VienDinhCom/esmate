@@ -1,22 +1,22 @@
-import { os } from '@orpc/server'
-import * as z from 'zod'
-import { TodoSchema } from '../schema'
+import { os } from "@orpc/server";
+import * as z from "zod";
+import { TodoSchema } from "../schema";
 
 const todosData = [
-  { id: 1, name: 'Get groceries' },
-  { id: 2, name: 'Buy a new phone' },
-  { id: 3, name: 'Finish the project' },
-]
+  { id: 1, name: "Get groceries" },
+  { id: 2, name: "Buy a new phone" },
+  { id: 3, name: "Finish the project" },
+];
 
 export const todos = {
   list: os.input(z.object({})).handler(() => {
-    return z.array(TodoSchema).parse(todosData)
+    return z.array(TodoSchema).parse(todosData);
   }),
   add: os.input(z.object({ name: z.string() })).handler(({ input }) => {
-    const newTodo = { id: todosData.length + 1, name: input.name }
+    const newTodo = { id: todosData.length + 1, name: input.name };
 
-    todosData.push(newTodo)
+    todosData.push(newTodo);
 
-    return TodoSchema.parse(newTodo)
+    return TodoSchema.parse(newTodo);
   }),
-}
+};
