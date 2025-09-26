@@ -29,7 +29,7 @@ export const task = defineCommand({
 
       const isParallel = isJSONObject(task);
 
-      dotenv.config();
+      dotenv.config({ quiet: true });
 
       if (isParallel) {
         execParallelly(task as Record<string, string | string[]>);
