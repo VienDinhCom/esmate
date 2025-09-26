@@ -42,6 +42,8 @@
     "nypm": "^0.6.2"
   },
   "devDependencies": {
+    "@esmate/eslint": "workspace:*",
+    "@esmate/prettier": "workspace:*",
     "@rslib/core": "^0.7.1",
     "@types/node": "^22.18.6",
     "tsx": "^4.20.6",

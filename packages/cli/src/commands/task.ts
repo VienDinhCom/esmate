@@ -1,7 +1,7 @@
 import { defineCommand } from "citty";
 import { consola } from "consola";
 import { isJSONObject } from "es-toolkit";
-import "@dotenvx/dotenvx/config"
+import "@dotenvx/dotenvx/config";
 
 import { pkg } from "@src/pkg";
 import { execParallelly, execSingly } from "@src/utils";

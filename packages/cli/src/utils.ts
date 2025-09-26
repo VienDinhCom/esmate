@@ -8,8 +8,9 @@ import process from "node:process";
 
 export function execSingly(command: string | string[]): void {
   const cmd = Array.isArray(command) ? command.join(" && ") : command;
+  const { env } = process;
 
-  spawnSync(cmd, { shell: true, stdio: "inherit", env: process.env });
+  spawnSync(cmd, { shell: true, stdio: "inherit", env });
 }
 
 export async function execParallelly(commands: Record<string, string | string[]>): Promise<void> {
@@ -17,8 +18,9 @@ export async function execParallelly(commands: Record<string, string | string[]>
 
   for (const [name, command] of Object.entries(commands)) {
     const cmd = Array.isArray(command) ? command.join(" && ") : command;
+    const { env } = process;
 
-    concurrentCommands.push({ name, command: cmd, env: process.env });
+    concurrentCommands.push({ name, command: cmd, env });
   }
 
   await concurrently(concurrentCommands, {

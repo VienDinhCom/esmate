@@ -39,6 +39,12 @@ importers:
         specifier: ^0.6.2
         version: 0.6.2
     devDependencies:
+      '@esmate/eslint':
+        specifier: workspace:*
+        version: link:../eslint
+      '@esmate/prettier':
+        specifier: workspace:*
+        version: link:../prettier
       '@rslib/core':
         specifier: ^0.7.1
         version: 0.7.1(typescript@5.9.2)
