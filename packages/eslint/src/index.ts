@@ -1,6 +1,8 @@
 import type { OptionsConfig, TypedFlatConfigItem } from "@antfu/eslint-config";
 import type { Linter } from "eslint";
 import antfu from "@antfu/eslint-config";
+import pluginQuery from "@tanstack/eslint-plugin-query";
+import pluginRouter from "@tanstack/eslint-plugin-router";
 import prettier from "eslint-config-prettier";
 
 type Options = OptionsConfig & {
@@ -10,6 +12,21 @@ type Options = OptionsConfig & {
    * So you don't have to use .eslintignore file.
    */
   ignores?: string[];
+
+  /**
+   * TanStack ESLint configs.
+   */
+  tackstack?: {
+    /**
+     * Enables the `@tanstack/eslint-plugin-router` configs.
+     */
+    router?: boolean;
+
+    /**
+     * Enables the `@tanstack/eslint-plugin-query` configs.
+     */
+    query?: boolean;
+  };
 };
 
 /**
@@ -21,13 +38,21 @@ type Options = OptionsConfig & {
  * @returns An array of ESLint flat config items.
  */
 export function defineConfig(options: Options, ...configs: Linter.Config[]): ReturnType<typeof antfu> {
-  const { formatters, ...restOptions } = options;
+  const { ...restOptions } = options;
   const restConfigs: TypedFlatConfigItem[] = configs || [];
 
-  if (!formatters) {
+  if (!options.formatters) {
     restConfigs.push(prettier, {
       rules: { "antfu/consistent-chaining": "off" },
     });
+  }
+
+  if (options.tackstack?.router) {
+    restConfigs.push(...pluginRouter.configs["flat/recommended"]);
+  }
+
+  if (options.tackstack?.query) {
+    restConfigs.push(...pluginQuery.configs["flat/recommended"]);
   }
 
   return antfu(
