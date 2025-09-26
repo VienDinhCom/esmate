@@ -1,7 +1,7 @@
 {
   "name": "esmate",
   "type": "module",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Uncomplicate JavaScript",
   "license": "MIT",
   "repository": {
@@ -33,10 +33,10 @@
     "check": "tsc && prettier --check . && eslint ."
   },
   "dependencies": {
-    "@dotenvx/dotenvx": "^1.51.0",
     "citty": "^0.1.6",
     "concurrently": "^9.2.1",
     "consola": "^3.4.2",
+    "dotenv": "^17.2.2",
     "es-toolkit": "^1.39.10",
     "find-up": "^7.0.0",
     "nypm": "^0.6.2"
