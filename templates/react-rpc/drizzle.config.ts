@@ -1,6 +1,6 @@
 import process from "node:process";
 import { defineConfig } from "drizzle-kit";
-import "@dotenvx/dotenvx/config";
+import "dotenv/config";
 
 export default defineConfig({
   out: "src/backend/database/migrations",
