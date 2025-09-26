@@ -16,7 +16,7 @@ type Options = OptionsConfig & {
   /**
    * TanStack ESLint configs.
    */
-  tackstack?: {
+  tanstack?: {
     /**
      * Enables the `@tanstack/eslint-plugin-router` configs.
      */
@@ -47,11 +47,11 @@ export function defineConfig(options: Options, ...configs: Linter.Config[]): Ret
     });
   }
 
-  if (options.tackstack?.router) {
+  if (options.tanstack?.router) {
     restConfigs.push(...pluginRouter.configs["flat/recommended"]);
   }
 
-  if (options.tackstack?.query) {
+  if (options.tanstack?.query) {
     restConfigs.push(...pluginQuery.configs["flat/recommended"]);
   }
 
