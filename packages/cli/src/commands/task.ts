@@ -1,6 +1,6 @@
-import dotenv from "@dotenvx/dotenvx";
 import { defineCommand } from "citty";
 import { consola } from "consola";
+import dotenv from "dotenv";
 import { isJSONObject } from "es-toolkit";
 
 import { pkg } from "@src/pkg";
@@ -29,7 +29,7 @@ export const task = defineCommand({
 
       const isParallel = isJSONObject(task);
 
-      dotenv.config({ quiet: true });
+      dotenv.config();
 
       if (isParallel) {
         execParallelly(task as Record<string, string | string[]>);
