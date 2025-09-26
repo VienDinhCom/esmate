@@ -1,19 +1,18 @@
-import { createEnv } from '@t3-oss/env-core'
-import { z } from 'zod'
-import 'dotenv/config'
+import { createEnv } from "@t3-oss/env-core";
+import { z } from "zod";
 
 export const env = createEnv({
   server: {
-    BETTER_AUTH_SECRET: z.string(),
-    BETTER_AUTH_URL: z.string().url(),
     DATABASE_URL: z.string(),
+    BETTER_AUTH_URL: z.url(),
+    BETTER_AUTH_SECRET: z.string(),
   },
 
   /**
    * The prefix that client-side variables must have. This is enforced both at
    * a type-level and at runtime.
    */
-  clientPrefix: 'VITE_',
+  clientPrefix: "VITE_",
 
   client: {
     // VITE_APP_TITLE: z.string().min(1).optional(),
@@ -39,4 +38,4 @@ export const env = createEnv({
    * explicitly specify this option as true.
    */
   emptyStringAsUndefined: true,
-})
+});

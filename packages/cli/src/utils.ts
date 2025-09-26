@@ -7,20 +7,18 @@ import fs from "node:fs";
 import process from "node:process";
 
 export function execSingly(command: string | string[]): void {
-  const { env } = process;
   const cmd = Array.isArray(command) ? command.join(" && ") : command;
 
-  spawnSync(cmd, { shell: true, stdio: "inherit", env });
+  spawnSync(cmd, { shell: true, stdio: "inherit", env: process.env });
 }
 
 export async function execParallelly(commands: Record<string, string | string[]>): Promise<void> {
-  const { env } = process;
   const concurrentCommands: ConcurrentlyCommandInput[] = [];
 
   for (const [name, command] of Object.entries(commands)) {
     const cmd = Array.isArray(command) ? command.join(" && ") : command;
 
-    concurrentCommands.push({ name, command: cmd, env });
+    concurrentCommands.push({ name, command: cmd, env: process.env });
   }
 
   await concurrently(concurrentCommands, {
