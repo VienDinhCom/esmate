@@ -1,7 +1,7 @@
-# build output
+# dev & build
 dist/
-# generated types
 .astro/
+.tanstack/
 
 # dependencies
 node_modules/
