@@ -2,7 +2,7 @@
 title: "Second post"
 description: "Lorem ipsum dolor sit amet"
 pubDate: "Jul 15 2022"
-heroImage: "@frontend/shared/assets/images/blog-placeholder-4.jpg"
+heroImage: "@assets/images/blog-placeholder-4.jpg"
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
