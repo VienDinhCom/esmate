@@ -16,6 +16,7 @@
     "@astrojs/react": "^4.4.0",
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.6.0",
+    "@t3-oss/env-core": "^0.13.8",
     "@tanstack/react-devtools": "^0.7.0",
     "@tanstack/react-query": "^5.90.2",
     "@tanstack/react-query-devtools": "^5.90.2",
