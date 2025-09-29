@@ -12,7 +12,7 @@ export default defineConfig({
     plugins: [
       tanstackRouter({
         autoCodeSplitting: true,
-        generatedRouteTree: "./src/shared/integrations/spa-router/route-tree.gen.ts",
+        generatedRouteTree: "./src/shared/integrations/tanstack-router/route-tree.gen.ts",
       }),
     ],
   },

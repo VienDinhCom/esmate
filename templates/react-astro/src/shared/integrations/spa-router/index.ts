@@ -1,1 +1,0 @@
-export { SpaRouter } from "./router";
