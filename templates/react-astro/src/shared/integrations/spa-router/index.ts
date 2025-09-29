@@ -1,1 +1,1 @@
-export { SpaRouter } from "./spa-router";
+export { SpaRouter } from "./router";
