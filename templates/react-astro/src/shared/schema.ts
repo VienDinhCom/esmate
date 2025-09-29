@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "astro:schema";
 
 export const TodoSchema = z.object({
   id: z.number().int().min(1),

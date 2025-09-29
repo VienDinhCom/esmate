@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "astro:schema";
 import { os } from "@orpc/server";
 import { TodoSchema } from "@shared/schema";
 
