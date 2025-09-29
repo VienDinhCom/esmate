@@ -7,8 +7,8 @@
     "jsxImportSource": "react",
     "strictNullChecks": true,
     "paths": {
-      "@actions/*": ["./src/actions/*"],
-      "@features/*": ["./src/features/*"],
+      "@backend/*": ["./src/backend/*"],
+      "@frontend/*": ["./src/frontend/*"],
       "@shared/*": ["./src/shared/*"]
     }
   }

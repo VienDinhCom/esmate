@@ -12,8 +12,8 @@ export default defineConfig({
     plugins: [
       tanstackRouter({
         autoCodeSplitting: true,
-        routesDirectory: "./src/features/tanstack/routes",
-        generatedRouteTree: "./src/features/tanstack/config/router/index.ts",
+        routesDirectory: "./src/frontend/tanstack/routes",
+        generatedRouteTree: "./src/frontend/tanstack/config/router/index.ts",
       }),
     ],
   },

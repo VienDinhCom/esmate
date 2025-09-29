@@ -2,7 +2,7 @@
 title: "Markdown Style Guide"
 description: "Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro."
 pubDate: "Jun 19 2024"
-heroImage: "@shared/assets/images/blog-placeholder-1.jpg"
+heroImage: "@frontend/shared/assets/images/blog-placeholder-1.jpg"
 ---
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
@@ -46,7 +46,7 @@ aut hariosam ex eat.
 
 ### Output
 
-![blog placeholder](@shared/assets/images/blog-placeholder-about.jpg)
+![blog placeholder](@frontend/shared/assets/images/blog-placeholder-about.jpg)
 
 ## Blockquotes
 
