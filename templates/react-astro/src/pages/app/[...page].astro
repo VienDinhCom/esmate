@@ -1,7 +1,7 @@
 ---
-import { TanStackRouter } from "@shared/integrations/tanstack-router";
+import { TanStackSinglePageApp } from "@features/tanstack";
 
 export const prerender = false;
 ---
 
-<TanStackRouter client:only="react" />
+<TanStackSinglePageApp client:only="react" />
