@@ -20,7 +20,7 @@ declare module "@tanstack/react-router" {
   }
 }
 
-export const TanStackSinglePageApp = () => (
+export const TanStackSinglePageApplication = () => (
   <StrictMode>
     <TanStackQueryProvider {...queryContext}>
       <RouterProvider router={router} />
