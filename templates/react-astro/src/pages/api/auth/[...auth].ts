@@ -1,5 +1,6 @@
-import { auth } from "@backend/utils/auth";
 import type { APIRoute } from "astro";
+
+import { auth } from "@backend/utils/auth";
 
 export const prerender = false;
 

@@ -1,6 +1,8 @@
-import { RPCHandler } from "@orpc/server/fetch";
-import { router } from "@backend/router";
 import type { APIRoute } from "astro";
+
+import { RPCHandler } from "@orpc/server/fetch";
+
+import { router } from "@backend/router";
 
 const handler = new RPCHandler(router);
 

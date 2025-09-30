@@ -1,2 +1,2 @@
-export { TanStackQueryProvider } from "./provider";
 export { getTanStackQueryContext } from "./context";
+export { TanStackQueryProvider } from "./provider";
