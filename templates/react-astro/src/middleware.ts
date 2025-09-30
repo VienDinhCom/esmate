@@ -1,5 +1,6 @@
-import { auth } from "@backend/utils/auth";
 import { defineMiddleware } from "astro:middleware";
+
+import { auth } from "@backend/utils/auth";
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const isAuthed = await auth.api.getSession({

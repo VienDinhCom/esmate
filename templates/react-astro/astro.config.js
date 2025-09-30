@@ -1,12 +1,10 @@
-// @ts-nocheck
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
-import { defineConfig, envField } from "astro/config";
-import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import tailwindcss from "@tailwindcss/vite";
+import { tanstackRouter } from "@tanstack/router-plugin/vite";
+import { defineConfig, envField } from "astro/config";
 
-// https://astro.build/config
 export default defineConfig({
   server: { port: 3000 },
   site: "https://example.com",
@@ -23,9 +21,18 @@ export default defineConfig({
   },
   env: {
     schema: {
-      DATABASE_URL: envField.string({ context: "server", access: "secret" }),
-      BETTER_AUTH_URL: envField.string({ context: "server", access: "secret" }),
-      BETTER_AUTH_SECRET: envField.string({ context: "server", access: "secret" }),
+      DATABASE_URL: envField.string({
+        access: "secret",
+        context: "server",
+      }),
+      BETTER_AUTH_URL: envField.string({
+        access: "secret",
+        context: "server",
+      }),
+      BETTER_AUTH_SECRET: envField.string({
+        access: "secret",
+        context: "server",
+      }),
     },
   },
 });

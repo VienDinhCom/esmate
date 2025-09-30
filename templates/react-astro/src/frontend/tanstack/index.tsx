@@ -1,6 +1,7 @@
+import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
+
 import { getTanStackQueryContext, TanStackQueryProvider } from "./config/query";
-import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./config/router";
 
 const queryContext = getTanStackQueryContext();
@@ -20,10 +21,12 @@ declare module "@tanstack/react-router" {
   }
 }
 
-export const TanStackSPA = () => (
-  <StrictMode>
-    <TanStackQueryProvider {...queryContext}>
-      <RouterProvider router={router} />
-    </TanStackQueryProvider>
-  </StrictMode>
-);
+export function TanStackSPA() {
+  return (
+    <StrictMode>
+      <TanStackQueryProvider {...queryContext}>
+        <RouterProvider router={router} />
+      </TanStackQueryProvider>
+    </StrictMode>
+  );
+}
