@@ -11,7 +11,7 @@ Supercharge your UI development with Shadcn—components, hooks, and styles all 
 
 ## Installation
 
-Install the package that includes `shadcn@2.x.x`:
+Install the package that includes `shadcn@3.x.x`:
 
 ```sh
 npm install @esmate/shadcn tailwindcss

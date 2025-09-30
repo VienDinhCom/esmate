@@ -1,7 +1,7 @@
 {
   "name": "@esmate/shadcn",
   "description": "Shadcn components, hooks, and styles in one package.",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "license": "MIT",
   "type": "module",
   "repository": {
@@ -88,7 +88,7 @@
     "globby": "^14.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "shadcn": "^2.10.0",
+    "shadcn": "^3.3.1",
     "tsx": "^4.20.6",
     "typescript": "^5.9.2"
   },
