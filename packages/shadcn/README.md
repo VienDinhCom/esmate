@@ -45,9 +45,9 @@ import { Button } from "@esmate/shadcn/ui/button";
 All Shadcn [UI components](https://ui.shadcn.com/docs/components/) are available via `@esmate/shadcn/ui/*` imports.
 
 ```typescript
-import { Button } from "@esmate/shadcn/ui/button";
+import { Button } from "@esmate/shadcn/components/ui/button";
 
-import { Card, CardContent } from "@esmate/shadcn/ui/card";
+import { Card, CardContent } from "@esmate/shadcn/components/ui/card";
 ```
 
 ### Utils
@@ -245,9 +245,9 @@ bundle them all in one place. I’ve re-exported everything for you, making the 
 having to install each dependency individually.
 
 ```typescript
-import { useForm } from "@esmate/shadcn/react-hook-form";
-import { zodResolver } from "@esmate/shadcn/hookform__resolvers";
-import { z } from "@esmate/shadcn/zod";
+import { useForm } from "@esmate/shadcn/pkgs/react-hook-form";
+import { zodResolver } from "@esmate/shadcn/pkgs/hookform/resolvers";
+import { z } from "@esmate/shadcn/pkgs/zod";
 
 // You can check src/lib or dist/lib to find more modules
 ```
