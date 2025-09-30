@@ -6,5 +6,5 @@ export default defineConfig({
   tailwind: {
     tailwindStylesheet: "src/assets/styles/global.css",
   },
-  ignores: ["bun.lock", "deno.lock", "yarn.lock", "pnpm-lock.yaml", "package-lock.json"],
+  ignores: ["pnpm-lock.yaml", "package-lock.json"],
 });
