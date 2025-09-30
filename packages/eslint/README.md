@@ -21,6 +21,12 @@ import { defineConfig } from "@esmate/eslint";
 export default defineConfig({
   type: "app",
   react: true,
+  // vue: true,
+  // astro: true,
+  // tanstack: {
+  //   query: true,
+  //   router: true,
+  // },
   ignores: [],
 });
 ```
