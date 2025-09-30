@@ -1,7 +1,7 @@
 {
   "name": "@esmate/shadcn",
   "description": "Shadcn components, hooks, and styles in one package.",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "license": "MIT",
   "type": "module",
   "repository": {
@@ -9,9 +9,13 @@
     "url": "git+https://github.com/viendinhcom/esmate.git"
   },
   "exports": {
-    "./components/**": {
-      "import": "./dist/components/**/*.js",
-      "types": "./dist/components/**/*.d.ts"
+    "./components/*": {
+      "import": "./dist/components/*.js",
+      "types": "./dist/components/*.d.ts"
+    },
+    "./components/ui/*": {
+      "import": "./dist/components/ui/*.js",
+      "types": "./dist/components/ui/*.d.ts"
     },
     "./hooks/*": {
       "import": "./dist/hooks/*.js",
@@ -24,9 +28,17 @@
       "import": "./dist/lib/*.js",
       "types": "./dist/lib/*.d.ts"
     },
-    "./pkgs/**": {
-      "import": "./dist/pkgs/**/*.js",
-      "types": "./dist/lib/**/*.d.ts"
+    "./pkgs/*": {
+      "import": "./dist/pkgs/*.js",
+      "types": "./dist/pkgs/*.d.ts"
+    },
+    "./pkgs/radix-ui/*": {
+      "import": "./dist/pkgs/radix-ui/*.js",
+      "types": "./dist/pkgs/radix-ui/*.d.ts"
+    },
+    "./pkgs/hookform/*": {
+      "import": "./dist/pkgs/hookform/*.js",
+      "types": "./dist/pkgs/hookform/*.d.ts"
     }
   },
   "scripts": {
