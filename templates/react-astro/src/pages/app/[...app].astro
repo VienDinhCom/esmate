@@ -1,10 +1,10 @@
 ---
-import { TanStackSinglePageApplication } from "@frontend/tanstack";
+import { TanStackSPA } from "@frontend/tanstack";
 import BaseLayout from '@frontend/shared/components/layouts/base-layout.astro';
 
 export const prerender = false;
 ---
 
 <BaseLayout>
-  <TanStackSinglePageApplication client:only="react" />
+  <TanStackSPA client:only="react" />
 </BaseLayout>
