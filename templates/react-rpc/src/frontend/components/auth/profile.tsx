@@ -1,6 +1,6 @@
-import { authService } from "@/frontend/services/auth.service";
 import { SignIn } from "@/frontend/components/auth/sign-in";
 import { SignUp } from "@/frontend/components/auth/sign-up";
+import { authService } from "@/frontend/services/auth.service";
 
 export function Profile() {
   const { data: session, isPending, error, refetch } = authService.useSession();

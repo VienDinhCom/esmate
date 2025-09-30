@@ -1,7 +1,7 @@
 {
   "name": "esmate-react-rpc",
-  "private": true,
   "type": "module",
+  "private": true,
   "scripts": {
     "dev": "esmate task dev",
     "build": "esmate task build",
@@ -12,12 +12,12 @@
   },
   "dependencies": {
     "@esmate/shadcn": "^1.1.2",
-    "@orpc/client": "^1.9.0",
-    "@orpc/json-schema": "^1.9.0",
-    "@orpc/openapi": "^1.9.0",
-    "@orpc/server": "^1.9.0",
-    "@orpc/tanstack-query": "^1.9.0",
-    "@orpc/zod": "^1.9.0",
+    "@orpc/client": "^1.9.1",
+    "@orpc/json-schema": "^1.9.1",
+    "@orpc/openapi": "^1.9.1",
+    "@orpc/server": "^1.9.1",
+    "@orpc/tanstack-query": "^1.9.1",
+    "@orpc/zod": "^1.9.1",
     "@t3-oss/env-core": "^0.13.8",
     "@tailwindcss/vite": "^4.1.13",
     "@tanstack/nitro-v2-vite-plugin": "^1.132.0",
@@ -26,7 +26,7 @@
     "@tanstack/react-router": "^1.132.7",
     "@tanstack/react-router-devtools": "^1.132.7",
     "@tanstack/react-router-ssr-query": "^1.132.7",
-    "@tanstack/react-start": "^1.132.8",
+    "@tanstack/react-start": "^1.132.9",
     "@tanstack/router-plugin": "^1.132.7",
     "better-auth": "^1.3.18",
     "drizzle-orm": "^0.44.5",
@@ -38,6 +38,7 @@
     "zod": "^4.1.11"
   },
   "devDependencies": {
+    "@esmate/eslint": "^1.1.1",
     "@esmate/prettier": "^1.0.4",
     "@tanstack/eslint-config": "^0.3.2",
     "@tanstack/react-devtools": "^0.7.0",

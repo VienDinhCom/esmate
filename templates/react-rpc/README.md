@@ -82,10 +82,8 @@ will appear in all the routes. The route content will appear in the JSX where yo
 Here is an example layout that includes a header:
 
 ```tsx
-import { Outlet, createRootRoute } from "@tanstack/react-router";
+import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-
-import { Link } from "@tanstack/react-router";
 
 export const Route = createRootRoute({
   component: () => (
@@ -243,6 +241,7 @@ Now let's create a simple counter in the `src/App.tsx` file as a demonstration.
 ```tsx
 import { useStore } from "@tanstack/react-store";
 import { Store } from "@tanstack/store";
+
 import "./App.css";
 
 const countStore = new Store(0);
@@ -251,7 +250,9 @@ function App() {
   const count = useStore(countStore);
   return (
     <div>
-      <button onClick={() => countStore.setState((n) => n + 1)}>Increment - {count}</button>
+      <button type="button" onClick={() => countStore.setState((n) => n + 1)}>
+        Increment - {count}
+      </button>
     </div>
   );
 }
@@ -266,7 +267,8 @@ Let's check this out by doubling the count using derived state.
 
 ```tsx
 import { useStore } from "@tanstack/react-store";
-import { Store, Derived } from "@tanstack/store";
+import { Derived, Store } from "@tanstack/store";
+
 import "./App.css";
 
 const countStore = new Store(0);
@@ -283,7 +285,9 @@ function App() {
 
   return (
     <div>
-      <button onClick={() => countStore.setState((n) => n + 1)}>Increment - {count}</button>
+      <button type="button" onClick={() => countStore.setState((n) => n + 1)}>
+        Increment - {count}
+      </button>
       <div>Doubled - {doubledCount}</div>
     </div>
   );

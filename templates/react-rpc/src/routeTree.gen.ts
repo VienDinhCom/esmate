@@ -8,150 +8,131 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as DemoOrpcTodoRouteImport } from './routes/demo.orpc-todo'
-import { Route as ApiSplatRouteImport } from './routes/api/$'
-import { Route as ApiRpcSplatRouteImport } from './routes/api/rpc.$'
-import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as ProfileRouteImport } from "./routes/profile";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as DemoOrpcTodoRouteImport } from "./routes/demo.orpc-todo";
+import { Route as ApiSplatRouteImport } from "./routes/api/$";
+import { Route as ApiRpcSplatRouteImport } from "./routes/api/rpc.$";
+import { Route as ApiAuthSplatRouteImport } from "./routes/api/auth.$";
 
 const ProfileRoute = ProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
+  id: "/profile",
+  path: "/profile",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const DemoOrpcTodoRoute = DemoOrpcTodoRouteImport.update({
-  id: '/demo/orpc-todo',
-  path: '/demo/orpc-todo',
+  id: "/demo/orpc-todo",
+  path: "/demo/orpc-todo",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ApiSplatRoute = ApiSplatRouteImport.update({
-  id: '/api/$',
-  path: '/api/$',
+  id: "/api/$",
+  path: "/api/$",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ApiRpcSplatRoute = ApiRpcSplatRouteImport.update({
-  id: '/api/rpc/$',
-  path: '/api/rpc/$',
+  id: "/api/rpc/$",
+  path: "/api/rpc/$",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
-  id: '/api/auth/$',
-  path: '/api/auth/$',
+  id: "/api/auth/$",
+  path: "/api/auth/$",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/profile': typeof ProfileRoute
-  '/api/$': typeof ApiSplatRoute
-  '/demo/orpc-todo': typeof DemoOrpcTodoRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
-  '/api/rpc/$': typeof ApiRpcSplatRoute
+  "/": typeof IndexRoute;
+  "/profile": typeof ProfileRoute;
+  "/api/$": typeof ApiSplatRoute;
+  "/demo/orpc-todo": typeof DemoOrpcTodoRoute;
+  "/api/auth/$": typeof ApiAuthSplatRoute;
+  "/api/rpc/$": typeof ApiRpcSplatRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/profile': typeof ProfileRoute
-  '/api/$': typeof ApiSplatRoute
-  '/demo/orpc-todo': typeof DemoOrpcTodoRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
-  '/api/rpc/$': typeof ApiRpcSplatRoute
+  "/": typeof IndexRoute;
+  "/profile": typeof ProfileRoute;
+  "/api/$": typeof ApiSplatRoute;
+  "/demo/orpc-todo": typeof DemoOrpcTodoRoute;
+  "/api/auth/$": typeof ApiAuthSplatRoute;
+  "/api/rpc/$": typeof ApiRpcSplatRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/profile': typeof ProfileRoute
-  '/api/$': typeof ApiSplatRoute
-  '/demo/orpc-todo': typeof DemoOrpcTodoRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
-  '/api/rpc/$': typeof ApiRpcSplatRoute
+  __root__: typeof rootRouteImport;
+  "/": typeof IndexRoute;
+  "/profile": typeof ProfileRoute;
+  "/api/$": typeof ApiSplatRoute;
+  "/demo/orpc-todo": typeof DemoOrpcTodoRoute;
+  "/api/auth/$": typeof ApiAuthSplatRoute;
+  "/api/rpc/$": typeof ApiRpcSplatRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/profile'
-    | '/api/$'
-    | '/demo/orpc-todo'
-    | '/api/auth/$'
-    | '/api/rpc/$'
-  fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/profile'
-    | '/api/$'
-    | '/demo/orpc-todo'
-    | '/api/auth/$'
-    | '/api/rpc/$'
-  id:
-    | '__root__'
-    | '/'
-    | '/profile'
-    | '/api/$'
-    | '/demo/orpc-todo'
-    | '/api/auth/$'
-    | '/api/rpc/$'
-  fileRoutesById: FileRoutesById
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths: "/" | "/profile" | "/api/$" | "/demo/orpc-todo" | "/api/auth/$" | "/api/rpc/$";
+  fileRoutesByTo: FileRoutesByTo;
+  to: "/" | "/profile" | "/api/$" | "/demo/orpc-todo" | "/api/auth/$" | "/api/rpc/$";
+  id: "__root__" | "/" | "/profile" | "/api/$" | "/demo/orpc-todo" | "/api/auth/$" | "/api/rpc/$";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  ProfileRoute: typeof ProfileRoute
-  ApiSplatRoute: typeof ApiSplatRoute
-  DemoOrpcTodoRoute: typeof DemoOrpcTodoRoute
-  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
-  ApiRpcSplatRoute: typeof ApiRpcSplatRoute
+  IndexRoute: typeof IndexRoute;
+  ProfileRoute: typeof ProfileRoute;
+  ApiSplatRoute: typeof ApiSplatRoute;
+  DemoOrpcTodoRoute: typeof DemoOrpcTodoRoute;
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute;
+  ApiRpcSplatRoute: typeof ApiRpcSplatRoute;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/orpc-todo': {
-      id: '/demo/orpc-todo'
-      path: '/demo/orpc-todo'
-      fullPath: '/demo/orpc-todo'
-      preLoaderRoute: typeof DemoOrpcTodoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/$': {
-      id: '/api/$'
-      path: '/api/$'
-      fullPath: '/api/$'
-      preLoaderRoute: typeof ApiSplatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/rpc/$': {
-      id: '/api/rpc/$'
-      path: '/api/rpc/$'
-      fullPath: '/api/rpc/$'
-      preLoaderRoute: typeof ApiRpcSplatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/auth/$': {
-      id: '/api/auth/$'
-      path: '/api/auth/$'
-      fullPath: '/api/auth/$'
-      preLoaderRoute: typeof ApiAuthSplatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+    "/profile": {
+      id: "/profile";
+      path: "/profile";
+      fullPath: "/profile";
+      preLoaderRoute: typeof ProfileRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/demo/orpc-todo": {
+      id: "/demo/orpc-todo";
+      path: "/demo/orpc-todo";
+      fullPath: "/demo/orpc-todo";
+      preLoaderRoute: typeof DemoOrpcTodoRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/api/$": {
+      id: "/api/$";
+      path: "/api/$";
+      fullPath: "/api/$";
+      preLoaderRoute: typeof ApiSplatRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/api/rpc/$": {
+      id: "/api/rpc/$";
+      path: "/api/rpc/$";
+      fullPath: "/api/rpc/$";
+      preLoaderRoute: typeof ApiRpcSplatRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/api/auth/$": {
+      id: "/api/auth/$";
+      path: "/api/auth/$";
+      fullPath: "/api/auth/$";
+      preLoaderRoute: typeof ApiAuthSplatRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
@@ -162,16 +143,14 @@ const rootRouteChildren: RootRouteChildren = {
   DemoOrpcTodoRoute: DemoOrpcTodoRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiRpcSplatRoute: ApiRpcSplatRoute,
-}
-export const routeTree = rootRouteImport
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+};
+export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>();
 
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
+import type { getRouter } from "./router.tsx";
+import type { createStart } from "@tanstack/react-start";
+declare module "@tanstack/react-start" {
   interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
+    ssr: true;
+    router: Awaited<ReturnType<typeof getRouter>>;
   }
 }
