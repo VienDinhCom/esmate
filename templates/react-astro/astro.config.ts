@@ -2,7 +2,7 @@
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
-import { defineConfig } from "astro/config";
+import { defineConfig, envField } from "astro/config";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import tailwindcss from "@tailwindcss/vite";
 
@@ -20,5 +20,12 @@ export default defineConfig({
         generatedRouteTree: "./src/frontend/tanstack/config/router/index.ts",
       }),
     ],
+  },
+  env: {
+    schema: {
+      DATABASE_URL: envField.string({ context: "server", access: "secret" }),
+      BETTER_AUTH_URL: envField.string({ context: "server", access: "secret" }),
+      BETTER_AUTH_SECRET: envField.string({ context: "server", access: "secret" }),
+    },
   },
 });
