@@ -1,4 +1,4 @@
-import fs from "node:fs";
+import fs from "fs-extra";
 import { globbySync } from "globby";
 import { spawnSync } from "node:child_process";
 import path from "node:path";
@@ -14,7 +14,9 @@ const commands = {
     const { dependencies } = JSON.parse(fs.readFileSync("package.json", "utf-8"));
 
     for (const [name] of Object.entries(dependencies)) {
-      const filename = name.replace("@", "").replace("/", "__");
+      const filename = name.replace("@", "");
+
+      console.log(`Exporting ${name} to src/pkgs/${filename}.ts`);
 
       let content = "";
 
@@ -33,14 +35,17 @@ const commands = {
       if (content) {
         content = `// This file is auto-generated. Do not edit it directly.\n\n${content}`;
 
-        fs.writeFileSync(path.join("src/lib", filename + ".ts"), content);
+        const f = path.join("src/pkgs", filename + ".ts");
+
+        fs.ensureFileSync(f);
+        fs.writeFileSync(f, content);
       }
     }
   },
 };
 
-commands.clean("src/ui/**");
-commands.clean("src/components/**");
+commands.clean("src/pkgs/**");
+commands.clean("src/components/ui/**");
 commands.clean(["src/lib/**", "!src/lib/utils.ts"]);
 commands.clean(["src/hooks/**", "!src/hooks/use-zod-form.ts"]);
 
