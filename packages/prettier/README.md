@@ -8,7 +8,8 @@ Prettier configuration for humans with support for React, Vue, Svelte, Astro, Ta
 npm install -D @esmate/prettier prettier
 ```
 
-If you are using [ESMate CLI](https://www.npmjs.com/package/esmate), it's built-in, so only need to install `prettier`.
+Check out [ESMate CLI](https://www.npmjs.com/package/esmate) for better integration with
+[ESLint](https://github.com/VienDinhCom/esmate/tree/main/packages/eslint)
 
 ## Usage
 
@@ -19,8 +20,8 @@ Define your Prettier configuration in a `prettier.config.js` file:
 import { defineConfig } from "@esmate/prettier";
 
 export default defineConfig({
-  // astro: true
-  // svelte: true
+  // astro: true,
+  // svelte: true,
 
   tailwind: {
     tailwindFunctions: ["cn"],
