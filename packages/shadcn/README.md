@@ -28,6 +28,7 @@ Import a style in your `./src/global.css`:
 ```css
 @import "tailwindcss";
 
+/* Please make sure the source is correct */
 @source "../node_modules/@esmate/shadcn";
 @import "@esmate/shadcn/styles/new-york.css";
 ```
