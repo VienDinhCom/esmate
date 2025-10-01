@@ -1,0 +1,9 @@
+---
+import AuthLayout from "@frontend/features/auth/components/auth-layout.astro";
+
+import { SignUpForm } from "@frontend/features/auth/components/signup-form";
+---
+
+<AuthLayout>
+  <SignUpForm client:load redirect={Astro.url.searchParams.get("redirect") || "/"} />
+</AuthLayout>
