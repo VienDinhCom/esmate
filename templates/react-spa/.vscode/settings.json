@@ -10,5 +10,15 @@
     "source.fixAll.eslint": "explicit"
   },
 
-  "tailwindCSS.classFunctions": ["cn"]
+  "tailwindCSS.classFunctions": ["cn"],
+
+  "files.watcherExclude": {
+    "**/routeTree.gen.ts": true
+  },
+  "search.exclude": {
+    "**/routeTree.gen.ts": true
+  },
+  "files.readonlyInclude": {
+    "**/routeTree.gen.ts": true
+  }
 }
