@@ -14,12 +14,12 @@
 /coverage
 
 # vite 
-dist/
 .astro/
 .tanstack/
 
 # production
-/build
+dist/
+dist-ssr/
 
 # misc
 .DS_Store

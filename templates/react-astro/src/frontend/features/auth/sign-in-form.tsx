@@ -1,17 +1,16 @@
-import { cn } from "@esmate/shadcn/utils";
+import { Button } from "@esmate/shadcn/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
+import { Input } from "@esmate/shadcn/components/ui/input";
+import { Label } from "@esmate/shadcn/components/ui/label";
+import { cn } from "@esmate/shadcn/lib/utils";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-
-export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
+export function SignInForm({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
-          <CardDescription>Enter your email below to login to your account</CardDescription>
+          <CardTitle>Sign In to Your Account</CardTitle>
+          <CardDescription>Enter your email below to sign in to your account</CardDescription>
         </CardHeader>
         <CardContent>
           <form>
@@ -31,10 +30,10 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
               </div>
               <div className="flex flex-col gap-3">
                 <Button type="submit" className="w-full">
-                  Login
+                  Sign In
                 </Button>
                 <Button variant="outline" className="w-full">
-                  Login with Google
+                  Sign In with Google
                 </Button>
               </div>
             </div>
