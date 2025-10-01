@@ -35,7 +35,9 @@ Import a style in your `./src/global.css`:
 Start using components:
 
 ```tsx
-import { Button } from "@esmate/shadcn/ui/button";
+import { Button } from "@esmate/shadcn/components/ui/button";
+
+import { Card, CardContent } from "@esmate/shadcn/components/ui/card";
 ```
 
 ## Usage

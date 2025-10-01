@@ -8,7 +8,8 @@ ESLint configuration for humans with support for React, Vue, Svelte, Astro, Tail
 npm install -D @esmate/eslint eslint
 ```
 
-If you are using [ESMate CLI](https://www.npmjs.com/package/esmate), it's built-in, so only need to install `eslint`.
+Check out [ESMate CLI](https://www.npmjs.com/package/esmate) for better integration with
+[Prettier](https://github.com/VienDinhCom/esmate/tree/main/packages/prettier)
 
 ## Usage
 
@@ -21,6 +22,12 @@ import { defineConfig } from "@esmate/eslint";
 export default defineConfig({
   type: "app",
   react: true,
+  // vue: true,
+  // astro: true,
+  // tanstack: {
+  //   query: true,
+  //   router: true,
+  // },
   ignores: [],
 });
 ```

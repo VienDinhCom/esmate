@@ -9,5 +9,5 @@ export default defineConfig({
     query: true,
     router: true,
   },
-  ignores: ["src/backend/database/migrations", "src/frontend/tanstack/config/router/index.ts"],
+  ignores: ["src/backend/database/migrations", "src/frontend/tanstack/config/router/route-tree.gen.ts"],
 });

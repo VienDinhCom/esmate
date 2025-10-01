@@ -15,7 +15,7 @@ export default defineConfig({
       tanstackRouter({
         autoCodeSplitting: true,
         routesDirectory: "./src/frontend/tanstack/routes",
-        generatedRouteTree: "./src/frontend/tanstack/config/router/index.ts",
+        generatedRouteTree: "./src/frontend/tanstack/config/router/route-tree.gen.ts",
       }),
     ],
   },
