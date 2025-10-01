@@ -1,10 +1,10 @@
 // @ts-check
-import { defineConfig } from "esmate/prettier";
+import { defineConfig } from "@esmate/prettier";
 
 export default defineConfig({
   tailwind: {
     tailwindFunctions: ["cn"],
-    tailwindStylesheet: "src/root.css",
+    tailwindStylesheet: "src/styles.css",
   },
-  ignores: [],
+  ignores: ["pnpm-lock.yaml", "package-lock.json", "src/routeTree.gen.ts"],
 });

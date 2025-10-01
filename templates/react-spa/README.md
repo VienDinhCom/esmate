@@ -1,10 +1,10 @@
-# ESMate React
+# ESMate React SPA
 
 This project was bootstrapped with [ESMate](https://github.com/viendinhcom/esmate), and:
 
-- [React Router](https://reactrouter.com)
-- [File-based Routing](https://reactrouter.com/how-to/file-route-conventions)
-- [Tailwind with Shadcn](https://www.npmjs.com/package/@esmate/shadcn)
+- [TanStack Router](https://tanstack.com/router/latest/docs/framework/react/overview)
+- [TanStack Query](https://tanstack.com/query/latest/docs/framework/react/overview)
+- [Tailwind with Shadcn](https://github.com/VienDinhCom/esmate/tree/main/packages/shadcn)
 
 ## Available Scripts
 

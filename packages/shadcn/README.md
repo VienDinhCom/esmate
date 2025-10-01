@@ -45,7 +45,8 @@ import { Card, CardContent } from "@esmate/shadcn/components/ui/card";
 
 ### UI Components
 
-All Shadcn [UI components](https://ui.shadcn.com/docs/components/) are available via `@esmate/shadcn/ui/*` imports.
+All Shadcn [UI components](https://ui.shadcn.com/docs/components/) are available via `@esmate/shadcn/components/ui/*`
+imports.
 
 ```typescript
 import { Button } from "@esmate/shadcn/components/ui/button";
@@ -72,7 +73,7 @@ import { useIsMobile } from "@esmate/shadcn/hooks/use-mobile";
 `@esmate/shadcn/hooks/*` also includes custom hooks, such as React Hook Form integrated with Zod support, like this:
 
 ```typescript
-import { z } from "@esmate/shadcn/zod";
+import { z } from "@esmate/shadcn/pkgs/zod";
 import { useZodForm } from "@esmate/shadcn/hooks/use-zod-form";
 
 const FormSchema = z.object({
@@ -252,6 +253,7 @@ import { useForm } from "@esmate/shadcn/pkgs/react-hook-form";
 import { zodResolver } from "@esmate/shadcn/pkgs/hookform/resolvers";
 import { Accordion } from "@esmate/shadcn/pkgs/radix-ui/react-accordion";
 import { z } from "@esmate/shadcn/pkgs/zod";
-
-// You can check src/pkgs or dist/pkgs to find more modules
 ```
+
+You can check [@esmate/shadcn/src/pkgs](https://github.com/VienDinhCom/esmate/tree/main/packages/shadcn/src/pkgs) or
+`node_modules/@esmate/shadcn/dist/pkgs` to find more modules

@@ -13,9 +13,13 @@
 # testing
 /coverage
 
-# react
-/dist/
-/.react-router/
+# vite 
+.nitro/
+.tanstack/
+
+# production
+dist/
+dist-ssr/
 
 # misc
 .DS_Store
@@ -27,9 +31,12 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# typescript
-*.tsbuildinfo
-
 # env files (can opt-in for committing if needed)
 .env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
 
