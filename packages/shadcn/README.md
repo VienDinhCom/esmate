@@ -250,7 +250,8 @@ having to install each dependency individually.
 ```typescript
 import { useForm } from "@esmate/shadcn/pkgs/react-hook-form";
 import { zodResolver } from "@esmate/shadcn/pkgs/hookform/resolvers";
+import { Accordion } from "@esmate/shadcn/pkgs/radix-ui/react-accordion";
 import { z } from "@esmate/shadcn/pkgs/zod";
 
-// You can check src/lib or dist/lib to find more modules
+// You can check src/pkgs or dist/pkgs to find more modules
 ```
