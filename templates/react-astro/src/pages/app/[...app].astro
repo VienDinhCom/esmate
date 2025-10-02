@@ -6,7 +6,7 @@ import { TanStackSPA } from "@frontend/tanstack";
 export const prerender = false;
 
 if (Astro.locals.session === null) {
-  throw Astro.redirect("/auth/signin");
+  return Astro.redirect(`/auth/signin?redirect=${Astro.url.pathname}`, 302);
 }
 ---
 

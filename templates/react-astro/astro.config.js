@@ -5,10 +5,13 @@ import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import { defineConfig, envField } from "astro/config";
 
+import node from "@astrojs/node";
+
 export default defineConfig({
   server: { port: 3000 },
   site: "https://example.com",
   integrations: [mdx(), sitemap(), react()],
+
   vite: {
     plugins: [
       tailwindcss(),
@@ -19,6 +22,7 @@ export default defineConfig({
       }),
     ],
   },
+
   env: {
     schema: {
       DATABASE_URL: envField.string({
@@ -35,4 +39,8 @@ export default defineConfig({
       }),
     },
   },
+
+  adapter: node({
+    mode: "standalone",
+  }),
 });

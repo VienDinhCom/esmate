@@ -1,10 +1,9 @@
 ---
-import { SignInForm } from "@frontend/features/auth/sign-in-form";
-import BaseLayout from "@frontend/shared/components/layouts/base-layout.astro";
+import AuthLayout from "@frontend/features/auth/components/auth-layout.astro";
 
-export const prerender = false;
+import { SignInForm } from "@frontend/features/auth/components/signin-form";
 ---
 
-<BaseLayout>
-  <SignInForm />
-</BaseLayout>
+<AuthLayout>
+  <SignInForm client:load redirect={Astro.url.searchParams.get("redirect") || "/"} />
+</AuthLayout>

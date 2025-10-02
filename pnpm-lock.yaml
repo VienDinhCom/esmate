@@ -199,6 +199,57 @@ importers:
         specifier: ^5.8.3
         version: 5.9.2
 
+  packages/react:
+    devDependencies:
+      '@esmate/eslint':
+        specifier: workspace:*
+        version: link:../eslint
+      '@esmate/prettier':
+        specifier: workspace:*
+        version: link:../prettier
+      '@rslib/core':
+        specifier: ^0.7.1
+        version: 0.7.1(typescript@5.9.2)
+      '@types/fs-extra':
+        specifier: ^11.0.4
+        version: 11.0.4
+      '@types/node':
+        specifier: ^22.18.7
+        version: 22.18.7
+      '@types/react':
+        specifier: ^18.3.24
+        version: 18.3.24
+      '@types/react-dom':
+        specifier: ^18.3.7
+        version: 18.3.7(@types/react@18.3.24)
+      eslint:
+        specifier: ^9.36.0
+        version: 9.36.0(jiti@2.6.0)
+      esmate:
+        specifier: workspace:*
+        version: link:../cli
+      fs-extra:
+        specifier: ^11.3.2
+        version: 11.3.2
+      globby:
+        specifier: ^14.1.0
+        version: 14.1.0
+      prettier:
+        specifier: ^3.6.2
+        version: 3.6.2
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      tsx:
+        specifier: ^4.20.6
+        version: 4.20.6
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.2
+
   packages/shadcn:
     dependencies:
       '@hookform/resolvers':

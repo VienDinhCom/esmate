@@ -1,0 +1,86 @@
+{
+  "name": "@esmate/react",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "React components, hooks, and styles in one package.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viendinhcom/esmate.git"
+  },
+  "keywords": [
+    "esmate",
+    "react",
+    "components",
+    "hooks",
+    "styles",
+    "ui",
+    "utils",
+    "typescript"
+  ],
+  "exports": {
+    "./components/*": {
+      "types": "./dist/components/*.d.ts",
+      "import": "./dist/components/*.js"
+    },
+    "./components/ui/*": {
+      "types": "./dist/components/ui/*.d.ts",
+      "import": "./dist/components/ui/*.js"
+    },
+    "./hooks/*": {
+      "types": "./dist/hooks/*.d.ts",
+      "import": "./dist/hooks/*.js"
+    },
+    "./styles/*.css": {
+      "style": "./dist/styles/*.css"
+    },
+    "./lib/*": {
+      "types": "./dist/lib/*.d.ts",
+      "import": "./dist/lib/*.js"
+    },
+    "./pkgs/*": {
+      "types": "./dist/pkgs/*.d.ts",
+      "import": "./dist/pkgs/*.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "esmate task dev",
+    "build": "esmate task build",
+    "fix": "esmate task fix",
+    "check": "esmate task check"
+  },
+  "devDependencies": {
+    "@esmate/eslint": "workspace:*",
+    "@esmate/prettier": "workspace:*",
+    "@rslib/core": "^0.7.1",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.18.7",
+    "@types/react": "^18.3.24",
+    "@types/react-dom": "^18.3.7",
+    "eslint": "^9.36.0",
+    "esmate": "workspace:*",
+    "fs-extra": "^11.3.2",
+    "globby": "^14.1.0",
+    "prettier": "^3.6.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.2"
+  },
+  "tasks": {
+    "build": "rslib build",
+    "dev": "rslib build --watch",
+    "start": "astro preview",
+    "fix": [
+      "esmate fmt",
+      "esmate lint --fix"
+    ],
+    "check": [
+      "esmate fmt --check",
+      "esmate lint"
+    ]
+  }
+}
