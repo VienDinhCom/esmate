@@ -33,7 +33,7 @@ export function SignInForm({ className, ...props }: React.ComponentProps<"div">)
   });
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
+    <div className={cn("flex w-full max-w-sm flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
           <CardTitle>Sign In</CardTitle>
