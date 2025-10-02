@@ -1,3 +1,4 @@
+import { useSearchParam } from "@esmate/react/hooks/use-search-param";
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Input } from "@esmate/shadcn/components/ui/input";
@@ -14,11 +15,9 @@ const FormSchema = z.object({
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
-interface Props extends React.ComponentProps<"div"> {
-  redirect: string;
-}
-
-export function SignUpForm({ className, ...props }: Props) {
+export function SignUpForm({ className, ...props }: React.ComponentProps<"div">) {
+  const searchParam = useSearchParam();
+  const redirectURL = searchParam.get("redirect") || "/app";
   const form = useZodForm({
     schema: FormSchema,
     defaultValues: {
@@ -35,7 +34,7 @@ export function SignUpForm({ className, ...props }: Props) {
       password,
     });
 
-    window.location.href = props.redirect;
+    window.location.href = redirectURL;
   });
 
   return (
@@ -79,7 +78,7 @@ export function SignUpForm({ className, ...props }: Props) {
             </div>
             <div className="mt-4 text-center text-sm">
               Have an account?{" "}
-              <a href={`/auth/signin?redirect=${props.redirect}`} className="underline underline-offset-4">
+              <a href={`/auth/signin?redirect=${redirectURL}`} className="underline underline-offset-4">
                 Sign in
               </a>
             </div>

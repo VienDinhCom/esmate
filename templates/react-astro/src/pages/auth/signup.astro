@@ -5,5 +5,5 @@ import { SignUpForm } from "@frontend/features/auth/components/signup-form";
 ---
 
 <AuthLayout>
-  <SignUpForm client:load redirect={Astro.url.searchParams.get("redirect") || "/"} />
+  <SignUpForm client:load />
 </AuthLayout>
