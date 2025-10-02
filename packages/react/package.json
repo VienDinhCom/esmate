@@ -47,10 +47,11 @@
     "dist"
   ],
   "scripts": {
-    "dev": "esmate task dev",
-    "build": "esmate task build",
-    "fix": "esmate task fix",
-    "check": "esmate task check"
+    "build": "rslib build",
+    "dev": "rslib build --watch",
+    "start": "astro preview",
+    "fix": "prettier --write . && eslint --fix .",
+    "check": "tsc && prettier --check . && eslint ."
   },
   "devDependencies": {
     "@esmate/eslint": "^1.1.2",
@@ -61,7 +62,6 @@
     "@types/react": "^18.3.24",
     "@types/react-dom": "^18.3.7",
     "eslint": "^9.36.0",
-    "esmate": "^2.1.3",
     "fs-extra": "^11.3.2",
     "globby": "^14.1.0",
     "prettier": "^3.6.2",
