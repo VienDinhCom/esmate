@@ -27,11 +27,9 @@ export function SignInForm({ className, ...props }: React.ComponentProps<"div">)
   });
 
   const onSubmit = form.handleSubmit(async ({ email, password }) => {
-    await auth.signIn.email({
-      email,
-      password,
-      callbackURL: redirectURL,
-    });
+    await auth.signIn.email({ email, password });
+
+    window.location.href = redirectURL;
   });
 
   return (

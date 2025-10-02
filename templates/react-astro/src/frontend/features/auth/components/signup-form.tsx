@@ -28,11 +28,7 @@ export function SignUpForm({ className, ...props }: React.ComponentProps<"div">)
   });
 
   const onSubmit = form.handleSubmit(async ({ email, name, password }) => {
-    await auth.signUp.email({
-      name,
-      email,
-      password,
-    });
+    await auth.signUp.email({ name, email, password });
 
     window.location.href = redirectURL;
   });
