@@ -10,9 +10,9 @@ React sensor hook that tracks browser's location search param.
 import { useSearchParam } from "@esmate/react/hooks/use-search-param";
 
 export function Search() {
-  const searchParams = useSearchParam();
+  const searchParam = useSearchParam();
 
-  return <div>{searchParams.get("q")}</div>;
+  return <div>{searchParam.get("q")}</div>;
 }
 ```
 
