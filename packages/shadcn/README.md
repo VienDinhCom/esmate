@@ -3,7 +3,7 @@
 Supercharge your UI development with Shadcn—components, hooks, and styles all in one package.
 
 - 🔧 **Zero Config**: Works out of the box with Tailwind and pre-styled themes like `new-york.css`.
-- 🧩 **Ready-to-Use UI**: Composable Shadcn components via `@esmate/shadcn/ui/*`, no boilerplate needed.
+- 🧩 **Ready-to-Use UI**: Composable Shadcn components via `@esmate/shadcn/components/ui/*`, no boilerplate needed.
 - ⚙️ **Built-in Hooks**: Includes smart hooks like `useIsMobile` and `useZodForm` for fast logic handling.
 - 🛠 **Useful Utilities**: Handy functions like `cn` for class merging, all in one place.
 - 🎨 **Customizable Styles**: Easy theming with design tokens, dark mode, and editable base styles.
