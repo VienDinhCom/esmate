@@ -12,7 +12,7 @@ import { Calendar, Camera, Key, LoaderCircle, Mail, MapPin, Shield, Trash2 } fro
 
 import { auth } from "@frontend/shared/utils/auth";
 
-export function Profile() {
+export function ProfilePage() {
   const session = auth.useSession();
 
   // auth.updateUser({
