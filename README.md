@@ -14,12 +14,13 @@ npx create-esmate
 - [**create-esmate**](/packages/create) — Scaffolding tool to quickly create applications and libraries with ESMate.
 - [**@esmate/eslint**](/packages/eslint) — ESLint configuration for humans.
 - [**@esmate/prettier**](/packages/prettier) — Prettier configuration for humans.
+- [**@esmate/react**](/packages/react) — React components, hooks, and styles in one package.
 - [**@esmate/shadcn**](/packages/shadcn) — Shadcn components, hooks, and styles in one package.
 
 ## Templates
 
-- [**react-spa**](/templates/react-spa) — A React starter for Single Page Application powered by TanStack Router.
-- [**react-astro**](/templates/react-astro) — A React starter for Full Stack Application powered by Astro & TanStack.
+- [**react-spa**](/templates/react-spa) — A React Starter for Single Page Applications Powered by TanStack Router.
+- [**react-astro**](/templates/react-astro) — A React Starter for Full Stack Applications Powered by Astro & TanStack.
 
 ## Why ESMate?
 

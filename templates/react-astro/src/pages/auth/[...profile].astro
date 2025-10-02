@@ -1,0 +1,11 @@
+---
+import AuthLayout from "@frontend/features/auth/components/auth-layout.astro";
+
+import { Profile } from "@frontend/features/auth/components/profile";
+
+export const prerender = false;
+---
+
+<AuthLayout>
+  <Profile client:load />
+</AuthLayout>
