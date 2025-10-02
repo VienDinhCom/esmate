@@ -69,18 +69,5 @@
     "react-dom": "^18.3.1",
     "tsx": "^4.20.6",
     "typescript": "^5.9.2"
-  },
-  "tasks": {
-    "build": "rslib build",
-    "dev": "rslib build --watch",
-    "start": "astro preview",
-    "fix": [
-      "esmate fmt",
-      "esmate lint --fix"
-    ],
-    "check": [
-      "esmate fmt --check",
-      "esmate lint"
-    ]
   }
 }
