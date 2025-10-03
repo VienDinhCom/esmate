@@ -1,0 +1,15 @@
+---
+import AuthLayout from "@frontend/features/auth/components/auth-layout.astro";
+
+import { ProfilePage } from "@frontend/features/auth/components/profile-page";
+
+export const prerender = false;
+
+if (Astro.locals.session === null) {
+  return Astro.redirect(`/auth/signin?redirect=${Astro.url.pathname}`, 302);
+}
+---
+
+<AuthLayout>
+  <ProfilePage client:load />
+</AuthLayout>

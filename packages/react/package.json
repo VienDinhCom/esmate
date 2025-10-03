@@ -1,7 +1,7 @@
 {
   "name": "@esmate/react",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "React components, hooks, and styles in one package.",
   "license": "MIT",
   "repository": {
@@ -52,6 +52,9 @@
     "start": "astro preview",
     "fix": "prettier --write . && eslint --fix .",
     "check": "tsc && prettier --check . && eslint ."
+  },
+  "dependencies": {
+    "immer": "^10.1.3"
   },
   "devDependencies": {
     "@esmate/eslint": "^1.1.2",
