@@ -10,7 +10,7 @@ export function useImmutableState<T>(initialState: T | (() => T)): [T, Dispatch<
     if (typeof action === "function") {
       setState((prev) => produce(prev, action as (draft: T) => void | T));
     } else {
-      setState(action);
+      setState(produce(action, (draft) => draft));
     }
   };
 
