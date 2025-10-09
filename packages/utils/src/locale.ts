@@ -47,14 +47,13 @@ export function getLanguageList(locale = "en-US"): Language[] {
 
   return codes
     .map((code) => {
-      const name = new Intl.DisplayNames([locale], { type: "language" }).of(code);
+      const name = new Intl.DisplayNames([locale], { type: "language" }).of(code) as string;
 
       return {
-        name: name || "",
+        name: name === code ? languages.getName(code) : name,
         value: code,
       };
     })
-    .filter((lang) => lang.name)
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
@@ -68,21 +67,17 @@ interface Country {
 }
 
 export function getCountryList(locale = "en-US"): Country[] {
-  const codes = countries
-    .all()
-    .map((country) => country.alpha2)
-    .sort((a, b) => a.localeCompare(b));
+  const countryList = countries.all().map((country) => ({ name: country.country, code: country.alpha2 }));
 
-  return codes
-    .map((code) => {
-      const name = new Intl.DisplayNames([locale], { type: "region" }).of(code);
+  return countryList
+    .map((country) => {
+      const name = new Intl.DisplayNames([locale], { type: "region" }).of(country.code) as string;
 
       return {
-        name: name || "",
-        value: code,
+        name: name === country.code ? country.name : name,
+        value: country.code,
       };
     })
-    .filter((country) => country.name)
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
