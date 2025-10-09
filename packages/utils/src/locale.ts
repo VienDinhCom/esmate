@@ -6,12 +6,12 @@ export interface TimeZone {
   offset: string;
 }
 
-export function getTimeZoneList(): TimeZone[] {
+export function getTimeZoneList(locale = "en-US"): TimeZone[] {
   const timeZones = Intl.supportedValuesOf("timeZone");
 
   const getOffset = (timeZone: string): string => {
     const offset =
-      new Intl.DateTimeFormat("en-US", { timeZone, timeZoneName: "longOffset" })
+      new Intl.DateTimeFormat(locale, { timeZone, timeZoneName: "longOffset" })
         .formatToParts(new Date())
         .find((part) => part.type === "timeZoneName")?.value || "GMT";
 
@@ -41,12 +41,12 @@ interface Language {
   value: string;
 }
 
-export function getLanguageList(lang = "en-US"): Language[] {
+export function getLanguageList(locale = "en-US"): Language[] {
   const codes = languages.getAllCodes().sort((a, b) => a.localeCompare(b));
 
   return codes
     .map((code) => {
-      const name = new Intl.DisplayNames([lang], { type: "language" }).of(code);
+      const name = new Intl.DisplayNames([locale], { type: "language" }).of(code);
 
       if (name === undefined) {
         throw new Error(`Language name not found for code: ${code}`);
