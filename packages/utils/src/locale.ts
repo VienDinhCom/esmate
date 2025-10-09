@@ -49,12 +49,8 @@ export function getLanguageList(locale = "en-US"): Language[] {
     .map((code) => {
       const name = new Intl.DisplayNames([locale], { type: "language" }).of(code);
 
-      if (name === undefined) {
-        throw new Error(`Language name not found for code: ${code}`);
-      }
-
       return {
-        name,
+        name: name || "",
         value: code,
       };
     })
@@ -81,12 +77,8 @@ export function getCountryList(locale = "en-US"): Country[] {
     .map((code) => {
       const name = new Intl.DisplayNames([locale], { type: "region" }).of(code);
 
-      if (name === undefined) {
-        throw new Error(`Country name not found for code: ${code}`);
-      }
-
       return {
-        name,
+        name: name || "",
         value: code,
       };
     })
