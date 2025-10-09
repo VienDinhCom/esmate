@@ -1,7 +1,7 @@
 ---
 import AuthLayout from "@frontend/features/auth/components/auth-layout.astro";
 
-import { ProfilePage } from "@frontend/features/auth/components/profile-page";
+import { UserProfile } from "@frontend/features/auth/components/user-profile";
 
 export const prerender = false;
 
@@ -11,5 +11,5 @@ if (Astro.locals.session === null) {
 ---
 
 <AuthLayout>
-  <ProfilePage client:load />
+  <UserProfile client:load />
 </AuthLayout>
