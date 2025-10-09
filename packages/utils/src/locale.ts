@@ -47,18 +47,13 @@ export function getLanguageList(locale = "en-US"): Language[] {
 
   return codes
     .map((code) => {
-      const name = new Intl.DisplayNames([locale], { type: "language" }).of(code);
-
-      if (name === undefined) {
-        throw new Error(`Language name not found for code: ${code}`);
-      }
+      const name = new Intl.DisplayNames([locale], { type: "language" }).of(code) as string;
 
       return {
-        name,
+        name: name === code ? languages.getName(code) : name,
         value: code,
       };
     })
-    .filter((lang) => lang.name !== lang.value)
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
@@ -72,25 +67,17 @@ interface Country {
 }
 
 export function getCountryList(locale = "en-US"): Country[] {
-  const codes = countries
-    .all()
-    .map((country) => country.alpha2)
-    .sort((a, b) => a.localeCompare(b));
+  const countryList = countries.all().map((country) => ({ name: country.country, code: country.alpha2 }));
 
-  return codes
-    .map((code) => {
-      const name = new Intl.DisplayNames([locale], { type: "region" }).of(code);
-
-      if (name === undefined) {
-        throw new Error(`Country name not found for code: ${code}`);
-      }
+  return countryList
+    .map((country) => {
+      const name = new Intl.DisplayNames([locale], { type: "region" }).of(country.code) as string;
 
       return {
-        name,
-        value: code,
+        name: name === country.code ? country.name : name,
+        value: country.code,
       };
     })
-    .filter((country) => country.name !== country.value)
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
