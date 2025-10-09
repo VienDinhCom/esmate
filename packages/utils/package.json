@@ -1,7 +1,7 @@
 {
   "name": "@esmate/utils",
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "JavaScript/TypeScript utils, functions, and classes in one package.",
   "license": "MIT",
   "repository": {
@@ -19,8 +19,8 @@
   ],
   "exports": {
     "./*": {
-      "types": "./dist/lib/*.d.ts",
-      "import": "./dist/lib/*.js"
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
     },
     "./pkgs/*": {
       "types": "./dist/pkgs/*.d.ts",
