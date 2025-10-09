@@ -1,4 +1,5 @@
-// import languages from "iso-639-1";
+import countries from "iso-3166-1";
+import languages from "iso-639-1";
 
 export interface TimeZone {
   name: string;
@@ -6,12 +7,12 @@ export interface TimeZone {
   offset: string;
 }
 
-export function getTimeZoneList(): TimeZone[] {
+export function getTimeZoneList(locale = "en-US"): TimeZone[] {
   const timeZones = Intl.supportedValuesOf("timeZone");
 
   const getOffset = (timeZone: string): string => {
     const offset =
-      new Intl.DateTimeFormat("en-US", { timeZone, timeZoneName: "longOffset" })
+      new Intl.DateTimeFormat(locale, { timeZone, timeZoneName: "longOffset" })
         .formatToParts(new Date())
         .find((part) => part.type === "timeZoneName")?.value || "GMT";
 
@@ -32,12 +33,77 @@ export function getTimeZoneList(): TimeZone[] {
     .sort((a, b) => a.offset.localeCompare(b.offset) || a.name.localeCompare(b.name));
 }
 
-// export function getCountryList(): string[] {
-//   return Intl.supportedValuesOf("unit").sort((a, b) => a.localeCompare(b));
-// }
+interface Language {
+  name: string;
+  value: string;
+}
 
-// export function getLanguageList(): string[] {
-//   return languages.getAllCodes().sort((a, b) => a.localeCompare(b));
-// }
+export function getLanguageList(locale = "en-US"): Language[] {
+  const codes = languages.getAllCodes().sort((a, b) => a.localeCompare(b));
 
-// https://github.com/richorama/country-code-lookup?tab=readme-ov-file
+  return codes
+    .map((code) => {
+      const name = new Intl.DisplayNames([locale], { type: "language" }).of(code);
+
+      if (name === undefined) {
+        throw new Error(`Language name not found for code: ${code}`);
+      }
+
+      return {
+        name,
+        value: code,
+      };
+    })
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+interface Country {
+  name: string;
+  value: string;
+}
+
+export function getCountryList(locale = "en-US"): Country[] {
+  const codes = countries
+    .all()
+    .map((country) => country.alpha2)
+    .sort((a, b) => a.localeCompare(b));
+
+  return codes
+    .map((code) => {
+      const name = new Intl.DisplayNames([locale], { type: "region" }).of(code);
+
+      if (name === undefined) {
+        throw new Error(`Country name not found for code: ${code}`);
+      }
+
+      return {
+        name,
+        value: code,
+      };
+    })
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+interface Currency {
+  name: string;
+  value: string;
+}
+
+export function getCurrencyList(locale = "en-US"): Currency[] {
+  const codes = Intl.supportedValuesOf("currency");
+
+  return codes
+    .map((code) => {
+      const name = new Intl.DisplayNames([locale], { type: "currency" }).of(code);
+
+      if (name === undefined) {
+        throw new Error(`Currency name not found for code: ${code}`);
+      }
+
+      return {
+        name,
+        value: code,
+      };
+    })
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
