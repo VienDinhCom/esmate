@@ -19,7 +19,7 @@
     "@astrojs/sitemap": "^3.6.0",
     "@esmate/react": "^1.0.4",
     "@esmate/shadcn": "^3.3.1",
-    "@esmate/utils": "^1.0.7",
+    "@esmate/utils": "^1.0.8",
     "@orpc/client": "^1.9.2",
     "@orpc/server": "^1.9.2",
     "@orpc/tanstack-query": "^1.9.2",

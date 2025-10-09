@@ -33,7 +33,7 @@ export function getTimeZones(locale = "en-US"): TimeZone[] {
     .sort((a, b) => a.offset.localeCompare(b.offset) || a.name.localeCompare(b.name));
 }
 
-export function getTimeZone(): string {
+export function getCurrentTimeZone(): string {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
 }
 
@@ -57,7 +57,7 @@ export function getLanguages(locale = "en-US"): Language[] {
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
-export function getLanguage(): string {
+export function getCurrentLanguage(): string {
   return (navigator.language || "en-US").split("-")[0];
 }
 
@@ -81,7 +81,7 @@ export function getCountries(locale = "en-US"): Country[] {
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
-export function getCountry(): string {
+export function getCurrentCountry(): string {
   return (navigator.language || "en-US").split("-")[1];
 }
 
