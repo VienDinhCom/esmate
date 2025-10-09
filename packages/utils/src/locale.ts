@@ -1,3 +1,4 @@
+import countries from "iso-3166-1";
 import languages from "iso-639-1";
 
 export interface TimeZone {
@@ -32,10 +33,6 @@ export function getTimeZoneList(locale = "en-US"): TimeZone[] {
     .sort((a, b) => a.offset.localeCompare(b.offset) || a.name.localeCompare(b.name));
 }
 
-// export function getCountryList(): string[] {
-//   return Intl.supportedValuesOf("unit").sort((a, b) => a.localeCompare(b));
-// }
-
 interface Language {
   name: string;
   value: string;
@@ -59,5 +56,34 @@ export function getLanguageList(locale = "en-US"): Language[] {
     })
     .sort((a, b) => a.name.localeCompare(b.name));
 }
+
+interface Country {
+  name: string;
+  value: string;
+}
+
+export function getCountryList(locale = "en-US"): Country[] {
+  const codes = countries
+    .all()
+    .map((country) => country.alpha2)
+    .sort((a, b) => a.localeCompare(b));
+
+  return codes
+    .map((code) => {
+      const name = new Intl.DisplayNames([locale], { type: "region" }).of(code);
+
+      if (name === undefined) {
+        throw new Error(`Country name not found for code: ${code}`);
+      }
+
+      return {
+        name,
+        value: code,
+      };
+    })
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+console.log(getCountryList());
 
 // https://github.com/richorama/country-code-lookup?tab=readme-ov-file
