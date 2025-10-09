@@ -33,6 +33,10 @@ export function getTimeZoneList(locale = "en-US"): TimeZone[] {
     .sort((a, b) => a.offset.localeCompare(b.offset) || a.name.localeCompare(b.name));
 }
 
+export function getCurrentTimeZone(): string {
+  return Intl.DateTimeFormat().resolvedOptions().timeZone;
+}
+
 interface Language {
   name: string;
   value: string;
@@ -54,7 +58,12 @@ export function getLanguageList(locale = "en-US"): Language[] {
         value: code,
       };
     })
+    .filter((lang) => lang.name)
     .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+export function getCurrentLanguage(): string {
+  return (navigator.language || "en-US").split("-")[0];
 }
 
 interface Country {
@@ -81,7 +90,12 @@ export function getCountryList(locale = "en-US"): Country[] {
         value: code,
       };
     })
+    .filter((country) => country.name)
     .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+export function getCurrentCountry(): string {
+  return (navigator.language || "en-US").split("-")[1];
 }
 
 interface Currency {
