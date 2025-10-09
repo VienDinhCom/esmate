@@ -58,6 +58,7 @@ export function getLanguageList(locale = "en-US"): Language[] {
         value: code,
       };
     })
+    .filter((lang) => lang.name)
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
@@ -89,6 +90,7 @@ export function getCountryList(locale = "en-US"): Country[] {
         value: code,
       };
     })
+    .filter((country) => country.name)
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
