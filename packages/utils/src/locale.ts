@@ -84,6 +84,26 @@ export function getCountryList(locale = "en-US"): Country[] {
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
-console.log(getCountryList());
+interface Currency {
+  name: string;
+  value: string;
+}
 
-// https://github.com/richorama/country-code-lookup?tab=readme-ov-file
+export function getCurrencyList(locale = "en-US"): Currency[] {
+  const codes = Intl.supportedValuesOf("currency");
+
+  return codes
+    .map((code) => {
+      const name = new Intl.DisplayNames([locale], { type: "currency" }).of(code);
+
+      if (name === undefined) {
+        throw new Error(`Currency name not found for code: ${code}`);
+      }
+
+      return {
+        name,
+        value: code,
+      };
+    })
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
