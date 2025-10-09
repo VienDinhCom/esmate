@@ -7,7 +7,7 @@ export interface TimeZone {
   offset: string;
 }
 
-export function getTimeZoneList(locale = "en-US"): TimeZone[] {
+export function getTimeZones(locale = "en-US"): TimeZone[] {
   const timeZones = Intl.supportedValuesOf("timeZone");
 
   const getOffset = (timeZone: string): string => {
@@ -33,7 +33,7 @@ export function getTimeZoneList(locale = "en-US"): TimeZone[] {
     .sort((a, b) => a.offset.localeCompare(b.offset) || a.name.localeCompare(b.name));
 }
 
-export function getCurrentTimeZone(): string {
+export function getTimeZone(): string {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
 }
 
@@ -42,7 +42,7 @@ interface Language {
   value: string;
 }
 
-export function getLanguageList(locale = "en-US"): Language[] {
+export function getLanguages(locale = "en-US"): Language[] {
   const codes = languages.getAllCodes().sort((a, b) => a.localeCompare(b));
 
   return codes
@@ -57,7 +57,7 @@ export function getLanguageList(locale = "en-US"): Language[] {
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
-export function getCurrentLanguage(): string {
+export function getLanguage(): string {
   return (navigator.language || "en-US").split("-")[0];
 }
 
@@ -66,7 +66,7 @@ interface Country {
   value: string;
 }
 
-export function getCountryList(locale = "en-US"): Country[] {
+export function getCountries(locale = "en-US"): Country[] {
   const countryList = countries.all().map((country) => ({ name: country.country, code: country.alpha2 }));
 
   return countryList
@@ -81,7 +81,7 @@ export function getCountryList(locale = "en-US"): Country[] {
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
-export function getCurrentCountry(): string {
+export function getCountry(): string {
   return (navigator.language || "en-US").split("-")[1];
 }
 
@@ -90,7 +90,7 @@ interface Currency {
   value: string;
 }
 
-export function getCurrencyList(locale = "en-US"): Currency[] {
+export function getCurrencies(locale = "en-US"): Currency[] {
   const codes = Intl.supportedValuesOf("currency");
 
   return codes
