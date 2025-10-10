@@ -7,7 +7,7 @@ export interface TimeZone {
   offset: string;
 }
 
-export function getTimeZoneList(locale = "en-US"): TimeZone[] {
+export function getTimeZones(locale = "en-US"): TimeZone[] {
   const timeZones = Intl.supportedValuesOf("timeZone");
 
   const getOffset = (timeZone: string): string => {
@@ -42,7 +42,7 @@ interface Language {
   value: string;
 }
 
-export function getLanguageList(locale = "en-US"): Language[] {
+export function getLanguages(locale = "en-US"): Language[] {
   const codes = languages.getAllCodes().sort((a, b) => a.localeCompare(b));
 
   return codes
@@ -66,7 +66,7 @@ interface Country {
   value: string;
 }
 
-export function getCountryList(locale = "en-US"): Country[] {
+export function getCountries(locale = "en-US"): Country[] {
   const countryList = countries.all().map((country) => ({ name: country.country, code: country.alpha2 }));
 
   return countryList
@@ -90,7 +90,7 @@ interface Currency {
   value: string;
 }
 
-export function getCurrencyList(locale = "en-US"): Currency[] {
+export function getCurrencies(locale = "en-US"): Currency[] {
   const codes = Intl.supportedValuesOf("currency");
 
   return codes
