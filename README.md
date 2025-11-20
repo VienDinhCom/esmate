@@ -24,24 +24,10 @@ npx create-esmate
 
 ## Why ESMate?
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 Why does starting a new JavaScript or TypeScript project always feel like a fight with setup?
 
 We’re developers. We want to write code. But every new project begins the same way: install Prettier, set up ESLint, configure Tailwind, then choose a framework like React, Vue, Svelte, or Astro, each with its own setup rules. Before we even start on real features, we’re already juggling long setup commands just to get a basic environment working.
 
-=======
-Here’s a simpler, clearer version:
-
----
-
-=======
->>>>>>> 8672055 (Update README.md)
-Why does starting a new JavaScript or TypeScript project always feel like a fight with setup?
-
-We’re developers. We want to write code. But every new project begins the same way: install Prettier, set up ESLint, configure Tailwind, then choose a framework like React, Vue, Svelte, or Astro, each with its own setup rules. Before we even start on real features, we’re already juggling long setup commands just to get a basic environment working.
-
->>>>>>> 7b432d1 (Update README.md)
 Is this complexity actually useful, or are we just doing it out of habit?
 
 ↓
@@ -61,7 +47,6 @@ ESMate isn’t a new runtime. It’s a helper layer that includes the essentials
 With ESMate, you skip the boilerplate and get straight to building.
 
 To me, that’s a worthwhile improvement.
-
 
 ESMate lets you skip the ritual and jump straight to the work that matters—**building**.
 
