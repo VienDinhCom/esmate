@@ -24,33 +24,34 @@ npx create-esmate
 
 ## Why ESMate?
 
-Why does every new JavaScript or TypeScript project feel like an immediate battle against **boilerplate**?
+Here’s a simpler, clearer version:
 
-We’re developers, we just want to code, yet our initial ritual is always the same: install **Prettier**, configure
-**ESLint**, wrangle **Tailwind**, and then try to stitch together **React, Vue, Svelte, or Astro**—each framework adding
-its own unique layer of configuration hell. Before writing a single line of business logic, we're scripting elaborate,
-chained commands just to get a basic environment running.
+---
 
-Is this complexity a feature, or are we just repeating patterns because "that's how it's always been done"?
+Why does starting a new JavaScript or TypeScript project always feel like a fight with setup?
 
-↓
+We’re developers. We want to write code. But every new project begins the same way: install Prettier, set up ESLint, configure Tailwind, then choose a framework like React, Vue, Svelte, or Astro, each with its own setup rules. Before we even start on real features, we’re already juggling long setup commands just to get a basic environment working.
 
-We’ve seen the promise of a simpler world. **Deno** offered a tantalizing glimpse of a frictionless environment where
-sensible defaults reign and configuration is minimal.
-
-But let’s be honest: **Node.js isn't going anywhere**. Its massive ecosystem and legacy are our present reality, and
-wishing the chaos away is a fantasy. The practical path forward isn't fighting the ecosystem; it's **taming** it.
+Is this complexity actually useful, or are we just doing it out of habit?
 
 ↓
 
-Instead of resigning ourselves to endless boilerplate, I built **ESMate**.
+We’ve seen hints of a simpler future. Deno showed us what development could look like with clean defaults and very little configuration.
 
-It's my practical answer to one crucial question: **"How can we make modern JavaScript development as frictionless as
-possible, even in a Node.js world?"**
+But the truth is: Node.js isn’t going away. Its ecosystem is huge, and we still depend on it. Hoping the mess will disappear won’t make it happen. The practical move is not to escape the ecosystem, but to make it easier to live with.
 
-ESMate isn't a new runtime; it's a **smart layer** that bundles the essentials, automatically smoothing over the rough
-edges of toolchains and configuration. It embraces modern ES Modules (ESM) standards while insulating you from the
-typical setup headaches.
+↓
+
+That’s why I made ESMate.
+
+I built it to answer one question: “How do we make modern JavaScript development smooth and easy, even in the Node.js world?”
+
+ESMate isn’t a new runtime. It’s a helper layer that includes the essentials and removes most of the usual setup pain. It supports modern ESM standards and hides the rough edges of today’s tooling.
+
+With ESMate, you skip the boilerplate and get straight to building.
+
+To me, that’s a worthwhile improvement.
+
 
 ESMate lets you skip the ritual and jump straight to the work that matters—**building**.
 
