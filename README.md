@@ -24,10 +24,21 @@ npx create-esmate
 
 ## Why ESMate?
 
+<<<<<<< HEAD
 Why does starting a new JavaScript or TypeScript project always feel like a fight with setup?
 
 We’re developers. We want to write code. But every new project begins the same way: install Prettier, set up ESLint, configure Tailwind, then choose a framework like React, Vue, Svelte, or Astro, each with its own setup rules. Before we even start on real features, we’re already juggling long setup commands just to get a basic environment working.
 
+=======
+Here’s a simpler, clearer version:
+
+---
+
+Why does starting a new JavaScript or TypeScript project always feel like a fight with setup?
+
+We’re developers. We want to write code. But every new project begins the same way: install Prettier, set up ESLint, configure Tailwind, then choose a framework like React, Vue, Svelte, or Astro, each with its own setup rules. Before we even start on real features, we’re already juggling long setup commands just to get a basic environment working.
+
+>>>>>>> 7b432d1 (Update README.md)
 Is this complexity actually useful, or are we just doing it out of habit?
 
 ↓
