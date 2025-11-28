@@ -1,0 +1,55 @@
+{
+  "name": "esmate-react-next",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "fix": "esmate task fix",
+    "check": "esmate task check",
+    "migrate": "esmate task migrate"
+  },
+  "tasks": {
+    "fix": [
+      "esmate fmt",
+      "esmate lint --fix"
+    ],
+    "check": [
+      "esmate fmt --check",
+      "esmate lint"
+    ],
+    "studio": "drizzle-kit studio",
+    "migrate": [
+      "drizzle-kit generate",
+      "drizzle-kit migrate"
+    ]
+  },
+  "dependencies": {
+    "@esmate/shadcn": "^3.3.3",
+    "@t3-oss/env-nextjs": "^0.13.8",
+    "better-auth": "^1.4.3",
+    "drizzle-orm": "^0.44.7",
+    "next": "^16.0.5",
+    "postgres": "^3.4.7",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@esmate/prettier": "^1.0.5",
+    "@tailwindcss/postcss": "^4.1.17",
+    "@types/node": "^20.19.25",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "drizzle-kit": "^0.31.7",
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^16.0.5",
+    "esmate": "^2.1.3",
+    "tailwindcss": "^4.1.17",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
