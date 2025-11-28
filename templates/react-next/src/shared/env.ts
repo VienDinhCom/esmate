@@ -18,5 +18,5 @@ export const env = createEnv({
   },
   client: {},
   emptyStringAsUndefined: true,
-  runtimeEnv: process.env as any,
+  runtimeEnv: process.env as any, // eslint-disable-line @typescript-eslint/no-explicit-any
 });
