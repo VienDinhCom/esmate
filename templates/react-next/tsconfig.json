@@ -15,7 +15,6 @@
     "incremental": true,
     "plugins": [{ "name": "next" }],
     "paths": {
-      "@assets/*": ["./src/assets/*"],
       "@backend/*": ["./src/backend/*"],
       "@frontend/*": ["./src/frontend/*"],
       "@shared/*": ["./src/shared/*"]
