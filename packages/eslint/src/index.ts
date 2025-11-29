@@ -3,7 +3,9 @@ import type { Linter } from "eslint";
 import antfu from "@antfu/eslint-config";
 import pluginQuery from "@tanstack/eslint-plugin-query";
 import pluginRouter from "@tanstack/eslint-plugin-router";
-import prettier from "eslint-config-prettier";
+import nextVitalsConfig from "eslint-config-next/core-web-vitals";
+import nextConfig from "eslint-config-next/typescript";
+import prettierConfig from "eslint-config-prettier";
 
 type Options = OptionsConfig & {
   /**
@@ -12,6 +14,11 @@ type Options = OptionsConfig & {
    * So you don't have to use .eslintignore file.
    */
   ignores?: string[];
+
+  /**
+   * Next.js ESLint configs.
+   */
+  next?: boolean;
 
   /**
    * TanStack ESLint configs.
@@ -41,10 +48,8 @@ export function defineConfig(options: Options, ...configs: Linter.Config[]): Ret
   const { ...restOptions } = options;
   const restConfigs: TypedFlatConfigItem[] = configs || [];
 
-  if (!options.formatters) {
-    restConfigs.push(prettier, {
-      rules: { "antfu/consistent-chaining": "off" },
-    });
+  if (options.next) {
+    restConfigs.push(...nextConfig, ...nextVitalsConfig);
   }
 
   if (options.tanstack?.router) {
@@ -53,6 +58,12 @@ export function defineConfig(options: Options, ...configs: Linter.Config[]): Ret
 
   if (options.tanstack?.query) {
     restConfigs.push(...pluginQuery.configs["flat/recommended"]);
+  }
+
+  if (!options.formatters) {
+    restConfigs.push(prettierConfig, {
+      rules: { "antfu/consistent-chaining": "off" },
+    });
   }
 
   return antfu(
