@@ -1,7 +1,7 @@
 {
   "name": "@esmate/prettier",
   "type": "module",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Prettier configuration for humans.",
   "license": "MIT",
   "repository": {
@@ -35,6 +35,8 @@
     "check": "tsc && prettier --check . && eslint ."
   },
   "dependencies": {
+    "find-up": "^7.0.0",
+    "globby": "^14.1.0",
     "make-synchronized": "^0.7.2",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-svelte": "^3.4.0",

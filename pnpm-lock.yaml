@@ -170,6 +170,12 @@ importers:
 
   packages/prettier:
     dependencies:
+      find-up:
+        specifier: ^7.0.0
+        version: 7.0.0
+      globby:
+        specifier: ^14.1.0
+        version: 14.1.0
       make-synchronized:
         specifier: ^0.7.2
         version: 0.7.2
@@ -3509,6 +3515,7 @@ packages:
 
   intersection-observer@0.12.2:
     resolution: {integrity: sha512-7m1vEcPCxXYI8HqnL8CKI6siDyD+eIWSwgB3DZA+ZTogxk9I4CDnj4wilt9x/+/QbHI4YG5YZNmC6458/e9Ktg==}
+    deprecated: The Intersection Observer polyfill is no longer needed and can safely be removed. Intersection Observer has been Baseline since 2019.
 
   ipaddr.js@1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
