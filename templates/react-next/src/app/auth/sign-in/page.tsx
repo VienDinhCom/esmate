@@ -1,5 +1,5 @@
-import { getAuth } from "@backend/utils/auth";
-import { SignInForm } from "@frontend/features/auth/components/sign-in-form";
+import { getAuth } from "@/lib/auth";
+import { SignInForm } from "@/app/auth/sign-in/sign-in-form";
 import { redirect } from "next/navigation";
 
 export default async function Page() {

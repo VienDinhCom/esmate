@@ -9,29 +9,28 @@ import { useZodForm } from "@esmate/shadcn/hooks/use-zod-form";
 import { cn } from "@esmate/shadcn/lib/utils";
 import { z } from "@esmate/shadcn/pkgs/zod";
 
-import { signUp } from "@frontend/utils/auth";
+import { signIn } from "@/lib/utils";
 
 const FormSchema = z.object({
-  name: z.string().min(1, "Name is required"),
   email: z.email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
-export function SignUpForm({ className, ...props }: React.ComponentProps<"div">) {
+export function SignInForm({ className, ...props }: React.ComponentProps<"div">) {
   const router = useRouter();
-  const searchParam = useSearchParams();
-  const redirectURL = searchParam.get("redirect") || "/";
+  const searchParams = useSearchParams();
+  const redirectURL = searchParams.get("redirect") || "/";
+
   const form = useZodForm({
     schema: FormSchema,
     defaultValues: {
-      name: "",
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = form.handleSubmit(async ({ email, name, password }) => {
-    await signUp.email({ name, email, password });
+  const onSubmit = form.handleSubmit(async ({ email, password }) => {
+    await signIn.email({ email, password });
 
     router.push(redirectURL);
   });
@@ -40,35 +39,28 @@ export function SignUpForm({ className, ...props }: React.ComponentProps<"div">)
     <div className={cn("flex w-full max-w-sm flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle>Sign Up</CardTitle>
-          <CardDescription>Create account with your email.</CardDescription>
+          <CardTitle>Sign In</CardTitle>
+          <CardDescription>Log in with your email</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={onSubmit}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" type="text" {...form.register("name")} placeholder="Enter your name" required />
-              </div>
-              <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" {...form.register("email")} placeholder="Enter your email" required />
+                <Input id="email" type="email" {...form.register("email")} placeholder="m@example.com" required />
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
+                  <a href="#" className="ml-auto inline-block text-sm underline-offset-4 hover:underline">
+                    Forgot your password?
+                  </a>
                 </div>
-                <Input
-                  id="password"
-                  type="password"
-                  {...form.register("password")}
-                  placeholder="Enter your password"
-                  required
-                />
+                <Input id="password" type="password" {...form.register("password")} required />
               </div>
               <div className="flex flex-col gap-3">
                 <Button type="submit" className="w-full">
-                  Sign Up
+                  Sign In
                 </Button>
                 {/* <Button variant="outline" className="w-full">
                   Sign In with Google
@@ -76,9 +68,9 @@ export function SignUpForm({ className, ...props }: React.ComponentProps<"div">)
               </div>
             </div>
             <div className="mt-4 text-center text-sm">
-              Have an account?{" "}
-              <a href={`/auth/sign-in?redirect=${redirectURL}`} className="underline underline-offset-4">
-                Sign in
+              Don&apos;t have an account?{" "}
+              <a href={`/auth/sign-up?redirect=${redirectURL}`} className="underline underline-offset-4">
+                Sign up
               </a>
             </div>
           </form>

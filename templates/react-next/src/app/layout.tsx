@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
-import "@frontend/assets/styles/globals.css";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "ESMate React Next",

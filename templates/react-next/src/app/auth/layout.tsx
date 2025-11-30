@@ -1,10 +1,9 @@
 import { ReactNode } from "react";
-import { AuthLayout } from "@frontend/components/layouts/auth-layout";
 
 interface Props {
   children: ReactNode;
 }
 
 export default function Layout(props: Props) {
-  return <AuthLayout>{props.children}</AuthLayout>;
+  return <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">{props.children}</div>;
 }

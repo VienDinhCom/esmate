@@ -9,7 +9,9 @@
     "start": "next start",
     "fix": "esmate task fix",
     "check": "esmate task check",
-    "migrate": "esmate task migrate"
+    "db:studio": "drizzle-kit studio",
+    "db:migrate": "drizzle-kit migrate",
+    "db:generate": "drizzle-kit generate"
   },
   "tasks": {
     "fix": [
@@ -19,11 +21,6 @@
     "check": [
       "esmate fmt --check",
       "esmate lint"
-    ],
-    "studio": "drizzle-kit studio",
-    "migrate": [
-      "drizzle-kit generate",
-      "drizzle-kit migrate"
     ]
   },
   "dependencies": {

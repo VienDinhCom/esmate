@@ -1,13 +1,14 @@
+import "server-only";
 import { headers } from "next/headers";
 import { betterAuth } from "better-auth";
 import { redirect } from "next/navigation";
 import { nextCookies } from "better-auth/next-js";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { database } from "@backend/database";
+import { db } from "@/lib/db";
 
 // https://www.better-auth.com/docs/integrations/next
 export const auth = betterAuth({
-  database: drizzleAdapter(database, {
+  database: drizzleAdapter(db, {
     provider: "pg",
   }),
   emailAndPassword: {
@@ -37,7 +38,7 @@ export async function getAuth(): Promise<Auth | null> {
   };
 }
 
-export async function checkAuth() {
+export async function requireAuth() {
   const session = await auth.api.getSession({ headers: await headers() });
 
   if (!session) redirect("/auth/sign-in");
