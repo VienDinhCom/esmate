@@ -3,8 +3,6 @@ import type { Linter } from "eslint";
 import antfu from "@antfu/eslint-config";
 import pluginQuery from "@tanstack/eslint-plugin-query";
 import pluginRouter from "@tanstack/eslint-plugin-router";
-import nextVitalsConfig from "eslint-config-next/core-web-vitals";
-import nextConfig from "eslint-config-next/typescript";
 import prettierConfig from "eslint-config-prettier";
 
 type Options = OptionsConfig & {
@@ -14,11 +12,6 @@ type Options = OptionsConfig & {
    * So you don't have to use .eslintignore file.
    */
   ignores?: string[];
-
-  /**
-   * Next.js ESLint configs.
-   */
-  next?: boolean;
 
   /**
    * TanStack ESLint configs.
@@ -47,10 +40,6 @@ type Options = OptionsConfig & {
 export function defineConfig(options: Options, ...configs: Linter.Config[]): ReturnType<typeof antfu> {
   const { ...restOptions } = options;
   const restConfigs: TypedFlatConfigItem[] = configs || [];
-
-  if (options.next) {
-    restConfigs.push(...nextConfig, ...nextVitalsConfig);
-  }
 
   if (options.tanstack?.router) {
     restConfigs.push(...pluginRouter.configs["flat/recommended"]);
