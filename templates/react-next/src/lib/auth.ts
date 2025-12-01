@@ -38,16 +38,18 @@ export async function getAuth(): Promise<Auth | null> {
   };
 }
 
+export async function getAuthOrThrow(): Promise<Auth> {
+  const auth = await getAuth();
+
+  if (!auth) throw new Error("Not authenticated");
+
+  return auth;
+}
+
 export async function getAuthOrRedirect(redirectUrl?: string): Promise<Auth> {
   const auth = await getAuth();
 
   if (!auth) redirect(redirectUrl || "/auth/sign-in");
 
   return auth;
-}
-
-export async function requireAuth() {
-  const session = await auth.api.getSession({ headers: await headers() });
-
-  if (!session) redirect("/auth/sign-in");
 }
