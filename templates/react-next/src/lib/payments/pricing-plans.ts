@@ -15,15 +15,15 @@ export interface PricingPlan {
 
 type CreatePricingPlan = Pick<PricingPlan, "name" | "price" | "description">;
 
-export async function createPricingPlan(subscription: CreatePricingPlan): Promise<PricingPlan> {
+export async function createPricingPlan(pricingPlan: CreatePricingPlan): Promise<PricingPlan> {
   const product = await stripe.products.create({
-    name: subscription.name,
-    description: subscription.description,
+    name: pricingPlan.name,
+    description: pricingPlan.description,
   });
 
   const price = await stripe.prices.create({
     product: product.id,
-    unit_amount: subscription.price * 100,
+    unit_amount: pricingPlan.price * 100,
     currency: "usd",
     recurring: {
       interval: "month",

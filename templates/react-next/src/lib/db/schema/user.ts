@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, varchar } from "drizzle-orm/pg-core";
 import { session, account } from "./auth";
 
 export const user = pgTable("user", {
@@ -14,7 +14,11 @@ export const user = pgTable("user", {
     .$onUpdate(() => new Date())
     .notNull(),
 
-  // Custom columns
+  stripeProductId: text(),
+  stripeCustomerId: text().unique(),
+  stripeSubscriptionId: text().unique(),
+  subscriptionStatus: varchar({ length: 20 }),
+  planName: varchar({ length: 50 }),
 });
 
 export const userRelations = relations(user, ({ many }) => ({
