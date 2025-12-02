@@ -4,6 +4,7 @@ import { createEnv } from "@t3-oss/env-nextjs";
 // https://env.t3.gg/docs/nextjs
 export const env = createEnv({
   server: {
+    BASE_URL: z.url(),
     DATABASE_URL: z.url(),
 
     BETTER_AUTH_URL: z.url(),
