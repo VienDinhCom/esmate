@@ -3,6 +3,7 @@ import { env } from "./env";
 import invariant from "tiny-invariant";
 import { getAuthOrRedirect } from "./auth";
 import { redirect } from "next/navigation";
+import { db } from "./db";
 
 const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
   apiVersion: "2025-11-17.clover",
@@ -142,7 +143,7 @@ export async function createSubscription(priceId: string) {
   redirect(session.url);
 }
 
-export async function manageSubscription(team: Team) {
+export async function createCustomerPortalSession(team: Team) {
   if (!team.stripeCustomerId || !team.stripeProductId) {
     redirect("/pricing");
   }
@@ -199,7 +200,7 @@ export async function manageSubscription(team: Team) {
 
   return stripe.billingPortal.sessions.create({
     customer: team.stripeCustomerId,
-    return_url: `${process.env.BASE_URL}/dashboard`,
+    return_url: `${env.BASE_URL}/dashboard`,
     configuration: configuration.id,
   });
 }
@@ -209,11 +210,35 @@ export async function handleSubscriptionChange(subscription: Stripe.Subscription
   const subscriptionId = subscription.id;
   const status = subscription.status;
 
+  async function getTeamByStripeCustomerId(customerId: string) {
+    const result = await db.select().from(teams).where(eq(teams.stripeCustomerId, customerId)).limit(1);
+
+    return result.length > 0 ? result[0] : null;
+  }
+
   const team = await getTeamByStripeCustomerId(customerId);
 
   if (!team) {
     console.error("Team not found for Stripe customer:", customerId);
     return;
+  }
+
+  async function updateTeamSubscription(
+    teamId: number,
+    subscriptionData: {
+      stripeSubscriptionId: string | null;
+      stripeProductId: string | null;
+      planName: string | null;
+      subscriptionStatus: string;
+    },
+  ) {
+    await db
+      .update(teams)
+      .set({
+        ...subscriptionData,
+        updatedAt: new Date(),
+      })
+      .where(eq(teams.id, teamId));
   }
 
   if (status === "active" || status === "trialing") {
