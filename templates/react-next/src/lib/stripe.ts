@@ -1,12 +1,14 @@
 import Stripe from "stripe";
 import { env } from "./env";
 import invariant from "tiny-invariant";
+import { getAuthOrRedirect } from "./auth";
+import { redirect } from "next/navigation";
 
 const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
   apiVersion: "2025-11-17.clover",
 });
 
-export interface Subscription {
+export interface PricingPlan {
   name: string;
   price: number;
   description: string;
@@ -17,9 +19,9 @@ export interface Subscription {
   productId: string;
 }
 
-export async function createSubscription(
-  subscription: Pick<Subscription, "name" | "price" | "description">,
-): Promise<Subscription> {
+type CreatePricingPlan = Pick<PricingPlan, "name" | "price" | "description">;
+
+export async function createPricingPlan(subscription: CreatePricingPlan): Promise<PricingPlan> {
   const product = await stripe.products.create({
     name: subscription.name,
     description: subscription.description,
@@ -60,7 +62,7 @@ export async function createSubscription(
   };
 }
 
-export async function getSubscriptions(): Promise<Subscription[]> {
+export async function getPricingPlans(): Promise<PricingPlan[]> {
   const prices = await stripe.prices.list({
     expand: ["data.product"],
     active: true,
@@ -97,37 +99,45 @@ export async function getSubscriptions(): Promise<Subscription[]> {
   });
 }
 
-export async function getSubscriptionByName(name: string) {
-  const subscriptions = await getSubscriptions();
+export async function getPricingPlanByName(name: string) {
+  const plans = await getPricingPlans();
 
-  return subscriptions.find((subscription) => subscription.name === name);
+  return plans.find((plan) => plan.name === name);
 }
 
-// export async function createCheckoutSession({ team, priceId }: { team: Team | null; priceId: string }) {
-//   const user = await getUser();
+// createSubscription
+// manageSubscription
+// handleSubscriptionChange
 
-//   if (!team || !user) {
-//     redirect(`/sign-up?redirect=checkout&priceId=${priceId}`);
-//   }
+export async function createSubscription(priceId: string) {
+  const auth = await getAuthOrRedirect();
 
-//   const session = await stripe.checkout.sessions.create({
-//     payment_method_types: ["card"],
-//     line_items: [
-//       {
-//         price: priceId,
-//         quantity: 1,
-//       },
-//     ],
-//     mode: "subscription",
-//     success_url: `${process.env.BASE_URL}/api/stripe/checkout?session_id={CHECKOUT_SESSION_ID}`,
-//     cancel_url: `${process.env.BASE_URL}/pricing`,
-//     customer: team.stripeCustomerId || undefined,
-//     client_reference_id: user.id.toString(),
-//     allow_promotion_codes: true,
-//     subscription_data: {
-//       trial_period_days: 14,
-//     },
-//   });
+  // const user = await getUser();
 
-//   redirect(session.url!);
-// }
+  // if (!team || !user) {
+  //   redirect(`/sign-up?redirect=checkout&priceId=${priceId}`);
+  // }
+
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    line_items: [
+      {
+        price: priceId,
+        quantity: 1,
+      },
+    ],
+    mode: "subscription",
+    success_url: `${env.BASE_URL}/api/stripe/checkout?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${env.BASE_URL}/pricing`,
+    customer: team.stripeCustomerId || undefined,
+    client_reference_id: auth.id.toString(),
+    allow_promotion_codes: true,
+    subscription_data: {
+      trial_period_days: 14,
+    },
+  });
+
+  invariant(session.url, "Checkout session URL is required");
+
+  redirect(session.url);
+}
