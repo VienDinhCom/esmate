@@ -1,6 +1,4 @@
-import { eq } from "drizzle-orm";
-import { db } from "@/lib/db";
-import { user } from "@/lib/db/schema";
+import { db, schema, orm } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/payments";
 import Stripe from "stripe";
@@ -51,7 +49,7 @@ export async function GET(request: NextRequest) {
     }
 
     await db
-      .update(user)
+      .update(schema.user)
       .set({
         stripeCustomerId: customerId,
         stripeSubscriptionId: subscriptionId,
@@ -60,7 +58,7 @@ export async function GET(request: NextRequest) {
         subscriptionStatus: subscription.status,
         updatedAt: new Date(),
       })
-      .where(eq(user.id, userId));
+      .where(orm.eq(schema.user.id, userId));
 
     return NextResponse.redirect(new URL("/dashboard", request.url));
   } catch (error) {

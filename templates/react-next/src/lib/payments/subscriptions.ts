@@ -4,13 +4,11 @@ import { env } from "@/lib/env";
 import invariant from "tiny-invariant";
 import { getAuthOrRedirect } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { db } from "@/lib/db";
-import { eq } from "drizzle-orm";
-import { user } from "@/lib/db/schema";
+import { db, schema, orm } from "@/lib/db";
 
 export async function createSubscription(priceId: string) {
   const auth = await getAuthOrRedirect();
-  const userData = await db.query.user.findFirst({ where: eq(user.id, auth.id) });
+  const userData = await db.query.user.findFirst({ where: orm.eq(schema.user.id, auth.id) });
 
   // const user = await getUser();
 
@@ -39,9 +37,9 @@ export async function createSubscription(priceId: string) {
 
 export async function manageSubscription() {
   const auth = await getAuthOrRedirect();
-  const userData = await db.query.user.findFirst({ where: eq(user.id, auth.id) });
+  const user = await db.query.user.findFirst({ where: orm.eq(schema.user.id, auth.id) });
 
-  if (!userData?.stripeCustomerId || !userData?.stripeProductId) {
+  if (!user?.stripeCustomerId || !user.stripeProductId) {
     redirect("/pricing");
   }
 
@@ -51,7 +49,7 @@ export async function manageSubscription() {
   if (configurations.data.length > 0) {
     configuration = configurations.data[0];
   } else {
-    const product = await stripe.products.retrieve(userData.stripeProductId);
+    const product = await stripe.products.retrieve(user.stripeProductId);
 
     if (!product.active) {
       throw new Error("Team's product is not active in Stripe");
@@ -97,7 +95,7 @@ export async function manageSubscription() {
   }
 
   return stripe.billingPortal.sessions.create({
-    customer: userData.stripeCustomerId,
+    customer: user.stripeCustomerId,
     return_url: `${env.BASE_URL}/dashboard`,
     configuration: configuration.id,
   });
@@ -108,9 +106,9 @@ export async function handleSubscriptionChange(subscription: Stripe.Subscription
   const subscriptionId = subscription.id;
   const status = subscription.status;
 
-  const userData = await db.query.user.findFirst({ where: eq(user.stripeCustomerId, customerId) });
+  const user = await db.query.user.findFirst({ where: orm.eq(schema.user.stripeCustomerId, customerId) });
 
-  if (!userData) {
+  if (!user) {
     console.error("Team not found for Stripe customer:", customerId);
     return;
   }
@@ -125,21 +123,21 @@ export async function handleSubscriptionChange(subscription: Stripe.Subscription
     },
   ) {
     await db
-      .update(user)
+      .update(schema.user)
       .set({ ...subscriptionData, updatedAt: new Date() })
-      .where(eq(user.id, userId));
+      .where(orm.eq(schema.user.id, userId));
   }
 
   if (status === "active" || status === "trialing") {
     const plan = subscription.items.data[0]?.plan;
-    await updateUserSubscription(userData.id, {
+    await updateUserSubscription(user.id, {
       stripeSubscriptionId: subscriptionId,
       stripeProductId: plan?.product as string,
       planName: (plan?.product as Stripe.Product).name,
       subscriptionStatus: status,
     });
   } else if (status === "canceled" || status === "unpaid") {
-    await updateUserSubscription(userData.id, {
+    await updateUserSubscription(user.id, {
       stripeSubscriptionId: null,
       stripeProductId: null,
       planName: null,
