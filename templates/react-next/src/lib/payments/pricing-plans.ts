@@ -15,7 +15,9 @@ export interface PricingPlan {
 
 type CreatePricingPlan = Pick<PricingPlan, "name" | "price" | "description">;
 
-export async function createPricingPlan(pricingPlan: CreatePricingPlan): Promise<PricingPlan> {
+export async function createPricingPlan(
+  pricingPlan: CreatePricingPlan
+): Promise<PricingPlan> {
   const product = await stripe.products.create({
     name: pricingPlan.name,
     description: pricingPlan.description,
@@ -95,6 +97,9 @@ export async function getPricingPlans(): Promise<PricingPlan[]> {
 
 export async function getPricingPlanByName(name: string) {
   const plans = await getPricingPlans();
+  const plan = plans.find((plan) => plan.name === name);
 
-  return plans.find((plan) => plan.name === name);
+  invariant(plan, `Pricing plan ${name} not found`);
+
+  return plan;
 }

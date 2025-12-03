@@ -8,7 +8,9 @@ import { db, schema, orm } from "@/lib/db";
 
 export async function createSubscription(priceId: string) {
   const auth = await getAuthOrRedirect();
-  const userData = await db.query.user.findFirst({ where: orm.eq(schema.user.id, auth.id) });
+  const userData = await db.query.user.findFirst({
+    where: orm.eq(schema.user.id, auth.id),
+  });
 
   // const user = await getUser();
 
@@ -37,7 +39,9 @@ export async function createSubscription(priceId: string) {
 
 export async function manageSubscription() {
   const auth = await getAuthOrRedirect();
-  const user = await db.query.user.findFirst({ where: orm.eq(schema.user.id, auth.id) });
+  const user = await db.query.user.findFirst({
+    where: orm.eq(schema.user.id, auth.id),
+  });
 
   if (!user?.stripeCustomerId || !user.stripeProductId) {
     redirect("/pricing");
@@ -84,7 +88,13 @@ export async function manageSubscription() {
           mode: "at_period_end",
           cancellation_reason: {
             enabled: true,
-            options: ["too_expensive", "missing_features", "switched_service", "unused", "other"],
+            options: [
+              "too_expensive",
+              "missing_features",
+              "switched_service",
+              "unused",
+              "other",
+            ],
           },
         },
         payment_method_update: {
@@ -101,12 +111,16 @@ export async function manageSubscription() {
   });
 }
 
-export async function handleSubscriptionChange(subscription: Stripe.Subscription) {
+export async function handleSubscriptionChange(
+  subscription: Stripe.Subscription
+) {
   const customerId = subscription.customer as string;
   const subscriptionId = subscription.id;
   const status = subscription.status;
 
-  const user = await db.query.user.findFirst({ where: orm.eq(schema.user.stripeCustomerId, customerId) });
+  const user = await db.query.user.findFirst({
+    where: orm.eq(schema.user.stripeCustomerId, customerId),
+  });
 
   if (!user) {
     console.error("Team not found for Stripe customer:", customerId);
@@ -120,7 +134,7 @@ export async function handleSubscriptionChange(subscription: Stripe.Subscription
       stripeProductId: string | null;
       planName: string | null;
       subscriptionStatus: string;
-    },
+    }
   ) {
     await db
       .update(schema.user)
