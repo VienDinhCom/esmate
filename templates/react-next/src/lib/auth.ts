@@ -17,6 +17,11 @@ export const auth = betterAuth({
     enabled: true,
   },
   plugins: [nextCookies()], // make sure nextCookies() is the last plugin in the array
+  user: {
+    deleteUser: {
+      enabled: true,
+    },
+  },
 });
 
 interface Auth {

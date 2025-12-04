@@ -2,30 +2,34 @@
 
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Input } from "@esmate/shadcn/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@esmate/shadcn/components/ui/card";
 import { Label } from "@esmate/shadcn/components/ui/label";
 import { useZodForm } from "@esmate/shadcn/hooks/use-zod-form";
 import z from "@esmate/shadcn/pkgs/zod";
 import { toast } from "@esmate/shadcn/pkgs/sonner";
 import { authClient } from "@/lib/utils";
-import { Loader2, Lock } from "@esmate/shadcn/pkgs/lucide-react";
+import { Loader2, Lock, Trash2 } from "@esmate/shadcn/pkgs/lucide-react";
+import { redirect } from "next/navigation";
 
 const PasswordSchema = z
   .object({
-    currentPassword: z.string(),
-    newPassword: z.string(),
-    confirmPassword: z.string(),
+    currentPassword: z.string({ message: "Current password is required" }),
+    newPassword: z.string({ message: "New password is required" }),
+    confirmPassword: z.string({ message: "Confirm password is required" }),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
-    message: "Passwords don't match",
+    message: "New password and confirm password must match",
     path: ["confirmPassword"], // Associates the error with the confirmPassword field
   });
 
-type DeleteState = {
-  password?: string;
-  error?: string;
-  success?: string;
-};
+const DeleteSchema = z.object({
+  password: z.string({ message: "Password is required" }),
+});
 
 export default function SecurityPage() {
   const passwordForm = useZodForm({
@@ -37,14 +41,31 @@ export default function SecurityPage() {
     },
   });
 
-  const changePasswordSubmit = passwordForm.handleSubmit(async ({ currentPassword, newPassword }) => {
-    await authClient.changePassword({ currentPassword, newPassword });
-    toast.success("Your password has been changed successfully.");
+  const deleteForm = useZodForm({
+    schema: DeleteSchema,
+    defaultValues: {
+      password: "",
+    },
+  });
+
+  const changePasswordSubmit = passwordForm.handleSubmit(
+    async ({ currentPassword, newPassword }) => {
+      await authClient.changePassword({ currentPassword, newPassword });
+      toast.success("Your password has been changed successfully.");
+    }
+  );
+
+  const deleteSubmit = deleteForm.handleSubmit(async ({ password }) => {
+    await authClient.deleteUser({ password });
+    toast.success("Your account has been deleted successfully.");
+    redirect("/");
   });
 
   return (
     <section className="flex-1 p-4 lg:p-8">
-      <h1 className="bold mb-6 text-lg font-medium text-gray-900 lg:text-2xl">Security Settings</h1>
+      <h1 className="bold mb-6 text-lg font-medium text-gray-900 lg:text-2xl">
+        Security Settings
+      </h1>
       <Card className="mb-8">
         <CardHeader>
           <CardTitle>Password</CardTitle>
@@ -55,21 +76,36 @@ export default function SecurityPage() {
               <Label htmlFor="current-password" className="mb-2">
                 Current Password
               </Label>
-              <Input id="current-password" type="password" {...passwordForm.register("currentPassword")} />
+              <Input
+                id="current-password"
+                type="password"
+                {...passwordForm.register("currentPassword")}
+              />
             </div>
             <div>
               <Label htmlFor="new-password" className="mb-2">
                 New Password
               </Label>
-              <Input id="new-password" type="password" {...passwordForm.register("newPassword")} />
+              <Input
+                id="new-password"
+                type="password"
+                {...passwordForm.register("newPassword")}
+              />
             </div>
             <div>
               <Label htmlFor="confirm-password" className="mb-2">
                 Confirm New Password
               </Label>
-              <Input id="confirm-password" type="password" {...passwordForm.register("confirmPassword")} />
+              <Input
+                id="confirm-password"
+                type="password"
+                {...passwordForm.register("confirmPassword")}
+              />
             </div>
-            <Button type="submit" className="bg-orange-500 text-white hover:bg-orange-600">
+            <Button
+              type="submit"
+              className="bg-orange-500 text-white hover:bg-orange-600"
+            >
               {passwordForm.formState.isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -91,32 +127,27 @@ export default function SecurityPage() {
           <CardTitle>Delete Account</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="mb-4 text-sm text-gray-500">Account deletion is non-reversable. Please proceed with caution.</p>
-          {/* <form action={deleteAction} className="space-y-4">
+          <p className="mb-4 text-sm text-gray-500">
+            Account deletion is non-reversable. Please proceed with caution.
+          </p>
+          <form className="space-y-4" onSubmit={deleteSubmit}>
             <div>
               <Label htmlFor="delete-password" className="mb-2">
                 Confirm Password
               </Label>
               <Input
                 id="delete-password"
-                name="password"
                 type="password"
-                required
-                minLength={8}
-                maxLength={100}
-                defaultValue={deleteState.password}
+                {...deleteForm.register("password")}
               />
             </div>
-            {deleteState.error && (
-              <p className="text-red-500 text-sm">{deleteState.error}</p>
-            )}
             <Button
               type="submit"
               variant="destructive"
               className="bg-red-600 hover:bg-red-700"
-              disabled={isDeletePending}
+              disabled={deleteForm.formState.isSubmitting}
             >
-              {isDeletePending ? (
+              {deleteForm.formState.isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Deleting...
@@ -128,7 +159,7 @@ export default function SecurityPage() {
                 </>
               )}
             </Button>
-          </form> */}
+          </form>
         </CardContent>
       </Card>
     </section>
