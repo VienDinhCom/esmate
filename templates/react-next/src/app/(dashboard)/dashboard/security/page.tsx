@@ -2,23 +2,24 @@
 
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Input } from "@esmate/shadcn/components/ui/input";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@esmate/shadcn/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Label } from "@esmate/shadcn/components/ui/label";
-import { Lock, Trash2, Loader2 } from "@esmate/shadcn/pkgs/lucide-react";
-import { useActionState } from "react";
+import { useZodForm } from "@esmate/shadcn/hooks/use-zod-form";
+import z from "@esmate/shadcn/pkgs/zod";
+import { toast } from "@esmate/shadcn/pkgs/sonner";
+import { authClient } from "@/lib/utils";
+import { Loader2, Lock } from "@esmate/shadcn/pkgs/lucide-react";
 
-type PasswordState = {
-  currentPassword?: string;
-  newPassword?: string;
-  confirmPassword?: string;
-  error?: string;
-  success?: string;
-};
+const PasswordSchema = z
+  .object({
+    currentPassword: z.string(),
+    newPassword: z.string(),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"], // Associates the error with the confirmPassword field
+  });
 
 type DeleteState = {
   password?: string;
@@ -27,83 +28,49 @@ type DeleteState = {
 };
 
 export default function SecurityPage() {
-  // const [passwordState, passwordAction, isPasswordPending] = useActionState<
-  //   PasswordState,
-  //   FormData
-  // >(updatePassword, {});
+  const passwordForm = useZodForm({
+    schema: PasswordSchema,
+    defaultValues: {
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    },
+  });
 
-  // const [deleteState, deleteAction, isDeletePending] = useActionState<
-  //   DeleteState,
-  //   FormData
-  // >(deleteAccount, {});
+  const changePasswordSubmit = passwordForm.handleSubmit(async ({ currentPassword, newPassword }) => {
+    await authClient.changePassword({ currentPassword, newPassword });
+    toast.success("Your password has been changed successfully.");
+  });
 
   return (
     <section className="flex-1 p-4 lg:p-8">
-      <h1 className="text-lg lg:text-2xl font-medium bold text-gray-900 mb-6">
-        Security Settings
-      </h1>
+      <h1 className="bold mb-6 text-lg font-medium text-gray-900 lg:text-2xl">Security Settings</h1>
       <Card className="mb-8">
         <CardHeader>
           <CardTitle>Password</CardTitle>
         </CardHeader>
         <CardContent>
-          {/* <form className="space-y-4" action={passwordAction}>
+          <form className="space-y-4" onSubmit={changePasswordSubmit}>
             <div>
               <Label htmlFor="current-password" className="mb-2">
                 Current Password
               </Label>
-              <Input
-                id="current-password"
-                name="currentPassword"
-                type="password"
-                autoComplete="current-password"
-                required
-                minLength={8}
-                maxLength={100}
-                defaultValue={passwordState.currentPassword}
-              />
+              <Input id="current-password" type="password" {...passwordForm.register("currentPassword")} />
             </div>
             <div>
               <Label htmlFor="new-password" className="mb-2">
                 New Password
               </Label>
-              <Input
-                id="new-password"
-                name="newPassword"
-                type="password"
-                autoComplete="new-password"
-                required
-                minLength={8}
-                maxLength={100}
-                defaultValue={passwordState.newPassword}
-              />
+              <Input id="new-password" type="password" {...passwordForm.register("newPassword")} />
             </div>
             <div>
               <Label htmlFor="confirm-password" className="mb-2">
                 Confirm New Password
               </Label>
-              <Input
-                id="confirm-password"
-                name="confirmPassword"
-                type="password"
-                required
-                minLength={8}
-                maxLength={100}
-                defaultValue={passwordState.confirmPassword}
-              />
+              <Input id="confirm-password" type="password" {...passwordForm.register("confirmPassword")} />
             </div>
-            {passwordState.error && (
-              <p className="text-red-500 text-sm">{passwordState.error}</p>
-            )}
-            {passwordState.success && (
-              <p className="text-green-500 text-sm">{passwordState.success}</p>
-            )}
-            <Button
-              type="submit"
-              className="bg-orange-500 hover:bg-orange-600 text-white"
-              disabled={isPasswordPending}
-            >
-              {isPasswordPending ? (
+            <Button type="submit" className="bg-orange-500 text-white hover:bg-orange-600">
+              {passwordForm.formState.isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Updating...
@@ -115,7 +82,7 @@ export default function SecurityPage() {
                 </>
               )}
             </Button>
-          </form> */}
+          </form>
         </CardContent>
       </Card>
 
@@ -124,9 +91,7 @@ export default function SecurityPage() {
           <CardTitle>Delete Account</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-gray-500 mb-4">
-            Account deletion is non-reversable. Please proceed with caution.
-          </p>
+          <p className="mb-4 text-sm text-gray-500">Account deletion is non-reversable. Please proceed with caution.</p>
           {/* <form action={deleteAction} className="space-y-4">
             <div>
               <Label htmlFor="delete-password" className="mb-2">
