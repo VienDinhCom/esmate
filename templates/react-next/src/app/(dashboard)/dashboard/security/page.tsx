@@ -104,7 +104,7 @@ export default function SecurityPage() {
             </div>
             <Button
               type="submit"
-              className="bg-orange-500 text-white hover:bg-orange-600"
+              className="bg-blue-500 text-white hover:bg-blue-600"
             >
               {passwordForm.formState.isSubmitting ? (
                 <>
