@@ -1,4 +1,3 @@
-import "server-only";
 import { headers } from "next/headers";
 import { betterAuth } from "better-auth";
 import { redirect } from "next/navigation";
@@ -18,6 +17,11 @@ export const auth = betterAuth({
     enabled: true,
   },
   plugins: [nextCookies()], // make sure nextCookies() is the last plugin in the array
+  user: {
+    deleteUser: {
+      enabled: true,
+    },
+  },
 });
 
 interface Auth {
@@ -38,8 +42,18 @@ export async function getAuth(): Promise<Auth | null> {
   };
 }
 
-export async function requireAuth() {
-  const session = await auth.api.getSession({ headers: await headers() });
+export async function getAuthOrThrow(): Promise<Auth> {
+  const auth = await getAuth();
 
-  if (!session) redirect("/auth/sign-in");
+  if (!auth) throw new Error("Not authenticated");
+
+  return auth;
+}
+
+export async function getAuthOrRedirect(redirectUrl?: string): Promise<Auth> {
+  const auth = await getAuth();
+
+  if (!auth) redirect(redirectUrl || "/auth/sign-in");
+
+  return auth;
 }

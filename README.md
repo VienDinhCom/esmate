@@ -48,7 +48,6 @@ With ESMate, you skip the boilerplate and get straight to building.
 
 To me, that’s a worthwhile improvement.
 
-
 ESMate lets you skip the ritual and jump straight to the work that matters—**building**.
 
 That, to me, is a solution worth believing in.

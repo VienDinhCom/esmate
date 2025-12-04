@@ -4,7 +4,7 @@ import { env } from "@/lib/env";
 export default defineConfig({
   casing: "snake_case",
   dialect: "postgresql",
-  out: "src/backend/database/migrations",
-  schema: "src/backend/database/schema/index.ts",
+  out: "src/lib/db/migrations",
+  schema: "src/lib/db/schema/index.ts",
   dbCredentials: { url: env.DATABASE_URL },
 });
