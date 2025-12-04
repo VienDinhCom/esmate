@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation";
 import { Button } from "@esmate/shadcn/components/ui/button";
 import {
   Users,
-  Settings,
   Shield,
   Menu,
+  Settings,
 } from "@esmate/shadcn/pkgs/lucide-react";
 
 export default function DashboardLayout({
@@ -20,8 +20,12 @@ export default function DashboardLayout({
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const navItems = [
-    { href: "/dashboard", icon: Users, label: "Team" },
-    { href: "/dashboard/general", icon: Settings, label: "General" },
+    { href: "/dashboard", icon: Users, label: "Account" },
+    {
+      href: "/dashboard/subscription",
+      icon: Settings,
+      label: "Subscription",
+    },
     { href: "/dashboard/security", icon: Shield, label: "Security" },
   ];
 
