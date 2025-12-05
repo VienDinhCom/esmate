@@ -1,14 +1,23 @@
 import { Check } from "@esmate/shadcn/pkgs/lucide-react";
 import { SubmitButton } from "./submit-button";
-import { getPricingPlanByName } from "@/lib/payments";
+import { getPricingPlanOrCreate } from "@/lib/payments";
 import { createSubscriptionAction } from "@/lib/payments/actions";
 
 // Prices are fresh for one hour max
 export const revalidate = 3600;
 
 export default async function PricingPage() {
-  const basePlan = await getPricingPlanByName("Base");
-  const plusPlan = await getPricingPlanByName("Plus");
+  const basePlan = await getPricingPlanOrCreate({
+    name: "Base",
+    price: 8,
+    description: "Basic plan for personal use",
+  });
+
+  const plusPlan = await getPricingPlanOrCreate({
+    name: "Plus",
+    price: 12,
+    description: "Advanced plan for business use",
+  });
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

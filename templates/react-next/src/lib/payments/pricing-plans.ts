@@ -2,8 +2,10 @@ import Stripe from "stripe";
 import invariant from "tiny-invariant";
 import { stripe } from "./stripe";
 
+type PricingPlanName = "Base" | "Plus";
+
 export interface PricingPlan {
-  name: string;
+  name: PricingPlanName;
   price: number;
   description: string;
   interval: string;
@@ -33,7 +35,7 @@ export async function createPricingPlan(
     },
   });
 
-  const name = product.name;
+  const name = product.name as PricingPlanName;
   const amount = price.unit_amount;
   const description = product.description;
   const interval = price.recurring?.interval;
@@ -68,7 +70,7 @@ export async function getPricingPlans(): Promise<PricingPlan[]> {
   return prices.data.map((price) => {
     const product = price.product as Stripe.Product;
 
-    const name = product.name;
+    const name = product.name as PricingPlanName;
     const amount = price.unit_amount;
     const description = product.description;
     const interval = price.recurring?.interval;
@@ -95,11 +97,11 @@ export async function getPricingPlans(): Promise<PricingPlan[]> {
   });
 }
 
-export async function getPricingPlanByName(name: string) {
+export async function getPricingPlanOrCreate(pricingPlan: CreatePricingPlan) {
   const plans = await getPricingPlans();
-  const plan = plans.find((plan) => plan.name === name);
+  const plan = plans.find((plan) => plan.name === pricingPlan.name);
 
-  invariant(plan, `Pricing plan ${name} not found`);
+  if (plan) return plan;
 
-  return plan;
+  return createPricingPlan(pricingPlan);
 }
