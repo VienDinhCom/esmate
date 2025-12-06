@@ -1,42 +1,27 @@
 import { Button } from "@esmate/shadcn/components/ui/button";
-import {
-  ArrowRight,
-  CreditCard,
-  Database,
-} from "@esmate/shadcn/pkgs/lucide-react";
-import { Terminal } from "./terminal";
+import { ArrowRight, CreditCard, Database } from "@esmate/shadcn/pkgs/lucide-react";
 
 export default function Page() {
   return (
     <main>
       <section className="py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="lg:grid lg:grid-cols-12 lg:gap-8">
-            <div className="sm:text-center md:mx-auto md:max-w-2xl lg:col-span-6 lg:text-left">
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-                Build Your SaaS
-                <span className="block text-blue-500">Faster Than Ever</span>
-              </h1>
-              <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                Launch your SaaS product in record time with our powerful,
-                ready-to-use template. Packed with modern technologies and
-                essential integrations.
-              </p>
-              <div className="mt-8 sm:mx-auto sm:max-w-lg sm:text-center lg:mx-0 lg:text-left">
-                <a href="https://github.com/VienDinhCom/esmate" target="_blank">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="rounded-full text-lg"
-                  >
-                    ESMate React Next
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </a>
-              </div>
-            </div>
-            <div className="relative mt-12 sm:mx-auto sm:max-w-lg lg:col-span-6 lg:mx-0 lg:mt-0 lg:flex lg:max-w-none lg:items-center">
-              <Terminal />
+        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+          <div className="items-center text-center md:mx-auto md:max-w-2xl lg:col-span-6">
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+              Build Your SaaS
+              <span className="block text-blue-500">Faster Than Ever</span>
+            </h1>
+            <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+              Launch your SaaS product in record time with our powerful, ready-to-use template. Packed with modern
+              technologies and essential integrations.
+            </p>
+            <div className="mt-8 text-center sm:mx-auto sm:max-w-lg">
+              <a href="/dashboard/" className="rounded-full text-lg">
+                <Button size="lg" variant="outline" className="rounded-full text-lg">
+                  Go to Dashboard
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </a>
             </div>
           </div>
         </div>
@@ -55,12 +40,9 @@ export default function Page() {
                 </svg>
               </div>
               <div className="mt-5">
-                <h2 className="text-lg font-medium text-gray-900">
-                  Next.js and React
-                </h2>
+                <h2 className="text-lg font-medium text-gray-900">Next.js and React</h2>
                 <p className="mt-2 text-base text-gray-500">
-                  Leverage the power of modern web technologies for optimal
-                  performance and developer experience.
+                  Leverage the power of modern web technologies for optimal performance and developer experience.
                 </p>
               </div>
             </div>
@@ -70,12 +52,9 @@ export default function Page() {
                 <Database className="h-6 w-6" />
               </div>
               <div className="mt-5">
-                <h2 className="text-lg font-medium text-gray-900">
-                  Postgres and Drizzle ORM
-                </h2>
+                <h2 className="text-lg font-medium text-gray-900">Postgres and Drizzle ORM</h2>
                 <p className="mt-2 text-base text-gray-500">
-                  Robust database solution with an intuitive ORM for efficient
-                  data management and scalability.
+                  Robust database solution with an intuitive ORM for efficient data management and scalability.
                 </p>
               </div>
             </div>
@@ -85,12 +64,9 @@ export default function Page() {
                 <CreditCard className="h-6 w-6" />
               </div>
               <div className="mt-5">
-                <h2 className="text-lg font-medium text-gray-900">
-                  Stripe Integration
-                </h2>
+                <h2 className="text-lg font-medium text-gray-900">Stripe Integration</h2>
                 <p className="mt-2 text-base text-gray-500">
-                  Seamless payment processing and subscription management with
-                  industry-leading Stripe integration.
+                  Seamless payment processing and subscription management with industry-leading Stripe integration.
                 </p>
               </div>
             </div>
@@ -102,25 +78,15 @@ export default function Page() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-2 lg:items-center lg:gap-8">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-                Ready to launch your SaaS?
-              </h2>
+              <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">Ready to launch your SaaS?</h2>
               <p className="mt-3 max-w-3xl text-lg text-gray-500">
-                Our template provides everything you need to get your SaaS up
-                and running quickly. Don&apos;t waste time on boilerplate -
-                focus on what makes your product unique.
+                Our template provides everything you need to get your SaaS up and running quickly. Don&apos;t waste time
+                on boilerplate - focus on what makes your product unique.
               </p>
             </div>
             <div className="mt-8 flex justify-center lg:mt-0 lg:justify-end">
-              <a
-                href="https://github.com/VienDinhCom/esmate/tree/main/templates/react-next"
-                target="_blank"
-              >
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="rounded-full text-lg"
-                >
+              <a href="https://github.com/VienDinhCom/esmate/tree/main/templates/react-next" target="_blank">
+                <Button size="lg" variant="outline" className="rounded-full text-lg">
                   View the code
                   <ArrowRight className="ml-3 h-6 w-6" />
                 </Button>
