@@ -37,7 +37,7 @@ const main = defineCommand({
       let template = args.template;
       let name = kebabCase(args.name || args.template || "");
 
-      const templates = ["react-spa", "react-astro"];
+      const templates = ["react-spa", "react-astro", "react-next"];
 
       if (template) {
         await downloadTemplate(`github:VienDinhCom/esmate/templates/${template}`, { dir: name });

@@ -1,6 +1,6 @@
 "use server";
 
-import { createSubscription, manageSubscription } from "@/lib/payments";
+import { createSubscription, manageSubscription } from "@/lib/stripe";
 import { redirect } from "next/navigation";
 
 export async function createSubscriptionAction(formData: FormData) {

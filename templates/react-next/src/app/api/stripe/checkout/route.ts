@@ -1,6 +1,6 @@
 import { db, schema, orm } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
-import { stripe } from "@/lib/payments";
+import { stripe } from "@/lib/stripe";
 import Stripe from "stripe";
 
 export async function GET(request: NextRequest) {
@@ -49,16 +49,25 @@ export async function GET(request: NextRequest) {
     }
 
     await db
-      .update(schema.user)
-      .set({
-        stripeCustomerId: customerId,
-        stripeSubscriptionId: subscriptionId,
-        stripeProductId: productId,
+      .insert(schema.stripe)
+      .values({
+        id: userId,
+        customerId: customerId,
+        productId: productId,
+        subscriptionId: subscriptionId,
         planName: (plan.product as Stripe.Product).name,
         subscriptionStatus: subscription.status,
-        updatedAt: new Date(),
       })
-      .where(orm.eq(schema.user.id, userId));
+      .onConflictDoUpdate({
+        target: schema.stripe.id,
+        set: {
+          customerId: customerId,
+          productId: productId,
+          subscriptionId: subscriptionId,
+          planName: (plan.product as Stripe.Product).name,
+          subscriptionStatus: subscription.status,
+        },
+      });
 
     return NextResponse.redirect(new URL("/dashboard/subscription", request.url));
   } catch (error) {
