@@ -1,7 +1,7 @@
 {
   "name": "create-esmate",
   "type": "module",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "Create ESMate Applications",
   "license": "MIT",
   "repository": {
