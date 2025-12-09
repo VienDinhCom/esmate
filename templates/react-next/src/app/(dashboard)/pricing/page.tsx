@@ -1,7 +1,6 @@
 import { Check } from "@esmate/shadcn/pkgs/lucide-react";
 import { SubmitButton } from "./submit-button";
-import { getPricingPlanOrCreate } from "@/lib/payments";
-import { createSubscriptionAction } from "@/lib/payments/actions";
+import { getPricingPlanOrCreate, createSubscriptionAction } from "@/lib/stripe";
 
 // Prices are fresh for one hour max
 export const revalidate = 3600;

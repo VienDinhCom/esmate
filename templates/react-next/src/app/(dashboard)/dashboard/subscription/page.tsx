@@ -1,6 +1,6 @@
 import { getAuthOrThrow } from "@/lib/auth";
 import { db, orm, schema } from "@/lib/db";
-import { manageSubscriptionAction } from "@/lib/payments/actions";
+import { manageSubscriptionAction } from "@/lib/stripe";
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Suspense } from "react";
@@ -19,6 +19,9 @@ async function ManageSubscription() {
   const auth = await getAuthOrThrow();
   const user = await db.query.user.findFirst({
     where: orm.eq(schema.user.id, auth.id),
+    with: {
+      stripe: true,
+    },
   });
 
   return (
@@ -30,11 +33,11 @@ async function ManageSubscription() {
         <div className="space-y-4">
           <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
             <div className="mb-4 sm:mb-0">
-              <p className="font-medium">Current Plan: {user?.planName || "Free"}</p>
+              <p className="font-medium">Current Plan: {user?.stripe?.planName || "Free"}</p>
               <p className="text-sm text-muted-foreground">
-                {user?.subscriptionStatus === "active"
+                {user?.stripe?.subscriptionStatus === "active"
                   ? "Billed monthly"
-                  : user?.subscriptionStatus === "trialing"
+                  : user?.stripe?.subscriptionStatus === "trialing"
                     ? "Trial period"
                     : "No active subscription"}
               </p>

@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-import { handleSubscriptionChange, stripe } from "@/lib/payments";
+import { handleSubscriptionChange, stripe } from "@/lib/stripe";
 import { NextRequest, NextResponse } from "next/server";
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;

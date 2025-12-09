@@ -8,15 +8,12 @@ import { db, schema, orm } from "@/lib/db";
 
 export async function createSubscription(priceId: string) {
   const auth = await getAuthOrRedirect();
-  const userData = await db.query.user.findFirst({
+  const user = await db.query.user.findFirst({
     where: orm.eq(schema.user.id, auth.id),
+    with: {
+      stripe: true,
+    },
   });
-
-  // const user = await getUser();
-
-  // if (!team || !user) {
-  //   redirect(`/sign-up?redirect=checkout&priceId=${priceId}`);
-  // }
 
   const session = await stripe.checkout.sessions.create({
     mode: "subscription",
@@ -24,7 +21,7 @@ export async function createSubscription(priceId: string) {
     line_items: [{ price: priceId, quantity: 1 }],
     success_url: `${env.BASE_URL}/api/stripe/checkout?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${env.BASE_URL}/pricing`,
-    customer: userData?.stripeCustomerId || undefined,
+    customer: user?.stripe?.customerId || undefined,
     client_reference_id: auth.id.toString(),
     allow_promotion_codes: true,
     subscription_data: {
@@ -41,9 +38,12 @@ export async function manageSubscription() {
   const auth = await getAuthOrRedirect();
   const user = await db.query.user.findFirst({
     where: orm.eq(schema.user.id, auth.id),
+    with: {
+      stripe: true,
+    },
   });
 
-  if (!user?.stripeCustomerId || !user.stripeProductId) {
+  if (!user?.stripe?.customerId || !user.stripe.productId) {
     redirect("/pricing");
   }
 
@@ -53,7 +53,7 @@ export async function manageSubscription() {
   if (configurations.data.length > 0) {
     configuration = configurations.data[0];
   } else {
-    const product = await stripe.products.retrieve(user.stripeProductId);
+    const product = await stripe.products.retrieve(user.stripe.productId);
 
     if (!product.active) {
       throw new Error("Team's product is not active in Stripe");
@@ -99,7 +99,7 @@ export async function manageSubscription() {
   }
 
   return stripe.billingPortal.sessions.create({
-    customer: user.stripeCustomerId,
+    customer: user.stripe.customerId,
     return_url: `${env.BASE_URL}/dashboard`,
     configuration: configuration.id,
   });
@@ -110,42 +110,42 @@ export async function handleSubscriptionChange(subscription: Stripe.Subscription
   const subscriptionId = subscription.id;
   const status = subscription.status;
 
-  const user = await db.query.user.findFirst({
-    where: orm.eq(schema.user.stripeCustomerId, customerId),
+  const stripe = await db.query.stripe.findFirst({
+    where: orm.eq(schema.stripe.customerId, customerId),
   });
 
-  if (!user) {
-    console.error("Team not found for Stripe customer:", customerId);
+  if (!stripe) {
+    console.error("Stripe data not found for customer:", customerId);
     return;
   }
 
-  async function updateUserSubscription(
+  async function updateStripeSubscription(
     userId: string,
     subscriptionData: {
-      stripeSubscriptionId: string | null;
-      stripeProductId: string | null;
+      subscriptionId: string | null;
+      productId: string | null;
       planName: string | null;
       subscriptionStatus: string;
     },
   ) {
     await db
-      .update(schema.user)
-      .set({ ...subscriptionData, updatedAt: new Date() })
-      .where(orm.eq(schema.user.id, userId));
+      .update(schema.stripe)
+      .set({ ...subscriptionData })
+      .where(orm.eq(schema.stripe.id, userId));
   }
 
   if (status === "active" || status === "trialing") {
     const plan = subscription.items.data[0]?.plan;
-    await updateUserSubscription(user.id, {
-      stripeSubscriptionId: subscriptionId,
-      stripeProductId: plan?.product as string,
+    await updateStripeSubscription(stripe.id, {
+      subscriptionId: subscriptionId,
+      productId: plan?.product as string,
       planName: (plan?.product as Stripe.Product).name,
       subscriptionStatus: status,
     });
   } else if (status === "canceled" || status === "unpaid") {
-    await updateUserSubscription(user.id, {
-      stripeSubscriptionId: null,
-      stripeProductId: null,
+    await updateStripeSubscription(stripe.id, {
+      subscriptionId: null,
+      productId: null,
       planName: null,
       subscriptionStatus: status,
     });

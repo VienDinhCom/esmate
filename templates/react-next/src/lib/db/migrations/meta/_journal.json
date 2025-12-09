@@ -15,6 +15,20 @@
       "when": 1764732910573,
       "tag": "0001_wise_oracle",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1765277800511,
+      "tag": "0002_daffy_pixie",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1765280850923,
+      "tag": "0003_special_hellfire_club",
+      "breakpoints": true
     }
   ]
 }
