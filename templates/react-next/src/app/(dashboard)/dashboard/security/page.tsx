@@ -2,12 +2,7 @@
 
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Input } from "@esmate/shadcn/components/ui/input";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@esmate/shadcn/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Label } from "@esmate/shadcn/components/ui/label";
 import { useZodForm } from "@esmate/shadcn/hooks/use-zod-form";
 import z from "@esmate/shadcn/pkgs/zod";
@@ -48,12 +43,10 @@ export default function SecurityPage() {
     },
   });
 
-  const changePasswordSubmit = passwordForm.handleSubmit(
-    async ({ currentPassword, newPassword }) => {
-      await authClient.changePassword({ currentPassword, newPassword });
-      toast.success("Your password has been changed successfully.");
-    }
-  );
+  const changePasswordSubmit = passwordForm.handleSubmit(async ({ currentPassword, newPassword }) => {
+    await authClient.changePassword({ currentPassword, newPassword });
+    toast.success("Your password has been changed successfully.");
+  });
 
   const deleteSubmit = deleteForm.handleSubmit(async ({ password }) => {
     await authClient.deleteUser({ password });
@@ -63,9 +56,7 @@ export default function SecurityPage() {
 
   return (
     <section className="flex-1 p-4 lg:p-8">
-      <h1 className="bold mb-6 text-lg font-medium text-gray-900 lg:text-2xl">
-        Security Settings
-      </h1>
+      <h1 className="bold mb-6 text-lg font-medium text-gray-900 lg:text-2xl">Security Settings</h1>
       <Card className="mb-8">
         <CardHeader>
           <CardTitle>Password</CardTitle>
@@ -76,36 +67,21 @@ export default function SecurityPage() {
               <Label htmlFor="current-password" className="mb-2">
                 Current Password
               </Label>
-              <Input
-                id="current-password"
-                type="password"
-                {...passwordForm.register("currentPassword")}
-              />
+              <Input id="current-password" type="password" {...passwordForm.register("currentPassword")} />
             </div>
             <div>
               <Label htmlFor="new-password" className="mb-2">
                 New Password
               </Label>
-              <Input
-                id="new-password"
-                type="password"
-                {...passwordForm.register("newPassword")}
-              />
+              <Input id="new-password" type="password" {...passwordForm.register("newPassword")} />
             </div>
             <div>
               <Label htmlFor="confirm-password" className="mb-2">
                 Confirm New Password
               </Label>
-              <Input
-                id="confirm-password"
-                type="password"
-                {...passwordForm.register("confirmPassword")}
-              />
+              <Input id="confirm-password" type="password" {...passwordForm.register("confirmPassword")} />
             </div>
-            <Button
-              type="submit"
-              className="bg-blue-500 text-white hover:bg-blue-600"
-            >
+            <Button type="submit" className="bg-blue-500 text-white hover:bg-blue-600">
               {passwordForm.formState.isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -127,19 +103,13 @@ export default function SecurityPage() {
           <CardTitle>Delete Account</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="mb-4 text-sm text-gray-500">
-            Account deletion is non-reversable. Please proceed with caution.
-          </p>
+          <p className="mb-4 text-sm text-gray-500">Account deletion is non-reversable. Please proceed with caution.</p>
           <form className="space-y-4" onSubmit={deleteSubmit}>
             <div>
               <Label htmlFor="delete-password" className="mb-2">
                 Confirm Password
               </Label>
-              <Input
-                id="delete-password"
-                type="password"
-                {...deleteForm.register("password")}
-              />
+              <Input id="delete-password" type="password" {...deleteForm.register("password")} />
             </div>
             <Button
               type="submit"

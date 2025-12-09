@@ -1,18 +1,33 @@
-import { useForm, type UseFormProps, type UseFormReturn, type FieldValues } from "react-hook-form";
+import {
+  useForm,
+  type UseFormProps,
+  type UseFormReturn,
+} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { ZodType, infer as zodInfer } from "zod";
+import { type ZodType, z } from "zod";
 
-export type ZodFormValues<S extends ZodType<FieldValues, any, any>> = zodInfer<S>;
-
-export interface UseZodFormProps extends Omit<UseFormProps<FieldValues>, "resolver"> {
-  schema: ZodType<FieldValues, any, any>;
-}
-
-export function useZodForm(props: UseZodFormProps): UseFormReturn<FieldValues> {
+export function useZodForm<TSchema extends ZodType<any, any>>(
+  props: Omit<UseFormProps<z.infer<TSchema>>, "resolver"> & { schema: TSchema }
+): UseFormReturn<z.infer<TSchema>> {
   const { schema, ...formProps } = props;
 
-  return useForm<FieldValues>({
+  return useForm({
     ...formProps,
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema) as any,
   });
 }
+
+// function useTest() {
+//   const form = useZodForm({
+//     schema: z.object({
+//       name: z.string().min(2),
+//       age: z.number().min(18),
+//     }),
+//     defaultValues: {
+//       name: "John Doe",
+//       age: 18,
+//     },
+//   });
+
+//   form.register("name");
+// }

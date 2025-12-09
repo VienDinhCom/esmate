@@ -4,50 +4,41 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@esmate/shadcn/components/ui/button";
-import {
-  Users,
-  Settings,
-  Shield,
-  Menu,
-} from "@esmate/shadcn/pkgs/lucide-react";
+import { Users, Shield, Menu, Settings } from "@esmate/shadcn/pkgs/lucide-react";
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const navItems = [
-    { href: "/dashboard", icon: Users, label: "Team" },
-    { href: "/dashboard/general", icon: Settings, label: "General" },
+    { href: "/dashboard", icon: Users, label: "Account" },
+    {
+      href: "/dashboard/subscription",
+      icon: Settings,
+      label: "Subscription",
+    },
     { href: "/dashboard/security", icon: Shield, label: "Security" },
   ];
 
   return (
-    <div className="flex flex-col min-h-[calc(100dvh-68px)] max-w-7xl mx-auto w-full">
+    <div className="mx-auto flex min-h-[calc(100dvh-68px)] w-full max-w-7xl flex-col">
       {/* Mobile header */}
-      <div className="lg:hidden flex items-center justify-between bg-white border-b border-gray-200 p-4">
+      <div className="flex items-center justify-between border-b border-gray-200 bg-white p-4 lg:hidden">
         <div className="flex items-center">
           <span className="font-medium">Settings</span>
         </div>
-        <Button
-          className="-mr-3"
-          variant="ghost"
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        >
+        <Button className="-mr-3" variant="ghost" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
           <Menu className="h-6 w-6" />
           <span className="sr-only">Toggle sidebar</span>
         </Button>
       </div>
 
-      <div className="flex flex-1 overflow-hidden h-full">
+      <div className="flex h-full flex-1 overflow-hidden">
         {/* Sidebar */}
         <aside
-          className={`w-64 bg-white lg:bg-gray-50 border-r border-gray-200 lg:block ${
+          className={`w-64 border-r border-gray-200 bg-white lg:block lg:bg-gray-50 ${
             isSidebarOpen ? "block" : "hidden"
-          } lg:relative absolute inset-y-0 left-0 z-40 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+          } absolute inset-y-0 left-0 z-40 transform transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 ${
             isSidebarOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
@@ -56,9 +47,7 @@ export default function DashboardLayout({
               <Link key={item.href} href={item.href} passHref>
                 <Button
                   variant={pathname === item.href ? "secondary" : "ghost"}
-                  className={`shadow-none my-1 w-full justify-start ${
-                    pathname === item.href ? "bg-gray-100" : ""
-                  }`}
+                  className={`my-1 w-full justify-start shadow-none ${pathname === item.href ? "bg-gray-100" : ""}`}
                   onClick={() => setIsSidebarOpen(false)}
                 >
                   <item.icon className="h-4 w-4" />

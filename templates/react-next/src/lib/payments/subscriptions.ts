@@ -88,13 +88,7 @@ export async function manageSubscription() {
           mode: "at_period_end",
           cancellation_reason: {
             enabled: true,
-            options: [
-              "too_expensive",
-              "missing_features",
-              "switched_service",
-              "unused",
-              "other",
-            ],
+            options: ["too_expensive", "missing_features", "switched_service", "unused", "other"],
           },
         },
         payment_method_update: {
@@ -111,9 +105,7 @@ export async function manageSubscription() {
   });
 }
 
-export async function handleSubscriptionChange(
-  subscription: Stripe.Subscription
-) {
+export async function handleSubscriptionChange(subscription: Stripe.Subscription) {
   const customerId = subscription.customer as string;
   const subscriptionId = subscription.id;
   const status = subscription.status;
@@ -134,7 +126,7 @@ export async function handleSubscriptionChange(
       stripeProductId: string | null;
       planName: string | null;
       subscriptionStatus: string;
-    }
+    },
   ) {
     await db
       .update(schema.user)

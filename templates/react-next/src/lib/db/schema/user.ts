@@ -1,11 +1,5 @@
 import { relations } from "drizzle-orm";
-import {
-  pgTable,
-  text,
-  timestamp,
-  boolean,
-  varchar,
-} from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, varchar } from "drizzle-orm/pg-core";
 import { session, account } from "./auth";
 
 export const user = pgTable("user", {
