@@ -35,7 +35,7 @@ const main = defineCommand({
   async run({ args }) {
     try {
       let template = args.template;
-      let name = kebabCase(args.name);
+      let name = kebabCase(args.name || "");
 
       const templates = ["react-spa", "react-astro", "react-next"];
 
