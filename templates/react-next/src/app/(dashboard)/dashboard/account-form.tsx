@@ -51,7 +51,7 @@ export function AccountForm(props: Props) {
       <div>
         <Button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-600 text-white"
+          className="bg-blue-500 text-white hover:bg-blue-600"
           disabled={form.formState.isSubmitting}
         >
           {form.formState.isSubmitting ? (

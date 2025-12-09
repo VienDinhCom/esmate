@@ -2,12 +2,7 @@ import { getAuthOrThrow } from "@/lib/auth";
 import { db, orm, schema } from "@/lib/db";
 import { manageSubscriptionAction } from "@/lib/payments/actions";
 import { Button } from "@esmate/shadcn/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@esmate/shadcn/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Suspense } from "react";
 
 function SubscriptionSkeleton() {
@@ -33,17 +28,15 @@ async function ManageSubscription() {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+          <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
             <div className="mb-4 sm:mb-0">
-              <p className="font-medium">
-                Current Plan: {user?.planName || "Free"}
-              </p>
+              <p className="font-medium">Current Plan: {user?.planName || "Free"}</p>
               <p className="text-sm text-muted-foreground">
                 {user?.subscriptionStatus === "active"
                   ? "Billed monthly"
                   : user?.subscriptionStatus === "trialing"
-                  ? "Trial period"
-                  : "No active subscription"}
+                    ? "Trial period"
+                    : "No active subscription"}
               </p>
             </div>
             <form action={manageSubscriptionAction}>
@@ -61,7 +54,7 @@ async function ManageSubscription() {
 export default function SettingsPage() {
   return (
     <section className="flex-1 p-4 lg:p-8">
-      <h1 className="text-lg lg:text-2xl font-medium mb-6">Subscription</h1>
+      <h1 className="mb-6 text-lg font-medium lg:text-2xl">Subscription</h1>
       <Suspense fallback={<SubscriptionSkeleton />}>
         <ManageSubscription />
       </Suspense>

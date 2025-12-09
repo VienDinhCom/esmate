@@ -17,9 +17,7 @@ export interface PricingPlan {
 
 type CreatePricingPlan = Pick<PricingPlan, "name" | "price" | "description">;
 
-export async function createPricingPlan(
-  pricingPlan: CreatePricingPlan
-): Promise<PricingPlan> {
+export async function createPricingPlan(pricingPlan: CreatePricingPlan): Promise<PricingPlan> {
   const product = await stripe.products.create({
     name: pricingPlan.name,
     description: pricingPlan.description,
