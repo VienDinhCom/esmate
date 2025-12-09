@@ -35,18 +35,19 @@ const main = defineCommand({
   async run({ args }) {
     try {
       let template = args.template;
-      let name = kebabCase(args.name || args.template || "");
+      let name = kebabCase(args.name);
 
       const templates = ["react-spa", "react-astro", "react-next"];
 
-      if (template) {
-        await downloadTemplate(`github:VienDinhCom/esmate/templates/${template}`, { dir: name });
-      } else {
+      if (!template) {
         template = await consola.prompt("Select a template: ", { type: "select", options: templates });
-        name = kebabCase(await consola.prompt("Name your project: ", { type: "text", default: template }));
-
-        await downloadTemplate(`github:VienDinhCom/esmate/templates/${template}`, { dir: name });
       }
+
+      if (!name) {
+        name = kebabCase(await consola.prompt("Name your project: ", { type: "text" }));
+      }
+
+      await downloadTemplate(`github:VienDinhCom/esmate/templates/${template}`, { dir: name });
 
       const packageJsonPath = path.join(name, "package.json");
       const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));

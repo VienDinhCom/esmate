@@ -21,6 +21,7 @@ npx create-esmate
 
 - [**react-spa**](/templates/react-spa) — A React Starter for Single Page Applications Powered by TanStack Router.
 - [**react-astro**](/templates/react-astro) — A React Starter for Full Stack Applications Powered by Astro & TanStack.
+- [**react-next**](/templates/react-next) — A React Starter for Full Stack Applications Powered by Next.js, Drizzle, and Stripe.
 
 ## Why ESMate?
 
