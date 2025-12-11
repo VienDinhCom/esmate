@@ -1,51 +1,86 @@
-# Astro Starter Kit: Blog
+# ESMate React Astro
 
-```sh
-npm create astro@latest -- --template blog
-```
+ESMate React Astro delivers SEO-friendly pages combined with a smooth single-page experience powered by TanStack Router
+and TanStack Query, keeping the project fast while fully interactive. It includes a type-safe API layer using oRPC. The
+stack also uses Postgres with Drizzle, authentication with Better Auth, and a UI built with TailwindCSS, React, and
+ShadCN.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Features
 
-Features:
+- ✅ **SEO-First with Astro**: Static-site generation for optimal SEO and performance.
+- ✅ **React for Interactivity**: Seamless client-side navigation and dynamic components with React.
+- ✅ **TanStack Router & Query**: Robust routing and data-fetching for a smooth SPA experience.
+- ✅ **Typesafe API with oRPC**: End-to-end type safety from backend to frontend.
+- ✅ **Postgres with Drizzle**: Modern, typesafe ORM for PostgreSQL.
+- ✅ **Authentication with Better Auth**: Secure and flexible authentication.
+- ✅ **UI with TailwindCSS & ShadCN**: A beautiful, modern UI with the power of TailwindCSS and ShadCN.
+- ✅ **Code Quality**: Formatting with Prettier and linting with ESLint.
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+## Getting Started
 
-## 🚀 Project Structure
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing
+purposes.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file
-name.
+### Installation
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact
-components.
+1.  **Create a new project:**
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to
-retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See
-[Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+    ```bash
+    npx create-esmate --template react-astro
+    ```
 
-Any static assets, like images, can be placed in the `public/` directory.
+    Change into the new project directory:
 
-## 🧞 Commands
+    ```bash
+    cd [new-project-name]
+    ```
 
-All commands are run from the root of the project, from a terminal:
+2.  **Install dependencies:**
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+    ```bash
+    npm run install
+    ```
 
-## 👀 Want to learn more?
+3.  **Set up environment variables:**
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+    Create a `.env` file by copying the `sample.env` file:
 
-## Credit
+    ```bash
+    cp sample.env .env
+    ```
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+    Update the `.env` file with your credentials for the database, Stripe, and authentication providers.
+
+4.  **Start the database:**
+
+    Use Docker Compose to start a PostgreSQL instance:
+
+    ```bash
+    docker-compose up -d
+    ```
+
+5.  **Run database migrations:**
+
+    Apply the database schema to your PostgreSQL instance:
+
+    ```bash
+    npm run db:migrate
+    ```
+
+6.  **Run the development server:**
+
+    ```bash
+    npm run dev
+    ```
+
+    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Available Scripts
+
+- `npm run dev`: Starts the development server.
+- `npm run build`: Creates a production build of the application.
+- `npm run start`: Starts the production server.
+- `npm run fix`: Fix the codebase with Prettier & ESLint.
+- `npm run check`: Check the codebase using ESLint & Prettier.
+- `npm run db:migrate`: Applies database migrations.
+- `npm run db:studio`: Opens the Drizzle Studio to manage your database.
