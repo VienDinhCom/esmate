@@ -9,7 +9,10 @@
     "build": "esmate task build",
     "start": "esmate task start",
     "fix": "esmate task fix",
-    "check": "esmate task check"
+    "check": "esmate task check",
+    "db:studio": "drizzle-kit studio",
+    "db:migrate": "drizzle-kit migrate",
+    "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.6",
