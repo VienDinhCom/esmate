@@ -1,3 +1,7 @@
+import { Button } from "@esmate/shadcn/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
+import { Input } from "@esmate/shadcn/components/ui/input";
+import { CheckCircle2 } from "@esmate/shadcn/pkgs/lucide-react";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
@@ -16,6 +20,7 @@ function RouteComponent() {
   );
 
   const [todo, setTodo] = useState("");
+
   const { mutate: addTodo } = useMutation(
     rpcQuery.todos.add.mutationOptions({
       onSuccess: () => {
@@ -30,44 +35,51 @@ function RouteComponent() {
   }, [addTodo, todo]);
 
   return (
-    <div
-      className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-100 to-blue-100 p-4 text-white"
-      style={{
-        backgroundImage: "radial-gradient(50% 50% at 50% 50%, #D2149D 0%, #8E1066 50%, #2D0A1F 100%)",
-      }}
-    >
-      <div className="w-full max-w-2xl rounded-xl border-8 border-black/10 bg-black/50 p-8 shadow-xl backdrop-blur-md">
-        <h1 className="mb-4 text-2xl">oRPC Todos list</h1>
-        <ul className="mb-4 space-y-2">
-          {data.map((t) => (
-            <li key={t.id} className="rounded-lg border border-white/20 bg-white/10 p-3 shadow-md backdrop-blur-sm">
-              <span className="text-lg text-white">{t.name}</span>
-            </li>
-          ))}
-        </ul>
-        <div className="flex flex-col gap-2">
-          <input
-            type="text"
-            value={todo}
-            onChange={(e) => setTodo(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                submitTodo();
-              }
-            }}
-            placeholder="Enter a new todo..."
-            className="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-white/60 backdrop-blur-sm focus:border-transparent focus:ring-2 focus:ring-blue-400 focus:outline-none"
-          />
-          <button
-            type="button"
-            disabled={todo.trim().length === 0}
-            onClick={submitTodo}
-            className="rounded-lg bg-blue-500 px-4 py-3 font-bold text-white transition-colors hover:bg-blue-600 disabled:cursor-not-allowed disabled:bg-blue-500/50"
-          >
-            Add todo
-          </button>
-        </div>
-      </div>
+    <div className="flex justify-center py-10">
+      <Card className="w-full max-w-2xl shadow-2xl">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-3xl font-bold tracking-tight">My Todos</CardTitle>
+          <CardDescription className="text-base">Manage your tasks and stay organized</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div className="space-y-3">
+            {data.length === 0 ? (
+              <div className="rounded-lg border-2 border-dashed border-slate-200 p-8 text-center dark:border-slate-800">
+                <CheckCircle2 className="mx-auto mb-2 h-12 w-12 text-slate-300 dark:text-slate-700" />
+                <p className="text-sm text-slate-500 dark:text-slate-400">No todos yet. Add one to get started!</p>
+              </div>
+            ) : (
+              data.map((t) => (
+                <div
+                  key={t.id}
+                  className="group flex items-center gap-3 rounded-lg border bg-card p-4 shadow-sm transition-all hover:shadow-md"
+                >
+                  <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-slate-400 transition-colors group-hover:text-green-500" />
+                  <span className="flex-1 text-base font-medium">{t.name}</span>
+                </div>
+              ))
+            )}
+          </div>
+
+          <div className="flex gap-2">
+            <Input
+              type="text"
+              value={todo}
+              onChange={(e) => setTodo(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && todo.trim().length > 0) {
+                  submitTodo();
+                }
+              }}
+              placeholder="Enter a new todo..."
+              className="flex-1"
+            />
+            <Button type="button" disabled={todo.trim().length === 0} onClick={submitTodo} className="px-6">
+              Add
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

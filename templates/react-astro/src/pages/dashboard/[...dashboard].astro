@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "@frontend/components/layouts/base-layout.astro";
+import MainLayout from "@frontend/components/layouts/main-layout.astro";
 
 import { TanStackSPA } from "@frontend/tanstack";
 
@@ -8,6 +8,6 @@ if (Astro.locals.session === null) {
 }
 ---
 
-<BaseLayout>
+<MainLayout>
   <TanStackSPA client:only="react" />
-</BaseLayout>
+</MainLayout>
