@@ -2,9 +2,9 @@ import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
 
-import { rpcQuery } from "@frontend/shared/utils/rpc";
+import { rpcQuery } from "@frontend/utils/rpc";
 
-export const Route = createFileRoute("/app/")({
+export const Route = createFileRoute("/dashboard/")({
   component: RouteComponent,
 });
 

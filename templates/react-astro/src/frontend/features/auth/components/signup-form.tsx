@@ -7,7 +7,7 @@ import { useZodForm } from "@esmate/shadcn/hooks/use-zod-form";
 import { cn } from "@esmate/shadcn/lib/utils";
 import { z } from "@esmate/shadcn/pkgs/zod";
 
-import { auth } from "@frontend/shared/utils/auth";
+import { auth } from "@frontend/utils/auth";
 
 const FormSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -74,7 +74,7 @@ export function SignUpForm({ className, ...props }: React.ComponentProps<"div">)
             </div>
             <div className="mt-4 text-center text-sm">
               Have an account?{" "}
-              <a href={`/auth/signin?redirect=${redirectURL}`} className="underline underline-offset-4">
+              <a href={`/auth/sign-in?redirect=${redirectURL}`} className="underline underline-offset-4">
                 Sign in
               </a>
             </div>

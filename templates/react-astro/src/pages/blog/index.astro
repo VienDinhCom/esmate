@@ -1,8 +1,5 @@
 ---
-import BaseHead from "@frontend/shared/components/base-head.astro";
-import Footer from "@frontend/shared/components/footer.astro";
-import FormattedDate from "@frontend/shared/components/formatted-date.astro";
-import Header from "@frontend/shared/components/header.astro";
+import BaseHead from "@frontend/components/head.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
@@ -86,7 +83,6 @@ const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueO
     </style>
   </head>
   <body>
-    <Header />
     <main>
       <section>
         <ul>
@@ -96,9 +92,7 @@ const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueO
                 <a href={`/blog/${post.id}/`}>
                   {post.data.heroImage && <Image width={720} height={360} src={post.data.heroImage} alt="" />}
                   <h4 class="title">{post.data.title}</h4>
-                  <p class="date">
-                    <FormattedDate date={post.data.pubDate} />
-                  </p>
+                  <p class="date" />
                 </a>
               </li>
             ))
@@ -106,6 +100,5 @@ const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueO
         </ul>
       </section>
     </main>
-    <Footer />
   </body>
 </html>

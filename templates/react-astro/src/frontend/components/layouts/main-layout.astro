@@ -1,0 +1,12 @@
+---
+import BaseLayout from "@frontend/components/layouts/base-layout.astro";
+
+import Header from "@frontend/components/header.tsx";
+---
+
+<BaseLayout>
+  <main class="flex min-h-screen flex-col">
+    <Header client:load />
+    <slot />
+  </main>
+</BaseLayout>

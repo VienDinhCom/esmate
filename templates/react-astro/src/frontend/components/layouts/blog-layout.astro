@@ -1,15 +1,12 @@
 ---
 import type { CollectionEntry } from "astro:content";
 
-import BaseHead from "@frontend/shared/components/base-head.astro";
-import Footer from "@frontend/shared/components/footer.astro";
-import FormattedDate from "@frontend/shared/components/formatted-date.astro";
-import Header from "@frontend/shared/components/header.astro";
+import BaseHead from "@frontend/components/head.astro";
 import { Image } from "astro:assets";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, heroImage } = Astro.props;
 ---
 
 <html lang="en">
@@ -57,7 +54,6 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
   </head>
 
   <body>
-    <Header />
     <main>
       <article>
         <div class="hero-image">
@@ -65,16 +61,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
         </div>
         <div class="prose">
           <div class="title">
-            <div class="date">
-              <FormattedDate date={pubDate} />
-              {
-                updatedDate && (
-                  <div class="last-updated-on">
-                    Last updated on <FormattedDate date={updatedDate} />
-                  </div>
-                )
-              }
-            </div>
+            <div class="date"></div>
             <h1>{title}</h1>
             <hr />
           </div>
@@ -82,6 +69,5 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
         </div>
       </article>
     </main>
-    <Footer />
   </body>
 </html>

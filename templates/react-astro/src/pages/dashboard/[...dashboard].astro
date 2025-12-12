@@ -1,12 +1,12 @@
 ---
-import BaseLayout from "@frontend/shared/components/layouts/base-layout.astro";
+import BaseLayout from "@frontend/components/layouts/base-layout.astro";
 
 import { TanStackSPA } from "@frontend/tanstack";
 
 export const prerender = false;
 
 if (Astro.locals.session === null) {
-  return Astro.redirect(`/auth/signin?redirect=${Astro.url.pathname}`, 302);
+  return Astro.redirect(`/auth/sign-in?redirect=${Astro.url.pathname}`, 302);
 }
 ---
 

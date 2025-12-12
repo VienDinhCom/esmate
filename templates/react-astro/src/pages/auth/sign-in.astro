@@ -1,9 +1,9 @@
 ---
-import AuthLayout from "@frontend/features/auth/components/auth-layout.astro";
+import AuthLayout from "@frontend/components/layouts/auth-layout.astro";
 
 import { SignInForm } from "@frontend/features/auth/components/signin-form";
 ---
 
 <AuthLayout>
-  <SignInForm client:load />
+  <SignInForm client:only="react" />
 </AuthLayout>
