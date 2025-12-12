@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "homepage": "https://github.com/viendinhcom/esmate",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

@@ -2,6 +2,7 @@
   "name": "esmate-react-rpc",
   "type": "module",
   "private": true,
+  "homepage": "https://github.com/viendinhcom/esmate",
   "scripts": {
     "dev": "esmate task dev",
     "build": "esmate task build",
