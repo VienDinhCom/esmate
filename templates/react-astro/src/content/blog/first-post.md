@@ -1,8 +1,10 @@
 ---
 title: "First post"
-description: "Lorem ipsum dolor sit amet"
+description:
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua."
 pubDate: "Jul 08 2022"
-heroImage: "@assets/images/blog-placeholder-3.jpg"
+heroImage: "@frontend/assets/images/blog-placeholder-3.jpg"
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna

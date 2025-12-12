@@ -1,12 +1,13 @@
 ---
 import BaseLayout from "@frontend/components/layouts/base-layout.astro";
 
-import Header from "@frontend/components/header.tsx";
+import { Header } from "@frontend/components/header.tsx";
+
+const { title, description, image } = Astro.props;
 ---
 
-<BaseLayout>
-  <main class="flex min-h-screen flex-col">
-    <Header client:load />
-    <slot />
-  </main>
-</BaseLayout>
+<BaseLayout title={title} description={description} image={image} />
+<main class="flex min-h-screen flex-col">
+  <Header client:load />
+  <slot />
+</main>

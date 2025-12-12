@@ -1,8 +1,12 @@
 ---
 import type { CollectionEntry } from "astro:content";
 
-import BlogLayout from "@frontend/components/layouts/blog-layout.astro";
+import MainLayout from "@frontend/components/layouts/main-layout.astro";
 import { getCollection, render } from "astro:content";
+
+import { PostSingle } from "@frontend/features/blog/components/post-single";
+
+export const prerender = true;
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -11,12 +15,17 @@ export async function getStaticPaths() {
     props: post,
   }));
 }
+
 type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
 const { Content } = await render(post);
 ---
 
-<BlogLayout {...post.data}>
-  <Content />
-</BlogLayout>
+<MainLayout title={post.data.title} description={post.data.description} image={post.data.heroImage}>
+  <section class="container mx-auto py-6">
+    <PostSingle id={post.id} title={post.data.title} image={post.data.heroImage}>
+      <Content />
+    </PostSingle>
+  </section>
+</MainLayout>
