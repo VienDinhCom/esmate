@@ -66,10 +66,10 @@ function UserMenu() {
   );
 }
 
-export default function Header() {
+export function Header() {
   return (
     <header className="border-b border-gray-200">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto flex items-center justify-between py-4">
         <a href="/" className="flex items-center">
           <CircleIcon className="h-6 w-6 text-blue-500" />
           <span className="ml-2 text-xl font-semibold text-gray-900">ESMate</span>
