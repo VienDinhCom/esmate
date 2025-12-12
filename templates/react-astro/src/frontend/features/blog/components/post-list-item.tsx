@@ -15,7 +15,7 @@ export function PostListItem(props: Props) {
   return (
     <Card key={props.id} className="grid grid-rows-[auto_auto_1fr_auto] overflow-hidden pt-0">
       <div className="aspect-video w-full">
-        <a href={url} className="fade-in transition-opacity duration-200 hover:opacity-70">
+        <a href={url} className="transition-opacity duration-200 fade-in hover:opacity-70">
           <img
             src={props.image?.src || defaultImage.src}
             alt={props.title}
@@ -34,7 +34,7 @@ export function PostListItem(props: Props) {
         <p className="text-muted-foreground">{props.description}</p>
       </CardContent>
       <CardFooter>
-        <a href={url} className="text-foreground flex items-center hover:underline">
+        <a href={url} className="flex items-center text-foreground hover:underline">
           Read more
           <ArrowRight className="ml-2 size-4" />
         </a>

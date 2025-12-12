@@ -2,6 +2,10 @@
 import AuthLayout from "@frontend/components/layouts/auth-layout.astro";
 
 import { SignInForm } from "@frontend/features/auth/components/signin-form";
+
+if (Astro.locals.session !== null) {
+  return Astro.redirect(`/`);
+}
 ---
 
 <AuthLayout>

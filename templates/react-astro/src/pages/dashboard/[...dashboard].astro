@@ -1,15 +1,13 @@
 ---
-import BaseLayout from "@frontend/components/layouts/base-layout.astro";
+import MainLayout from "@frontend/components/layouts/main-layout.astro";
 
 import { TanStackSPA } from "@frontend/tanstack";
-
-export const prerender = false;
 
 if (Astro.locals.session === null) {
   return Astro.redirect(`/auth/sign-in?redirect=${Astro.url.pathname}`, 302);
 }
 ---
 
-<BaseLayout>
+<MainLayout>
   <TanStackSPA client:only="react" />
-</BaseLayout>
+</MainLayout>
