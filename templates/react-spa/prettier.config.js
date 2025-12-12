@@ -4,7 +4,7 @@ import { defineConfig } from "@esmate/prettier";
 export default defineConfig({
   tailwind: {
     tailwindFunctions: ["cn"],
-    tailwindStylesheet: "src/styles.css",
+    tailwindStylesheet: "src/assets/styles/global.css",
   },
-  ignores: ["pnpm-lock.yaml", "package-lock.json", "src/routeTree.gen.ts"],
+  ignores: ["src/routeTree.gen.ts"],
 });
