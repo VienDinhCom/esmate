@@ -1,11 +1,10 @@
 import mdx from "@astrojs/mdx";
+import node from "@astrojs/node";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import { defineConfig, envField } from "astro/config";
-
-import node from "@astrojs/node";
 
 export default defineConfig({
   server: { port: 3000 },
@@ -19,7 +18,7 @@ export default defineConfig({
         autoCodeSplitting: true,
         routesDirectory: "./src/frontend/tanstack/routes",
         generatedRouteTree: "./src/frontend/tanstack/config/router/route-tree.gen.ts",
-      }),
+      }) as any,
     ],
   },
 
@@ -39,6 +38,8 @@ export default defineConfig({
       }),
     },
   },
+
+  output: "server",
 
   adapter: node({
     mode: "standalone",
