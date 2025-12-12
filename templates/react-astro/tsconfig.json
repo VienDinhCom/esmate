@@ -4,7 +4,6 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "paths": {
-      "@assets/*": ["./src/assets/*"],
       "@backend/*": ["./src/backend/*"],
       "@frontend/*": ["./src/frontend/*"],
       "@shared/*": ["./src/shared/*"]
