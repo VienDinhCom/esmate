@@ -49,6 +49,7 @@ export function defineConfig(options: Options, ...configs: Linter.Config[]): Ret
     restConfigs.push(...pluginQuery.configs["flat/recommended"]);
   }
 
+  // Must come last to avoid conflicts with other configs
   if (!options.formatters) {
     restConfigs.push(prettierConfig, {
       rules: { "antfu/consistent-chaining": "off" },
