@@ -371,7 +371,7 @@ importers:
         specifier: ^9.12.0
         version: 9.12.0(react@18.3.1)
       react-hook-form:
-        specifier: ^7.67.0
+        specifier: ^7.68.0
         version: 7.68.0(react@18.3.1)
       react-resizable-panels:
         specifier: ^3.0.6
@@ -3050,6 +3050,7 @@ packages:
 
   eslint-plugin-react-refresh@0.4.25:
     resolution: {integrity: sha512-dRUD2LOdEqI4zXHqbQ442blQAzdSuShAaiSq5Vtyy6LT08YUf0oOjBDo4VPx0dCPgiPWh1WB4dtbLOd0kOlDPQ==}
+    deprecated: This version introduced false positive. This was reverted in 0.4.26
     peerDependencies:
       eslint: '>=8.40'
 
