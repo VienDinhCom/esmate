@@ -11,7 +11,9 @@ const commands = {
     spawnSync(command, { shell: true, stdio: "inherit", env: process.env });
   },
   export: async () => {
-    const { dependencies } = JSON.parse(fs.readFileSync("package.json", "utf-8"));
+    const { dependencies } = JSON.parse(
+      fs.readFileSync("package.json", "utf-8")
+    );
 
     for (const [name] of Object.entries(dependencies)) {
       const filename = name.replace("@", "");
@@ -24,7 +26,7 @@ const commands = {
         .then((mod) => {
           content += `export * from "${name}";\n`;
 
-          if (mod.default) {
+          if (mod.default && name !== "lucide-react") {
             content += `export { default } from "${name}";\n`;
           }
         })
