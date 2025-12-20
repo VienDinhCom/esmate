@@ -38,7 +38,6 @@
   "scripts": {
     "build": "tsx export.ts && rslib build",
     "dev": "rslib build --watch",
-    "start": "astro preview",
     "fix": "prettier --write . && eslint --fix .",
     "check": "tsc && prettier --check . && eslint ."
   },
