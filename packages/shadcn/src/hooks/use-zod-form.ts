@@ -13,7 +13,7 @@ export function useZodForm<TSchema extends ZodType<any, any>>(
 
   return useForm({
     ...formProps,
-    resolver: zodResolver(schema) as any,
+    resolver: zodResolver(schema as any),
   });
 }
 
