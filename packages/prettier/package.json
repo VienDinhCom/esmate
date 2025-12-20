@@ -39,14 +39,16 @@
     "globby": "^14.1.0",
     "make-synchronized": "^0.7.2",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-svelte": "^3.4.0",
-    "prettier-plugin-tailwindcss": "^0.6.11"
+    "prettier-plugin-svelte": "^3.4.1",
+    "prettier-plugin-tailwindcss": "^0.6.14"
   },
   "devDependencies": {
+    "@esmate/eslint": "^1.2.2",
+    "@esmate/prettier": "^1.0.6",
     "@rslib/core": "^0.7.1",
-    "@types/node": "^22.8.1",
-    "eslint": "^9.27.0",
-    "prettier": "^3.5.3",
-    "typescript": "^5.8.3"
+    "@types/node": "^22.19.3",
+    "eslint": "^9.39.2",
+    "prettier": "^3.7.4",
+    "typescript": "^5.9.3"
   }
 }
