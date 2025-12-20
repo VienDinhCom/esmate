@@ -50,5 +50,6 @@ const commands = {
   await commands.export();
   commands.exec("npx tsc --noEmit");
 
+  // eslint-disable-next-line no-console
   console.log("Shadcn package has been successfully built and exported.\n");
 })();
