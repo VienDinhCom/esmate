@@ -4,7 +4,8 @@
 
 ### useImmutableState
 
-React state hook that uses [immer](https://github.com/immerjs/immer) to create a new state object.
+React state hook that uses [immer](https://github.com/immerjs/immer) to create the next immutable state by mutating the
+current one.
 
 ```tsx
 import { useImmutableState } from "@esmate/react";
