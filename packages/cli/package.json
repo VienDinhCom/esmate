@@ -36,18 +36,17 @@
     "citty": "^0.1.6",
     "concurrently": "^9.2.1",
     "consola": "^3.4.2",
-    "dotenv": "^17.2.2",
-    "es-toolkit": "^1.39.10",
-    "find-up": "^7.0.0",
-    "nypm": "^0.6.2"
+    "dotenv": "^17.2.3",
+    "es-toolkit": "^1.43.0",
+    "find-up": "^7.0.0"
   },
   "devDependencies": {
-    "@esmate/eslint": "workspace:*",
-    "@esmate/prettier": "workspace:*",
+    "@esmate/eslint": "^1.2.2",
+    "@esmate/prettier": "^1.0.6",
     "@rslib/core": "^0.7.1",
-    "@types/node": "^22.18.6",
-    "tsx": "^4.20.6",
+    "@types/node": "^22.19.3",
+    "tsx": "^4.21.0",
     "type-fest": "^4.41.0",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   }
 }

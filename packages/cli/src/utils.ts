@@ -13,7 +13,9 @@ export function execSingly(command: string | string[]): void {
   spawnSync(cmd, { shell: true, stdio: "inherit", env });
 }
 
-export async function execParallelly(commands: Record<string, string | string[]>): Promise<void> {
+export async function execParallelly(
+  commands: Record<string, string | string[]>
+): Promise<void> {
   const concurrentCommands: ConcurrentlyCommandInput[] = [];
 
   for (const [name, command] of Object.entries(commands)) {
@@ -26,7 +28,7 @@ export async function execParallelly(commands: Record<string, string | string[]>
   await concurrently(concurrentCommands, {
     handleInput: true,
     prefixColors: "auto",
-    killOthers: "failure",
+    killOthersOn: "failure",
   })
     .result.then(() => {})
     .catch(() => {});
