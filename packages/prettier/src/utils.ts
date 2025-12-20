@@ -1,8 +1,9 @@
 import type { Config } from "prettier";
-import path from "node:path";
-import makeSynchronized from "make-synchronized";
-import { resolveConfig, resolveConfigFile } from "prettier";
+
 import { findUpSync } from "find-up";
+import makeSynchronized from "make-synchronized";
+import path from "node:path";
+import { resolveConfig, resolveConfigFile } from "prettier";
 
 export default makeSynchronized(import.meta, async (defaultConfig: Config = {}): Promise<Config> => {
   const configFile = await resolveConfigFile();
@@ -22,7 +23,7 @@ export function importPlugin(plugin: string): string {
   return path.join(__dirname, "plugins", `${plugin}.js`);
 }
 
-export function findRootDir() {
+export function findRootDir(): string {
   const pkgPath = findUpSync("package.json");
 
   if (pkgPath) {

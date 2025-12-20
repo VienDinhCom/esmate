@@ -1,10 +1,12 @@
-import path from "node:path";
-import { globbySync } from "globby";
-import { findUpSync } from "find-up";
 import type { Config } from "prettier";
+
+import { globbySync } from "globby";
+import path from "node:path";
+
 import type { AstroOptions } from "./plugins/astro";
 import type { SvelteOptions } from "./plugins/svelte";
 import type { TailwindOptions } from "./plugins/tailwind";
+
 import { findRootDir, importPlugin } from "./utils";
 
 interface Options {
