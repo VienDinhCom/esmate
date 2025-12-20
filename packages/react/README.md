@@ -7,30 +7,35 @@
 React state hook that uses [immer](https://github.com/immerjs/immer) to create a new state object.
 
 ```tsx
-import { useImmutableState } from "@esmate/react/hooks/use-immutable-state";
+import { useImmutableState } from "@esmate/react";
 
-interface Person {
+interface State {
   name: string;
   age: number;
 }
 
 export function Counter() {
-  const [person, setPerson] = useImmutableState<Person>({
+  const [state, setState] = useImmutableState<State>({
     name: "John",
     age: 30,
   });
 
   return (
-    <button
-      onClick={() =>
-        setPerson((draft) => {
-          draft.age += 1;
-        })
-      }
-      type="button"
-    >
-      Change Age
-    </button>
+    <div>
+      <p>
+        Name: {state.name}, Age: {state.age}
+      </p>
+      <button
+        onClick={() =>
+          setState((draft) => {
+            draft.age += 1;
+          })
+        }
+        type="button"
+      >
+        Change Age
+      </button>
+    </div>
   );
 }
 ```
@@ -40,7 +45,7 @@ export function Counter() {
 React sensor hook that tracks browser's location search param.
 
 ```tsx
-import { useSearchParams } from "@esmate/react/hooks/use-search-params";
+import { useSearchParams } from "@esmate/react";
 
 export function Search() {
   const searchParams = useSearchParams();
