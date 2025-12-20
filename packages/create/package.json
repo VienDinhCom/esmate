@@ -35,19 +35,19 @@
   "dependencies": {
     "citty": "^0.1.6",
     "consola": "^3.4.2",
-    "es-toolkit": "^1.35.0",
+    "es-toolkit": "^1.43.0",
     "giget": "^2.0.0"
   },
   "devDependencies": {
-    "@esmate/eslint": "workspace:*",
-    "@esmate/prettier": "workspace:*",
+    "@esmate/eslint": "^1.2.2",
+    "@esmate/prettier": "^1.0.6",
     "@rslib/core": "^0.7.1",
-    "@types/node": "^22.8.1",
-    "eslint": "^9.27.0",
-    "esmate": "^1.0.10",
-    "prettier": "^3.5.3",
-    "tsx": "^4.19.4",
+    "@types/node": "^22.19.3",
+    "eslint": "^9.39.2",
+    "esmate": "^1.0.11",
+    "prettier": "^3.7.4",
+    "tsx": "^4.21.0",
     "type-fest": "^4.41.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.3"
   }
 }
