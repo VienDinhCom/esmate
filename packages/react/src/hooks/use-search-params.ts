@@ -10,7 +10,7 @@ function getValueFromLocation(): URLSearchParams {
   return new URLSearchParams("?");
 }
 
-export function useSearchParam(): URLSearchParams {
+export function useSearchParams(): URLSearchParams {
   const [value, setValue] = useState<URLSearchParams>(() => getValueFromLocation());
 
   useEffect(() => {
