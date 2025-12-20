@@ -16,6 +16,7 @@ const commands = {
     for (const [name] of Object.entries(dependencies)) {
       const filename = name.replace("@", "");
 
+      // eslint-disable-next-line no-console
       console.log(`Exporting ${name} to src/pkgs/${filename}.ts`);
 
       let content = "";
@@ -49,5 +50,6 @@ const commands = {
   await commands.export();
   commands.exec("npx tsc --noEmit");
 
+  // eslint-disable-next-line no-console
   console.log("Shadcn package has been successfully built and exported.\n");
 })();

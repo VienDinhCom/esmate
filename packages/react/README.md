@@ -2,17 +2,50 @@
 
 ## React Hooks
 
-### useSearchParam
+### useImmutableState
+
+React state hook that uses [immer](https://github.com/immerjs/immer) to create a new state object.
+
+```tsx
+import { useImmutableState } from "@esmate/react/hooks/use-immutable-state";
+
+interface Person {
+  name: string;
+  age: number;
+}
+
+export function Counter() {
+  const [person, setPerson] = useImmutableState<Person>({
+    name: "John",
+    age: 30,
+  });
+
+  return (
+    <button
+      onClick={() =>
+        setPerson((draft) => {
+          draft.age += 1;
+        })
+      }
+      type="button"
+    >
+      Change Age
+    </button>
+  );
+}
+```
+
+### useSearchParams
 
 React sensor hook that tracks browser's location search param.
 
 ```tsx
-import { useSearchParam } from "@esmate/react/hooks/use-search-param";
+import { useSearchParams } from "@esmate/react/hooks/use-search-params";
 
 export function Search() {
-  const searchParam = useSearchParam();
+  const searchParams = useSearchParams();
 
-  return <div>{searchParam.get("q")}</div>;
+  return <div>{searchParams.get("q")}</div>;
 }
 ```
 

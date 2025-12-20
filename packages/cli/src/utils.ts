@@ -26,7 +26,7 @@ export async function execParallelly(commands: Record<string, string | string[]>
   await concurrently(concurrentCommands, {
     handleInput: true,
     prefixColors: "auto",
-    killOthers: "failure",
+    killOthersOn: "failure",
   })
     .result.then(() => {})
     .catch(() => {});

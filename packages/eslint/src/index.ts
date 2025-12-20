@@ -1,5 +1,6 @@
 import type { OptionsConfig, TypedFlatConfigItem } from "@antfu/eslint-config";
 import type { Linter } from "eslint";
+
 import antfu from "@antfu/eslint-config";
 import pluginQuery from "@tanstack/eslint-plugin-query";
 import pluginRouter from "@tanstack/eslint-plugin-router";
