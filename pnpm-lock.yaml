@@ -459,14 +459,14 @@ importers:
         specifier: ^4.0.1
         version: 4.0.1
       typopo:
-        specifier: ^2.7.1
+        specifier: ^2.8.0
         version: 2.8.0
     devDependencies:
       '@esmate/eslint':
-        specifier: ^1.1.2
-        version: 1.2.1(eslint@9.39.2(jiti@2.6.1))(prettier-plugin-astro@0.14.1)(svelte@5.46.0)(typescript@5.9.3)
+        specifier: ^1.2.2
+        version: 1.2.2(eslint@9.39.2(jiti@2.6.1))(prettier-plugin-astro@0.14.1)(svelte@5.46.0)(typescript@5.9.3)
       '@esmate/prettier':
-        specifier: ^1.0.5
+        specifier: ^1.0.6
         version: 1.0.6(prettier@3.7.4)(svelte@5.46.0)
       '@rslib/core':
         specifier: ^0.7.1
@@ -475,25 +475,25 @@ importers:
         specifier: ^11.0.4
         version: 11.0.4
       '@types/node':
-        specifier: ^22.18.7
+        specifier: ^22.19.3
         version: 22.19.3
       '@types/react':
-        specifier: ^18.3.24
+        specifier: ^18.3.27
         version: 18.3.27
       '@types/react-dom':
         specifier: ^18.3.7
         version: 18.3.7(@types/react@18.3.27)
       eslint:
-        specifier: ^9.36.0
+        specifier: ^9.39.2
         version: 9.39.2(jiti@2.6.1)
       fs-extra:
-        specifier: ^11.3.2
-        version: 11.3.2
+        specifier: ^11.3.3
+        version: 11.3.3
       globby:
         specifier: ^14.1.0
         version: 14.1.0
       prettier:
-        specifier: ^3.6.2
+        specifier: ^3.7.4
         version: 3.7.4
       react:
         specifier: ^18.3.1
@@ -502,10 +502,10 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
       tsx:
-        specifier: ^4.20.6
+        specifier: ^4.21.0
         version: 4.21.0
       typescript:
-        specifier: ^5.9.2
+        specifier: ^5.9.3
         version: 5.9.3
 
 packages:
@@ -3377,6 +3377,10 @@ packages:
 
   fs-extra@11.3.2:
     resolution: {integrity: sha512-Xr9F6z6up6Ws+NjzMCZc6WXg2YFRlrLP9NQDO3VQrWrfiojdhS56TzueT88ze0uBdCTwEIhQ3ptnmKeWGFAe0A==}
+    engines: {node: '>=14.14'}
+
+  fs-extra@11.3.3:
+    resolution: {integrity: sha512-VWSRii4t0AFm6ixFFmLLx1t7wS1gh+ckoa84aOeapGum0h+EZd1EhEumSB+ZdDLnEPuucsVB9oB7cxJHap6Afg==}
     engines: {node: '>=14.14'}
 
   fs-extra@7.0.1:
@@ -8788,6 +8792,12 @@ snapshots:
   fresh@2.0.0: {}
 
   fs-extra@11.3.2:
+    dependencies:
+      graceful-fs: 4.2.11
+      jsonfile: 6.2.0
+      universalify: 2.0.1
+
+  fs-extra@11.3.3:
     dependencies:
       graceful-fs: 4.2.11
       jsonfile: 6.2.0
