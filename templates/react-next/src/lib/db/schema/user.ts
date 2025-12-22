@@ -13,7 +13,7 @@ export const user = pgTable("user", {
     .defaultNow()
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
-  stripeCustomerId: text("stripe_customer_id"),
+  stripeCustomerId: text("stripe_customer_id").notNull(),
 });
 
 export const userRelations = relations(user, ({ many }) => ({
