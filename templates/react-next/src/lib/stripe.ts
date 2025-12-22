@@ -1,8 +1,6 @@
 import Stripe from "stripe";
 import { env } from "@/lib/env";
 import { stripe as betterAuthStripe, StripePlan } from "@better-auth/stripe";
-import { auth } from "./auth";
-import { headers } from "next/headers";
 
 export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
   apiVersion: "2025-12-15.clover",
@@ -12,17 +10,6 @@ export interface Plan extends StripePlan {
   name: "base" | "plus";
   description: string;
   price: number;
-}
-
-export async function upgradeSubscription(plan: Plan["name"]) {
-  await auth.api.upgradeSubscription({ body: { plan }, headers: await headers() });
-}
-
-export async function manageSubscription(returnUrl: string) {
-  await auth.api.createBillingPortal({
-    body: { returnUrl, locale: "en" },
-    headers: await headers(),
-  });
 }
 
 export async function getPlanOrCreate(plan: Plan): Promise<Plan> {

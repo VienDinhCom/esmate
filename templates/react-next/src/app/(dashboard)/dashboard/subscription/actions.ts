@@ -1,7 +1,11 @@
 "use server";
 
-import { manageSubscription } from "@/lib/stripe";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 export async function manageSubscriptionAction() {
-  await manageSubscription("/dashboard");
+  await auth.api.createBillingPortal({
+    body: { returnUrl: "/dashboard", locale: "en" },
+    headers: await headers(),
+  });
 }
