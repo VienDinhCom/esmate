@@ -77,6 +77,7 @@ export const plans = {
     }),
 };
 
+// https://www.better-auth.com/docs/plugins/stripe
 export const stripePlugin = betterAuthStripe({
   stripeClient: stripe,
   createCustomerOnSignUp: true,
