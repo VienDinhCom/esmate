@@ -14,8 +14,9 @@ npx create-esmate
 - [**create-esmate**](/packages/create) — Scaffolding tool to quickly create applications and libraries with ESMate.
 - [**@esmate/eslint**](/packages/eslint) — ESLint configuration for humans.
 - [**@esmate/prettier**](/packages/prettier) — Prettier configuration for humans.
+- [**@esmate/utils**](/packages/utils) — Utils, functions, and classes in one package.
 - [**@esmate/react**](/packages/react) — React components, hooks, and styles in one package.
-- [**@esmate/shadcn**](/packages/shadcn) — Shadcn components, hooks, and styles in one package.
+- [**@esmate/shadcn**](/packages/shadcn) — ShadCN components, hooks, and styles in one package.
 
 ## Templates
 
