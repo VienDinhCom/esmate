@@ -18,6 +18,7 @@ export async function upgradeSubscriptionAction(formData: FormData) {
     body: {
       plan: planName,
       cancelUrl: `${env.BASE_URL}/pricing`,
+      returnUrl: `${env.BASE_URL}/dashboard`,
       successUrl: `${env.BASE_URL}/dashboard/subscription`,
     },
     headers: await headers(),
