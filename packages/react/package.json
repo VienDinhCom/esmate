@@ -1,7 +1,7 @@
 {
   "name": "@esmate/react",
   "type": "module",
-  "version": "2.0.3",
+  "version": "3.0.0",
   "description": "React components, hooks, and styles in one package.",
   "license": "MIT",
   "repository": {
@@ -19,13 +19,9 @@
     "typescript"
   ],
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    },
-    "./hooks/*": {
-      "types": "./dist/hooks/*.d.ts",
-      "import": "./dist/hooks/*.js"
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
     },
     "./pkgs/*": {
       "types": "./dist/pkgs/*.d.ts",
