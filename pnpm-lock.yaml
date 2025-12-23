@@ -467,9 +467,6 @@ importers:
       mathjs:
         specifier: ^15.1.0
         version: 15.1.0
-      tiny-invariant:
-        specifier: ^1.3.3
-        version: 1.3.3
       title:
         specifier: ^4.0.1
         version: 4.0.1
