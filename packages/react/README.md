@@ -1,14 +1,35 @@
 # @esmate/react
 
-## React Hooks
+A collection of React components, hooks combining the power of Alibaba's ahooks library with custom ESMate utilities for
+modern React development.
 
-### useImmutableState
+## Alibaba Hooks
 
-React state hook that uses [immer](https://github.com/immerjs/immer) to create the next immutable state by mutating the
-current one.
+Import hooks from the popular [ahooks](https://ahooks.js.org/hooks/) library through a convenient subpath:
 
 ```tsx
-import { useImmutableState } from "@esmate/react";
+import { usePagination, useRequest } from "@esmate/react/ahooks";
+```
+
+📚 **Documentation**: [ahooks reference](https://ahooks.js.org/hooks/)
+
+## ESMate Hooks
+
+Custom hooks developed by [ESMate](https://github.com/viendinhcom/esmate) for common React patterns:
+
+```tsx
+import { useImmutableState, useSearchParams } from "@esmate/react/hooks";
+```
+
+📚 **Documentation**: [View source](https://github.com/VienDinhCom/esmate/tree/main/packages/react/src/hooks)
+
+### `useImmutableState()`
+
+A state management hook powered by [immer](https://github.com/immerjs/immer) that enables immutable state updates
+through a mutable API. Write simpler, more intuitive state updates without manually spreading objects.
+
+```tsx
+import { useImmutableState } from "@esmate/react/hooks";
 
 interface State {
   name: string;
@@ -41,22 +62,18 @@ export function Counter() {
 }
 ```
 
-### useSearchParams
+### `useSearchParams()`
 
-React sensor hook that tracks browser's location search param.
+A sensor hook that reactively tracks URL search parameters, automatically updating when the browser's location changes.
 
 ```tsx
-import { useSearchParams } from "@esmate/react";
+import { useSearchParams } from "@esmate/react/hooks";
 
 export function Search() {
   const searchParams = useSearchParams();
-
   return <div>{searchParams.get("q")}</div>;
 }
 ```
 
-#### Caveats/Gotchas
-
-When using a hash router, like `react-router`'s
-[`<HashRouter>`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/HashRouter.md),
-this hook won't be able to read the search parameters as they are considered part of the hash of the URL by browsers.
+**Note:** This hook is incompatible with hash-based routing (such as react-router's `<HashRouter>`). Since search
+parameters in hash routes are treated as part of the URL hash by browsers, they cannot be accessed through this hook.
