@@ -1,7 +1,7 @@
 {
   "name": "@esmate/utils",
   "type": "module",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "JavaScript/TypeScript utils, functions, and classes in one package.",
   "license": "MIT",
   "repository": {
@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@types/typopo": "^2.5.4",
+    "es-toolkit": "^1.43.0",
     "iso-3166-1": "^2.1.1",
     "iso-639-1": "^3.1.5",
     "tiny-invariant": "^1.3.3",
