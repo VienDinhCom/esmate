@@ -20,14 +20,14 @@ export default async function PricingPage() {
         <PricingCard
           name={basePlan.name.toUpperCase()}
           price={basePlan.price}
-          trialDays={basePlan.freeTrial?.days}
+          trialDays={basePlan.freeTrial.days}
           features={["Unlimited Usage", "Unlimited Workspace Members", "Email Support"]}
           interval="month"
         />
         <PricingCard
           name={plusPlan.name.toUpperCase()}
           price={plusPlan.price}
-          trialDays={plusPlan.freeTrial?.days}
+          trialDays={plusPlan.freeTrial.days}
           features={["Everything in Base, and:", "Early Access to New Features", "24/7 Support + Slack Access"]}
           interval="month"
         />
