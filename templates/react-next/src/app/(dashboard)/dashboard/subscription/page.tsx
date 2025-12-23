@@ -22,7 +22,7 @@ async function ManageSubscription() {
     where: orm.eq(schema.user.id, auth.id),
   });
 
-  invariant(user, "user must exist");
+  invariant(user?.stripeCustomerId, "user must have a stripe customer id");
 
   const subscription = await db.query.subscription.findFirst({
     where: orm.eq(schema.subscription.stripeCustomerId, user.stripeCustomerId),
@@ -47,6 +47,7 @@ async function ManageSubscription() {
               </p>
             </div>
             <form action={manageSubscriptionAction}>
+              <input type="hidden" name="subscriptionId" value={subscription?.id} />
               <Button type="submit" variant="outline">
                 Manage Subscription
               </Button>
