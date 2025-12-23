@@ -1,5 +1,6 @@
 import type { Configuration, Locale } from "typopo";
 
+import { capitalize } from "es-toolkit/string";
 import title from "title";
 import typopo from "typopo";
 
@@ -9,8 +10,22 @@ import typopo from "typopo";
  * @param options The options to use.
  * @returns The formatted string.
  */
-export function formatTitle(str: string, options?: { special?: string[] }): string {
-  return title(str, options);
+export function titleize(str: string, options?: { locale?: "en"; special?: string[] }): string {
+  str = str.replace(/\s+/g, " ");
+
+  if (options?.locale === "en") {
+    return title(str, options);
+  }
+
+  return str
+    .split(" ")
+    .map((word) => {
+      const specialWords = options?.special?.map((special) => special.toLowerCase());
+      const isSpecial = Boolean(specialWords?.includes(word.toLowerCase()));
+
+      return isSpecial ? word : capitalize(word);
+    })
+    .join(" ");
 }
 
 /**
