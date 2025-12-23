@@ -1,7 +1,6 @@
 import { relations } from "drizzle-orm";
 import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
 import { session, account } from "./auth";
-import { stripe } from "./stripe";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -12,15 +11,12 @@ export const user = pgTable("user", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .defaultNow()
-    .$onUpdate(() => new Date())
+    .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
+  stripeCustomerId: text("stripe_customer_id"),
 });
 
-export const userRelations = relations(user, ({ one, many }) => ({
+export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
-  stripe: one(stripe, {
-    fields: [user.id],
-    references: [stripe.id],
-  }),
 }));

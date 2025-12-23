@@ -3,6 +3,7 @@ import { betterAuth } from "better-auth";
 import { redirect } from "next/navigation";
 import { nextCookies } from "better-auth/next-js";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { stripePlugin } from "./stripe";
 import { db } from "@/lib/db";
 
 // https://www.better-auth.com/docs/integrations/next
@@ -16,12 +17,15 @@ export const auth = betterAuth({
   rateLimit: {
     enabled: true,
   },
-  plugins: [nextCookies()], // make sure nextCookies() is the last plugin in the array
   user: {
     deleteUser: {
       enabled: true,
     },
   },
+  plugins: [
+    stripePlugin,
+    nextCookies(), // make sure nextCookies() is the last plugin in the array
+  ],
 });
 
 interface Auth {
@@ -50,10 +54,12 @@ export async function getAuthOrThrow(): Promise<Auth> {
   return auth;
 }
 
-export async function getAuthOrRedirect(redirectUrl?: string): Promise<Auth> {
+export async function getAuthOrSignIn(redirectUrl?: string): Promise<Auth> {
   const auth = await getAuth();
 
-  if (!auth) redirect(redirectUrl || "/auth/sign-in");
+  if (!auth) {
+    redirect(redirectUrl ? `/auth/sign-in?redirect=${redirectUrl}` : `/auth/sign-in`);
+  }
 
   return auth;
 }

@@ -1,9 +1,10 @@
 import { getAuthOrThrow } from "@/lib/auth";
 import { db, orm, schema } from "@/lib/db";
-import { manageSubscriptionAction } from "@/lib/stripe";
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Suspense } from "react";
+import invariant from "tiny-invariant";
+import { manageSubscriptionAction } from "./actions";
 
 function SubscriptionSkeleton() {
   return (
@@ -19,9 +20,12 @@ async function ManageSubscription() {
   const auth = await getAuthOrThrow();
   const user = await db.query.user.findFirst({
     where: orm.eq(schema.user.id, auth.id),
-    with: {
-      stripe: true,
-    },
+  });
+
+  invariant(user?.stripeCustomerId, "user must have a stripe customer id");
+
+  const subscription = await db.query.subscription.findFirst({
+    where: orm.eq(schema.subscription.stripeCustomerId, user.stripeCustomerId),
   });
 
   return (
@@ -33,16 +37,17 @@ async function ManageSubscription() {
         <div className="space-y-4">
           <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
             <div className="mb-4 sm:mb-0">
-              <p className="font-medium">Current Plan: {user?.stripe?.planName || "Free"}</p>
+              <p className="font-medium">Current Plan: {subscription ? subscription.plan.toUpperCase() : "FREE"}</p>
               <p className="text-sm text-muted-foreground">
-                {user?.stripe?.subscriptionStatus === "active"
+                {subscription?.status === "active"
                   ? "Billed monthly"
-                  : user?.stripe?.subscriptionStatus === "trialing"
+                  : subscription?.status === "trialing"
                     ? "Trial period"
                     : "No active subscription"}
               </p>
             </div>
             <form action={manageSubscriptionAction}>
+              <input type="hidden" name="subscriptionId" value={subscription?.id} />
               <Button type="submit" variant="outline">
                 Manage Subscription
               </Button>
