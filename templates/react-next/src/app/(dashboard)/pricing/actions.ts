@@ -5,7 +5,7 @@ import { env } from "@/lib/env";
 import { Plan } from "@/lib/stripe";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import invariant from "tiny-invariant";
+import { invariant } from "@esmate/utils";
 
 export async function upgradeSubscriptionAction(formData: FormData) {
   await getAuthOrSignIn("/pricing");

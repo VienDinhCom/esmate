@@ -3,7 +3,7 @@ import { db, orm, schema } from "@/lib/db";
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Suspense } from "react";
-import invariant from "tiny-invariant";
+import { invariant } from "@esmate/utils";
 import { manageSubscriptionAction } from "./actions";
 
 function SubscriptionSkeleton() {

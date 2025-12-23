@@ -1,7 +1,7 @@
 import { Check } from "@esmate/shadcn/pkgs/lucide-react";
 import { SubmitButton } from "./submit-button";
 import { plans } from "@/lib/stripe";
-import invariant from "tiny-invariant";
+import { invariant } from "@esmate/utils";
 import { upgradeSubscriptionAction } from "./actions";
 
 // Prices are fresh for one hour max
