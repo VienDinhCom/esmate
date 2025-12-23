@@ -12,10 +12,8 @@ export interface Plan extends StripePlan {
   price: number;
 }
 
-export async function getPlanOrCreate(plan: Plan): Promise<Plan> {
+async function getPlanOrCreate(plan: Plan): Promise<Plan> {
   let priceId: string;
-
-  console.log("getPlanOrCreate", plan.name);
 
   const prices = await stripe.prices.list({
     active: true,
@@ -58,23 +56,26 @@ export async function getPlanOrCreate(plan: Plan): Promise<Plan> {
   };
 }
 
-export const basePlan = await getPlanOrCreate({
-  name: "base",
-  price: 8,
-  description: "Basic plan for personal use",
-  freeTrial: {
-    days: 7,
-  },
-});
-
-export const plusPlan = await getPlanOrCreate({
-  name: "plus",
-  price: 12,
-  description: "Advanced plan for business use",
-  freeTrial: {
-    days: 7,
-  },
-});
+export const plans = {
+  base: () =>
+    getPlanOrCreate({
+      name: "base",
+      price: 8,
+      description: "Basic plan for personal use",
+      freeTrial: {
+        days: 7,
+      },
+    }),
+  plus: () =>
+    getPlanOrCreate({
+      name: "plus",
+      price: 12,
+      description: "Advanced plan for business use",
+      freeTrial: {
+        days: 7,
+      },
+    }),
+};
 
 export const stripePlugin = betterAuthStripe({
   stripeClient: stripe,
@@ -82,6 +83,6 @@ export const stripePlugin = betterAuthStripe({
   stripeWebhookSecret: env.STRIPE_WEBHOOK_SECRET,
   subscription: {
     enabled: true,
-    plans: [basePlan, plusPlan],
+    plans: async () => [await plans.base(), await plans.plus()],
   },
 });

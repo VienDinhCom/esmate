@@ -1,6 +1,6 @@
 import { Check } from "@esmate/shadcn/pkgs/lucide-react";
 import { SubmitButton } from "./submit-button";
-import { basePlan, plusPlan } from "@/lib/stripe";
+import { plans } from "@/lib/stripe";
 import invariant from "tiny-invariant";
 import { upgradeSubscriptionAction } from "./actions";
 
@@ -8,6 +8,9 @@ import { upgradeSubscriptionAction } from "./actions";
 export const revalidate = 3600;
 
 export default async function PricingPage() {
+  const basePlan = await plans.base();
+  const plusPlan = await plans.plus();
+
   invariant(basePlan.freeTrial?.days, "base plan must have a free trial");
   invariant(plusPlan.freeTrial?.days, "plus plan must have a free trial");
 
@@ -15,14 +18,14 @@ export default async function PricingPage() {
     <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto grid max-w-xl gap-8 md:grid-cols-2">
         <PricingCard
-          name={basePlan.name}
+          name={basePlan.name.toUpperCase()}
           price={basePlan.price}
           trialDays={basePlan.freeTrial?.days}
           features={["Unlimited Usage", "Unlimited Workspace Members", "Email Support"]}
           interval="month"
         />
         <PricingCard
-          name={plusPlan.name}
+          name={plusPlan.name.toUpperCase()}
           price={plusPlan.price}
           trialDays={plusPlan.freeTrial?.days}
           features={["Everything in Base, and:", "Early Access to New Features", "24/7 Support + Slack Access"]}
