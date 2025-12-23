@@ -17,14 +17,11 @@ export function titleize(str: string, options?: { locale?: "en"; special?: strin
     return title(str, options);
   }
 
+  const specialWordsLower = options?.special?.map((s) => s.toLocaleLowerCase());
+
   return str
     .split(" ")
-    .map((word) => {
-      const specialWords = options?.special?.map((special) => special.toLowerCase());
-      const isSpecial = Boolean(specialWords?.includes(word.toLowerCase()));
-
-      return isSpecial ? word : capitalize(word);
-    })
+    .map((word) => (specialWordsLower?.includes(word.toLocaleLowerCase()) ? word : capitalize(word)))
     .join(" ");
 }
 
