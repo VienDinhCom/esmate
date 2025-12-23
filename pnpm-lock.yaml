@@ -127,6 +127,9 @@ importers:
       '@unocss/eslint-plugin':
         specifier: ^66.5.10
         version: 66.5.10(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+      '@vue/compiler-sfc':
+        specifier: ^3.5.26
+        version: 3.5.26
       astro-eslint-parser:
         specifier: ^1.2.2
         version: 1.2.2
@@ -452,6 +455,9 @@ importers:
       '@types/typopo':
         specifier: ^2.5.4
         version: 2.5.4
+      es-toolkit:
+        specifier: ^1.43.0
+        version: 1.43.0
       iso-3166-1:
         specifier: ^2.1.1
         version: 2.1.1
