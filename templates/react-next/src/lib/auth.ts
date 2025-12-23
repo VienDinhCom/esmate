@@ -54,7 +54,7 @@ export async function getAuthOrThrow(): Promise<Auth> {
   return auth;
 }
 
-export async function getAuthOrRedirect(redirectUrl?: string): Promise<Auth> {
+export async function getAuthOrSignIn(redirectUrl?: string): Promise<Auth> {
   const auth = await getAuth();
 
   if (!auth) redirect(`/auth/sign-in?redirect=${redirectUrl}`);
