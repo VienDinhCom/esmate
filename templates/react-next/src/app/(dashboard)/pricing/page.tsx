@@ -62,7 +62,7 @@ function PricingCard({
         ))}
       </ul>
       <form action={upgradeSubscriptionAction}>
-        <input type="hidden" name="plan" value={name} />
+        <input type="hidden" name="planName" value={name} />
         <SubmitButton />
       </form>
     </div>
