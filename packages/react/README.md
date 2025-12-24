@@ -18,18 +18,18 @@ import { usePagination, useRequest } from "@esmate/react/ahooks";
 Custom hooks developed by [ESMate](https://github.com/viendinhcom/esmate) for common React patterns:
 
 ```tsx
-import { useImmutableState, useSearchParams } from "@esmate/react/hooks";
+import { useImmerState, useSearchParams } from "@esmate/react/hooks";
 ```
 
 📚 **Documentation**: [View source](https://github.com/VienDinhCom/esmate/tree/main/packages/react/src/hooks)
 
-### `useImmutableState()`
+### `useImmerState()`
 
 A state management hook powered by [immer](https://github.com/immerjs/immer) that enables immutable state updates
 through a mutable API. Write simpler, more intuitive state updates without manually spreading objects.
 
 ```tsx
-import { useImmutableState } from "@esmate/react/hooks";
+import { useImmerState } from "@esmate/react/hooks";
 
 interface State {
   name: string;
@@ -37,7 +37,7 @@ interface State {
 }
 
 export function Counter() {
-  const [state, setState] = useImmutableState<State>({
+  const [state, setState] = useImmerState<State>({
     name: "John",
     age: 30,
   });
