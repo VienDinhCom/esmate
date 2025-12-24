@@ -5,7 +5,9 @@ modern React development.
 
 ## ESMate Store
 
-Create a [Zustand](https://github.com/pmndrs/zustand) store with Immer middleware enabled:
+Create a [Zustand](https://github.com/pmndrs/zustand) store with the
+[Immer middleware](https://zustand.docs.pmnd.rs/integrations/immer-middleware) enabled, allowing immutable state updates
+through a mutable API.
 
 ```tsx
 import { createImmerStore } from "@esmate/react/store";
@@ -69,7 +71,7 @@ import { useImmerState, useSearchParams } from "@esmate/react/hooks";
 
 ### `useImmerState()`
 
-A state management hook powered by [immer](https://github.com/immerjs/immer) that enables immutable state updates
+A state management hook powered by [Immer](https://github.com/immerjs/immer) that enables immutable state updates
 through a mutable API. Write simpler, more intuitive state updates without manually spreading objects.
 
 ```tsx
