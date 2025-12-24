@@ -25,8 +25,6 @@ import { useImmerState, useSearchParams } from "@esmate/react/hooks";
 
 📚 **Documentation**: [View source](https://github.com/VienDinhCom/esmate/tree/main/packages/react/src/hooks)
 
----
-
 ### `useImmerState()`
 
 A state management hook powered by [Immer](https://github.com/immerjs/immer) that enables immutable state updates
@@ -65,8 +63,6 @@ export function Person() {
   );
 }
 ```
-
----
 
 ### `useSearchParams()`
 
