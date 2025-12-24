@@ -10,6 +10,12 @@ function getValueFromLocation(): URLSearchParams {
   return new URLSearchParams("?");
 }
 
+/**
+ * A hook that tracks the current URL search parameters.
+ *
+ * @returns The current {@link URLSearchParams} object.
+ */
+
 export function useSearchParams(): URLSearchParams {
   const [value, setValue] = useState<URLSearchParams>(() => getValueFromLocation());
 

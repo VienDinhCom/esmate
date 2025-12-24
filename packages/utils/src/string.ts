@@ -8,6 +8,8 @@ import typopo from "typopo";
  * Formats a string to be used as a title.
  * @param str The string to format.
  * @param options The options to use.
+ * @param options.style The style of the title.
+ * @param options.special A list of special words to keep as-is.
  * @returns The formatted string.
  */
 export function titleize(str: string, options?: { style?: "chicago"; special?: string[] }): string {
@@ -28,7 +30,8 @@ export function titleize(str: string, options?: { style?: "chicago"; special?: s
 /**
  * Fixes typos in a string using typopo.
  * @param str The string to fix.
- * @param options The options to use.
+ * @param options The options to use, including `typopo` configuration.
+ * @param options.locale The locale to use (e.g., "en-us", "ru").
  * @returns The fixed string.
  */
 export function fixTypos(str: string, options?: Configuration & { locale?: Locale }): string {

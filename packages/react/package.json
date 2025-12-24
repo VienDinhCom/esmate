@@ -1,7 +1,7 @@
 {
   "name": "@esmate/react",
   "type": "module",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "React components, hooks, and styles in one package.",
   "license": "MIT",
   "repository": {
@@ -39,7 +39,8 @@
   },
   "dependencies": {
     "ahooks": "^3.9.6",
-    "immer": "^11.0.1"
+    "immer": "^11.0.1",
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@esmate/eslint": "^1.2.2",
