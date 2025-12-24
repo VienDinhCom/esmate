@@ -23,8 +23,7 @@ npm install @esmate/utils
 
 ### ESToolkit Utilities
 
-Access [es-toolkit](https://es-toolkit.dev/reference/array/at.html) functions through the main package export or the
-dedicated toolkit subpath.
+Access [es-toolkit](https://es-toolkit.dev/reference/array/at.html) functions through the main package export.
 
 ```ts
 import { delay, invariant } from "@esmate/utils";
@@ -61,6 +60,14 @@ import { round, sqrt } from "@esmate/utils/math";
 
 ### String Utilities
 
+Access **string** utilities for common string operations.
+
+```ts
+import { fixTypos, titleize } from "@esmate/utils";
+```
+
+📚 **Documentation**: [View source](https://github.com/VienDinhCom/esmate/blob/main/packages/utils/src/string.ts)
+
 #### `titleize()`
 
 Converts strings to proper title case using the [title](https://www.npmjs.com/package/title) package.
@@ -75,8 +82,6 @@ const chicagoTitle = titleize("love of my life", { style: "chicago" }); // "Love
 const specialTitle = titleize("i love ESMate", { special: ["ESMate"] }); // "I Love ESMate"
 ```
 
-📚 **Documentation**: [View source](https://github.com/VienDinhCom/esmate/blob/main/packages/utils/src/string.ts)
-
 #### `fixTypos()`
 
 Automatically corrects common typographical errors using [typopo](https://www.npmjs.com/package/typopo).
@@ -86,5 +91,3 @@ import { fixTypos } from "@esmate/utils/string";
 
 const result = fixTypos("This  is a   text with typos..."); // "This is a text with typos…"
 ```
-
-📚 **Documentation**: [View source](https://github.com/VienDinhCom/esmate/blob/main/packages/utils/src/string.ts)
