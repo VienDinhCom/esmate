@@ -49,6 +49,8 @@ export function Person() {
 }
 ```
 
+📚 **Documentation**: [View source](https://github.com/VienDinhCom/esmate/tree/main/packages/react/src/store.ts)
+
 ## Alibaba Hooks
 
 Import hooks from the popular [ahooks](https://ahooks.js.org/hooks/) library through a convenient subpath:
