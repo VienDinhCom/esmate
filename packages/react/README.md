@@ -3,6 +3,50 @@
 A collection of React components, hooks combining the power of Alibaba's ahooks library with custom ESMate utilities for
 modern React development.
 
+## ESMate Store
+
+Create a [Zustand](https://github.com/pmndrs/zustand) store with Immer middleware enabled:
+
+```tsx
+import { createImmerStore } from "@esmate/react/store";
+
+interface Store {
+  person: {
+    name: string;
+    age: number;
+  };
+  incrementAge: () => void;
+  decrementAge: () => void;
+}
+
+const useStore = createImmerStore<Store>((set) => ({
+  person: {
+    name: "John",
+    age: 30,
+  },
+  incrementAge: () => set((draft) => draft.person.age++),
+  decrementAge: () => set((draft) => draft.person.age--),
+}));
+
+export function Person() {
+  const { person, incrementAge, decrementAge } = useStore();
+
+  return (
+    <div>
+      <p>
+        Name: {person.name}, Age: {person.age}
+      </p>
+      <button onClick={incrementAge} type="button">
+        Increment Age
+      </button>
+      <button onClick={decrementAge} type="button">
+        Decrement Age
+      </button>
+    </div>
+  );
+}
+```
+
 ## Alibaba Hooks
 
 Import hooks from the popular [ahooks](https://ahooks.js.org/hooks/) library through a convenient subpath:
@@ -36,7 +80,7 @@ interface State {
   age: number;
 }
 
-export function Counter() {
+export function Person() {
   const [state, setState] = useImmerState<State>({
     name: "John",
     age: 30,
