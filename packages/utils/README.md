@@ -54,7 +54,7 @@ import { round, sqrt } from "@esmate/utils/math";
 Access **string** utilities for common string operations.
 
 ```ts
-import { fixTypos, titleize } from "@esmate/utils";
+import { fixTypos, titleize } from "@esmate/utils/string";
 ```
 
 📚 **Documentation**: [View source](https://github.com/VienDinhCom/esmate/blob/main/packages/utils/src/string.ts)
