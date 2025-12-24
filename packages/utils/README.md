@@ -10,18 +10,9 @@ utilities through a unified interface.
 npm install @esmate/utils
 ```
 
-## Features
-
-- **es-toolkit**: Modern, high-performance utility functions
-- **Lodash compatibility**: Familiar lodash functions reimplemented with es-toolkit
-- **Math operations**: Comprehensive mathematical utilities via math.js
-- **String utilities**: Advanced string manipulation including title case conversion and typo correction
-
 ---
 
-## Usage
-
-### ESToolkit Utilities
+## ESToolkit Utilities
 
 Access [es-toolkit](https://es-toolkit.dev/reference/array/at.html) functions through the main package export.
 
@@ -33,7 +24,7 @@ import { delay, invariant } from "@esmate/utils";
 
 ---
 
-### Lodash Utilities
+## Lodash Utilities
 
 Access [lodash](https://lodash.com/docs) functions reimplemented using es-toolkit's compatibility mode for familiar,
 drop-in replacements.
@@ -46,7 +37,7 @@ import { chunk, debounce } from "@esmate/utils/lodash";
 
 ---
 
-### Math Utilities
+## Math Utilities
 
 Leverage the full power of [math.js](https://mathjs.org/docs/index.html) for mathematical operations and calculations.
 
@@ -58,7 +49,7 @@ import { round, sqrt } from "@esmate/utils/math";
 
 ---
 
-### String Utilities
+## String Utilities
 
 Access **string** utilities for common string operations.
 
@@ -91,3 +82,5 @@ import { fixTypos } from "@esmate/utils/string";
 
 const result = fixTypos("This  is a   text with typos..."); // "This is a text with typos…"
 ```
+
+---
