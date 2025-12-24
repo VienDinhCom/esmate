@@ -13,6 +13,8 @@ import { usePagination, useRequest } from "@esmate/react/ahooks";
 
 📚 **Documentation**: [ahooks reference](https://ahooks.js.org/hooks/)
 
+---
+
 ## ESMate Hooks
 
 Custom hooks developed by [ESMate](https://github.com/viendinhcom/esmate) for common React patterns:
@@ -22,6 +24,8 @@ import { useImmerState, useSearchParams } from "@esmate/react/hooks";
 ```
 
 📚 **Documentation**: [View source](https://github.com/VienDinhCom/esmate/tree/main/packages/react/src/hooks)
+
+---
 
 ### `useImmerState()`
 
@@ -62,6 +66,8 @@ export function Person() {
 }
 ```
 
+---
+
 ### `useSearchParams()`
 
 A sensor hook that reactively tracks URL search parameters, automatically updating when the browser's location changes.
@@ -77,6 +83,8 @@ export function Search() {
 
 **Note:** This hook is incompatible with hash-based routing (such as react-router's `<HashRouter>`). Since search
 parameters in hash routes are treated as part of the URL hash by browsers, they cannot be accessed through this hook.
+
+---
 
 ## ESMate Store
 
@@ -125,3 +133,5 @@ export function Person() {
 ```
 
 📚 **Documentation**: [View source](https://github.com/VienDinhCom/esmate/tree/main/packages/react/src/store.ts)
+
+---
