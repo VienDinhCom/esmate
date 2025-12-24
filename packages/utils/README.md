@@ -26,16 +26,8 @@ npm install @esmate/utils
 Access [es-toolkit](https://es-toolkit.dev/reference/array/at.html) functions through the main package export or the
 dedicated toolkit subpath.
 
-**Import from main package:**
-
 ```ts
 import { delay, invariant } from "@esmate/utils";
-```
-
-**Import from toolkit subpath:**
-
-```ts
-import { delay, invariant } from "@esmate/utils/toolkit";
 ```
 
 📚 **Documentation**: [es-toolkit reference](https://es-toolkit.dev/reference/array/at.html)
@@ -76,7 +68,11 @@ Converts strings to proper title case using the [title](https://www.npmjs.com/pa
 ```ts
 import { titleize } from "@esmate/utils/string";
 
-const result = titleize("hello world"); // "Hello World"
+const title = titleize("hello world"); // "Hello World"
+
+const chicagoTitle = titleize("love of my life", { style: "chicago" }); // "Love of My Life"
+
+const specialTitle = titleize("i love ESMate", { special: ["ESMate"] }); // "I Love ESMate"
 ```
 
 📚 **Documentation**: [View source](https://github.com/VienDinhCom/esmate/blob/main/packages/utils/src/string.ts)
