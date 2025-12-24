@@ -3,54 +3,6 @@
 A collection of React components, hooks combining the power of Alibaba's ahooks library with custom ESMate utilities for
 modern React development.
 
-## ESMate Store
-
-Create a [Zustand](https://github.com/pmndrs/zustand) store with the
-[Immer middleware](https://zustand.docs.pmnd.rs/integrations/immer-middleware) enabled, allowing immutable state updates
-through a mutable API.
-
-```tsx
-import { createImmerStore } from "@esmate/react/store";
-
-interface Store {
-  person: {
-    name: string;
-    age: number;
-  };
-  incrementAge: () => void;
-  decrementAge: () => void;
-}
-
-const useStore = createImmerStore<Store>((set) => ({
-  person: {
-    name: "John",
-    age: 30,
-  },
-  incrementAge: () => set((draft) => draft.person.age++),
-  decrementAge: () => set((draft) => draft.person.age--),
-}));
-
-export function Person() {
-  const { person, incrementAge, decrementAge } = useStore();
-
-  return (
-    <div>
-      <p>
-        Name: {person.name}, Age: {person.age}
-      </p>
-      <button onClick={incrementAge} type="button">
-        Increment Age
-      </button>
-      <button onClick={decrementAge} type="button">
-        Decrement Age
-      </button>
-    </div>
-  );
-}
-```
-
-📚 **Documentation**: [View source](https://github.com/VienDinhCom/esmate/tree/main/packages/react/src/store.ts)
-
 ## Alibaba Hooks
 
 Import hooks from the popular [ahooks](https://ahooks.js.org/hooks/) library through a convenient subpath:
@@ -125,3 +77,51 @@ export function Search() {
 
 **Note:** This hook is incompatible with hash-based routing (such as react-router's `<HashRouter>`). Since search
 parameters in hash routes are treated as part of the URL hash by browsers, they cannot be accessed through this hook.
+
+## ESMate Store
+
+Create a [Zustand](https://github.com/pmndrs/zustand) store with the
+[Immer middleware](https://zustand.docs.pmnd.rs/integrations/immer-middleware) enabled, allowing immutable state updates
+through a mutable API.
+
+```tsx
+import { createImmerStore } from "@esmate/react/store";
+
+interface Store {
+  person: {
+    name: string;
+    age: number;
+  };
+  incrementAge: () => void;
+  decrementAge: () => void;
+}
+
+const useStore = createImmerStore<Store>((set) => ({
+  person: {
+    name: "John",
+    age: 30,
+  },
+  incrementAge: () => set((draft) => draft.person.age++),
+  decrementAge: () => set((draft) => draft.person.age--),
+}));
+
+export function Person() {
+  const { person, incrementAge, decrementAge } = useStore();
+
+  return (
+    <div>
+      <p>
+        Name: {person.name}, Age: {person.age}
+      </p>
+      <button onClick={incrementAge} type="button">
+        Increment Age
+      </button>
+      <button onClick={decrementAge} type="button">
+        Decrement Age
+      </button>
+    </div>
+  );
+}
+```
+
+📚 **Documentation**: [View source](https://github.com/VienDinhCom/esmate/tree/main/packages/react/src/store.ts)
