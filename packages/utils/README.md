@@ -59,7 +59,7 @@ import { fixTypos, titleize } from "@esmate/utils";
 
 📚 **Documentation**: [View source](https://github.com/VienDinhCom/esmate/blob/main/packages/utils/src/string.ts)
 
-#### `titleize()`
+### `titleize()`
 
 Converts strings to proper title case using the [title](https://www.npmjs.com/package/title) package.
 
@@ -73,7 +73,7 @@ const chicagoTitle = titleize("love of my life", { style: "chicago" }); // "Love
 const specialTitle = titleize("i love ESMate", { special: ["ESMate"] }); // "I Love ESMate"
 ```
 
-#### `fixTypos()`
+### `fixTypos()`
 
 Automatically corrects common typographical errors using [typopo](https://www.npmjs.com/package/typopo).
 
