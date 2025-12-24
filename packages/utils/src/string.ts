@@ -10,10 +10,10 @@ import typopo from "typopo";
  * @param options The options to use.
  * @returns The formatted string.
  */
-export function titleize(str: string, options?: { locale?: "en"; special?: string[] }): string {
+export function titleize(str: string, options?: { style?: "chicago"; special?: string[] }): string {
   str = str.replace(/\s+/g, " ");
 
-  if (options?.locale === "en") {
+  if (options?.style === "chicago") {
     return title(str, options);
   }
 
