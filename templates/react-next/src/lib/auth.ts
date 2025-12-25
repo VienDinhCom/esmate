@@ -1,5 +1,6 @@
 import { headers } from "next/headers";
 import { betterAuth } from "better-auth";
+import { admin } from "better-auth/plugins";
 import { redirect } from "next/navigation";
 import { nextCookies } from "better-auth/next-js";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
@@ -23,6 +24,7 @@ export const auth = betterAuth({
     },
   },
   plugins: [
+    admin(),
     stripePlugin,
     nextCookies(), // make sure nextCookies() is the last plugin in the array
   ],
