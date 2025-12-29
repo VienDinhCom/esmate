@@ -18,7 +18,7 @@ const roles: Record<string, Role> = {
     posts: ["create", "read own", "update own", "delete own"],
   }),
   admin: ac.newRole({
-    posts: ["create", "read any", "read own", "update any", "update own", "delete any", "delete own"],
+    posts: ["create", "read any", "update any", "delete any"],
     ...adminAc.statements,
   }),
 };
@@ -57,7 +57,6 @@ export async function userHasAnyPermission<P extends PermissionQuery>(userId: st
 
   return {
     me,
-    permitted: result.success,
-    permissions: allowedPermissions as P,
+    permissions: result.success ? (allowedPermissions as P) : null,
   };
 }
