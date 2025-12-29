@@ -34,6 +34,7 @@ interface Auth {
   id: string;
   name: string;
   email: string;
+  role: "user" | "admin";
 }
 
 export async function getAuth(): Promise<Auth | null> {
@@ -45,6 +46,7 @@ export async function getAuth(): Promise<Auth | null> {
     id: session.user.id,
     name: session.user.name,
     email: session.user.email,
+    role: (session.user.role as null) || "user",
   };
 }
 

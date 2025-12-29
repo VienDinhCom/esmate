@@ -1,22 +1,16 @@
-import { headers } from "next/headers";
 import Link from "next/link";
-import { auth } from "@/lib/auth";
+import { getAuthOrSignIn } from "@/lib/auth";
 import { db, orm, schema } from "@/lib/db";
 import { Card, CardContent, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Badge } from "@esmate/shadcn/components/ui/badge";
 import { Plus, Pencil } from "@esmate/shadcn/pkgs/lucide-react";
-import { redirect } from "next/navigation";
 import { deletePostAction } from "./actions";
 
 export default async function PostsPage() {
-  const session = await auth.api.getSession({ headers: await headers() });
+  const me = await getAuthOrSignIn("/dashboard/posts");
 
-  if (!session) {
-    redirect("/auth/sign-in?redirect=/dashboard/posts");
-  }
-
-  const isAdmin = session.user.role === "admin";
+  const isAdmin = me.role === "admin";
 
   // Admin sees all posts, users see only their own
   const posts = isAdmin
@@ -25,7 +19,7 @@ export default async function PostsPage() {
         with: { author: true },
       })
     : await db.query.post.findMany({
-        where: orm.eq(schema.post.authorId, session.user.id),
+        where: orm.eq(schema.post.authorId, me.id),
         orderBy: orm.desc(schema.post.createdAt),
         with: { author: true },
       });

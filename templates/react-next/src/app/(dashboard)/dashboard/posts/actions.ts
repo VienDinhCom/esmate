@@ -1,36 +1,38 @@
 "use server";
 
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { auth } from "@/lib/auth";
+import { auth, getAuthOrSignIn } from "@/lib/auth";
 import { db, orm, schema } from "@/lib/db";
-
-function generateId(): string {
-  return crypto.randomUUID();
-}
+import { invariant } from "@esmate/utils";
 
 export async function createPostAction(formData: FormData) {
-  const session = await auth.api.getSession({ headers: await headers() });
+  const me = await getAuthOrSignIn("/dashboard/posts/new");
 
-  if (!session) {
-    redirect("/auth/sign-in?redirect=/dashboard/posts/new");
-  }
+  const permission = await auth.api.userHasPermission({
+    body: {
+      userId: me.id,
+      permission: {
+        posts: ["create"],
+      },
+    },
+  });
+
+  invariant(permission.success, "You don't have permission to create a post");
 
   const title = formData.get("title") as string;
   const content = formData.get("content") as string;
   const published = formData.get("published") === "on";
 
-  if (!title || !content) {
-    throw new Error("Title and content are required");
-  }
+  invariant(title, "Title is required");
+  invariant(content, "Content is required");
 
   await db.insert(schema.post).values({
-    id: generateId(),
+    id: crypto.randomUUID(),
     title,
     content,
     published,
-    authorId: session.user.id,
+    authorId: me.id,
   });
 
   revalidatePath("/dashboard/posts");
@@ -38,37 +40,33 @@ export async function createPostAction(formData: FormData) {
 }
 
 export async function updatePostAction(formData: FormData) {
-  const session = await auth.api.getSession({ headers: await headers() });
+  const me = await getAuthOrSignIn("/dashboard/posts");
 
-  if (!session) {
-    redirect("/auth/sign-in");
-  }
+  const permission = await auth.api.userHasPermission({
+    body: {
+      userId: me.id,
+      permission: {
+        posts: ["update any", "update own"],
+      },
+    },
+  });
+
+  invariant(permission.success, "You don't have permission to update this post");
 
   const id = formData.get("id") as string;
   const title = formData.get("title") as string;
   const content = formData.get("content") as string;
   const published = formData.get("published") === "on";
 
-  if (!id || !title || !content) {
-    throw new Error("ID, title and content are required");
-  }
+  invariant(id, "Post ID is required");
+  invariant(title, "Title is required");
+  invariant(content, "Content is required");
 
-  // Get the post to check ownership
   const post = await db.query.post.findFirst({
     where: orm.eq(schema.post.id, id),
   });
 
-  if (!post) {
-    throw new Error("Post not found");
-  }
-
-  // Check authorization: must be owner or admin
-  const isOwner = post.authorId === session.user.id;
-  const isAdmin = session.user.role === "admin";
-
-  if (!isOwner && !isAdmin) {
-    throw new Error("You don't have permission to update this post");
-  }
+  invariant(post, "Post not found");
 
   await db.update(schema.post).set({ title, content, published }).where(orm.eq(schema.post.id, id));
 
@@ -77,34 +75,27 @@ export async function updatePostAction(formData: FormData) {
 }
 
 export async function deletePostAction(formData: FormData) {
-  const session = await auth.api.getSession({ headers: await headers() });
+  const me = await getAuthOrSignIn("/dashboard/posts");
 
-  if (!session) {
-    redirect("/auth/sign-in");
-  }
+  const permission = await auth.api.userHasPermission({
+    body: {
+      userId: me.id,
+      permission: {
+        posts: ["delete any", "delete own"],
+      },
+    },
+  });
+
+  invariant(permission.success, "You don't have permission to delete this post");
 
   const id = formData.get("id") as string;
+  invariant(id, "Post ID is required");
 
-  if (!id) {
-    throw new Error("Post ID is required");
-  }
-
-  // Get the post to check ownership
   const post = await db.query.post.findFirst({
     where: orm.eq(schema.post.id, id),
   });
 
-  if (!post) {
-    throw new Error("Post not found");
-  }
-
-  // Check authorization: must be owner or admin
-  const isOwner = post.authorId === session.user.id;
-  const isAdmin = session.user.role === "admin";
-
-  if (!isOwner && !isAdmin) {
-    throw new Error("You don't have permission to delete this post");
-  }
+  invariant(post, "Post not found");
 
   await db.delete(schema.post).where(orm.eq(schema.post.id, id));
 
