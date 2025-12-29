@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@esmate/shadcn/components/ui/button";
-import { Users, Shield, Menu, Settings } from "@esmate/shadcn/pkgs/lucide-react";
+import { Users, Shield, Menu, Settings, FileText } from "@esmate/shadcn/pkgs/lucide-react";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -12,6 +12,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   const navItems = [
     { href: "/dashboard", icon: Users, label: "Account" },
+    { href: "/dashboard/posts", icon: FileText, label: "Posts" },
     {
       href: "/dashboard/subscription",
       icon: Settings,
