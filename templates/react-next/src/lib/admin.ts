@@ -19,4 +19,6 @@ const roles: Record<string, Role> = {
   }),
 };
 
-export const adminPlugin = betterAuthAdmin({ ac, roles });
+export type UserRole = "user" | "admin";
+
+export const adminPlugin = betterAuthAdmin({ ac, roles, defaultRole: "user", adminRoles: ["admin"] });

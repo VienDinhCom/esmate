@@ -5,7 +5,7 @@ import { nextCookies } from "better-auth/next-js";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { stripePlugin } from "./stripe";
 import { db } from "@/lib/db";
-import { adminPlugin } from "./admin";
+import { adminPlugin, UserRole } from "./admin";
 
 // https://www.better-auth.com/docs/integrations/next
 export const auth = betterAuth({
@@ -34,7 +34,7 @@ interface Auth {
   id: string;
   name: string;
   email: string;
-  role: "user" | "admin";
+  role: UserRole;
 }
 
 export async function getAuth(): Promise<Auth | null> {
