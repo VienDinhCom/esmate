@@ -30,5 +30,5 @@ export const postRelations = relations(post, ({ one }) => ({
 }));
 
 export const PostSelectSchema = createSelectSchema(post);
-export const PostInsertSchema = createInsertSchema(post);
-export const PostUpdateSchema = createUpdateSchema(post).required({ id: true });
+export const PostInsertSchema = createInsertSchema(post).omit({ id: true, authorId: true });
+export const PostUpdateSchema = createUpdateSchema(post).required({ id: true, authorId: true });
