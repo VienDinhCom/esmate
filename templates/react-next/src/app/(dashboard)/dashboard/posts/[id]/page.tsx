@@ -36,7 +36,7 @@ export default async function EditPostPage({ params }: Props) {
   return (
     <section className="flex-1 p-4 lg:p-8">
       <h1 className="mb-6 text-lg font-medium text-gray-900 lg:text-2xl">Edit Post</h1>
-      <EditPostForm id={post.id} title={post.title} content={post.content} published={post.published} />
+      <EditPostForm values={post} />
     </section>
   );
 }

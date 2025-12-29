@@ -10,22 +10,16 @@ import { useZodForm } from "@esmate/shadcn/hooks/use-zod-form";
 import { Loader2 } from "@esmate/shadcn/pkgs/lucide-react";
 import { updatePostAction } from "./actions";
 import { PostUpdateSchema } from "@/lib/db/schema";
+import z from "zod";
 
-type Props = {
-  id: string;
-  title: string;
-  content: string;
-  published: boolean;
-};
+interface Props {
+  values: z.infer<typeof PostUpdateSchema>;
+}
 
-export function EditPostForm({ id, title, content, published }: Props) {
+export function EditPostForm(props: Props) {
   const form = useZodForm({
     schema: PostUpdateSchema,
-    defaultValues: {
-      title,
-      content,
-      published,
-    },
+    defaultValues: props.values,
   });
 
   const onSubmit = form.handleSubmit(async (data) => {
@@ -39,7 +33,7 @@ export function EditPostForm({ id, title, content, published }: Props) {
       </CardHeader>
       <CardContent>
         <form onSubmit={onSubmit} className="space-y-4">
-          <input type="hidden" name="id" value={id} />
+          <input type="hidden" name="id" value={props.values.id} />
 
           <div>
             <Label htmlFor="title" className="mb-2">
