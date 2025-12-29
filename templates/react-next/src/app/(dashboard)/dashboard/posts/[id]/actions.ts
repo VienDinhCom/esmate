@@ -5,31 +5,35 @@ import { revalidatePath } from "next/cache";
 import { auth, getAuthOrSignIn } from "@/lib/auth";
 import { db, orm, schema } from "@/lib/db";
 import { invariant } from "@esmate/utils";
+import { PostUpdateSchema } from "@/lib/db/schema";
+import z from "zod";
 
-export async function deletePostAction(formData: FormData) {
+export async function updatePostAction(formData: z.infer<typeof PostUpdateSchema>) {
   const me = await getAuthOrSignIn("/dashboard/posts");
 
   const permission = await auth.api.userHasPermission({
     body: {
       userId: me.id,
       permission: {
-        posts: ["delete any", "delete own"],
+        posts: ["update any", "update own"],
       },
     },
   });
 
-  invariant(permission.success, "You don't have permission to delete this post");
+  invariant(permission.success, "You don't have permission to update this post");
 
-  const id = formData.get("id") as string;
-  invariant(id, "Post ID is required");
+  const data = PostUpdateSchema.parse(formData);
 
   const post = await db.query.post.findFirst({
-    where: orm.eq(schema.post.id, id),
+    where: orm.eq(schema.post.id, data.id!),
   });
 
   invariant(post, "Post not found");
 
-  await db.delete(schema.post).where(orm.eq(schema.post.id, id));
+  await db
+    .update(schema.post)
+    .set({ title: data.title, content: data.content, published: data.published })
+    .where(orm.eq(schema.post.id, data.id!));
 
   revalidatePath("/dashboard/posts");
   redirect("/dashboard/posts");

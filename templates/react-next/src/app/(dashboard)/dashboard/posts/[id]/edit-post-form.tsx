@@ -8,14 +8,8 @@ import { Label } from "@esmate/shadcn/components/ui/label";
 import { Textarea } from "@esmate/shadcn/components/ui/textarea";
 import { useZodForm } from "@esmate/shadcn/hooks/use-zod-form";
 import { Loader2 } from "@esmate/shadcn/pkgs/lucide-react";
-import z from "@esmate/shadcn/pkgs/zod";
-import { updatePostAction } from "../actions";
-
-const FormSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  content: z.string().min(1, "Content is required"),
-  published: z.boolean().default(false),
-});
+import { updatePostAction } from "./actions";
+import { PostUpdateSchema } from "@/lib/db/schema";
 
 type Props = {
   id: string;
@@ -26,12 +20,16 @@ type Props = {
 
 export function EditPostForm({ id, title, content, published }: Props) {
   const form = useZodForm({
-    schema: FormSchema,
+    schema: PostUpdateSchema,
     defaultValues: {
       title,
       content,
       published,
     },
+  });
+
+  const onSubmit = form.handleSubmit(async (data) => {
+    await updatePostAction(data);
   });
 
   return (
@@ -40,7 +38,7 @@ export function EditPostForm({ id, title, content, published }: Props) {
         <CardTitle>Edit Post</CardTitle>
       </CardHeader>
       <CardContent>
-        <form action={updatePostAction} className="space-y-4">
+        <form onSubmit={onSubmit} className="space-y-4">
           <input type="hidden" name="id" value={id} />
 
           <div>
