@@ -2,7 +2,7 @@ import { Loader2 } from "@esmate/shadcn/pkgs/lucide-react";
 
 export default function Loading() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
+    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-gray-50 to-gray-100 p-4">
       <div className="flex flex-col items-center space-y-4 text-center">
         <div className="relative">
           <div className="absolute inset-0 animate-pulse rounded-full bg-blue-100/50" />

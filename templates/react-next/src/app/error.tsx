@@ -1,5 +1,4 @@
 "use client";
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Alert, AlertDescription, AlertTitle } from "@esmate/shadcn/components/ui/alert";
 import { Button } from "@esmate/shadcn/components/ui/button";
@@ -17,7 +16,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
   const router = useRouter();
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
+    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-gray-50 to-gray-100 p-4">
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="space-y-2 text-center">
           <div className="mb-2 flex justify-center">
@@ -33,7 +32,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
           <Alert variant="destructive" className="border-red-200 bg-red-50">
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>Error Details</AlertTitle>
-            <AlertDescription className="mt-2 font-mono text-sm break-words">
+            <AlertDescription className="mt-2 font-mono text-sm wrap-break-word">
               {error.message || "An unknown error occurred"}
             </AlertDescription>
             {error.digest && (
