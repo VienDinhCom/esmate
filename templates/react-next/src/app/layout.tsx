@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import { Toaster } from "@esmate/shadcn/pkgs/sonner";
 import "./globals.css";
 import { Suspense } from "react";
+import { Skeleton } from "@esmate/shadcn/components/ui/skeleton";
 
 export const metadata: Metadata = {
   title: "ESMate React Next",
@@ -20,7 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <html lang="en" className={`bg-white text-black dark:bg-gray-950 dark:text-white ${manrope.className}`}>
       <body className="min-h-dvh bg-gray-50">
         <main>
-          <Suspense>{children}</Suspense>
+          <Suspense fallback={<Skeleton className="h-full w-full" />}>{children}</Suspense>
         </main>
         <Toaster />
       </body>
