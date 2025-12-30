@@ -1,6 +1,6 @@
 "use server";
 
-import { auth, getAuthOrSignIn } from "@/lib/auth";
+import { authServer } from "@/lib/auth";
 import { env } from "@/lib/env";
 import { Plan } from "@/lib/stripe";
 import { headers } from "next/headers";
@@ -8,13 +8,13 @@ import { redirect } from "next/navigation";
 import { invariant } from "@esmate/utils";
 
 export async function upgradeSubscriptionAction(formData: FormData) {
-  await getAuthOrSignIn("/pricing");
+  await authServer.verifySession();
 
   const planName = formData.get("planName") as Plan["name"];
 
   invariant(planName, "plan is required");
 
-  const session = await auth.api.upgradeSubscription({
+  const session = await authServer.upgradeSubscription({
     body: {
       plan: planName,
       cancelUrl: `${env.BASE_URL}/pricing`,

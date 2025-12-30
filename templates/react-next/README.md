@@ -10,6 +10,9 @@ This template is built with:
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) – A utility-first CSS framework for rapid UI development.
 - **Authentication**: [Better Auth](https://www.better-auth.com/) – A complete open-source authentication solution for
   Next.js applications.
+- **Authorization**: [RBAC](https://www.better-auth.com/docs/plugins/admin#access-control) – Built-in role-based access
+  control and permission management provided by Better Auth, enabling server-side and client-side authorization in
+  Next.js.
 - **Payments**: [Stripe](https://stripe.com/) – A complete payment platform engineered for growth.
 - **Database**: [PostgreSQL](https://www.postgresql.org/) – A powerful, open-source object-relational database system.
 - **ORM**: [Drizzle ORM](https://orm.drizzle.team/) – A lightweight and performant TypeScript ORM for Node.js and
@@ -21,6 +24,7 @@ This template is built with:
 ## Features
 
 - ✅ Complete authentication flow (Sign in, Sign up, Sign out)
+- ✅ Authorization (RBAC) with built-in role-based access control
 - ✅ Database integration with Drizzle ORM and PostgreSQL
 - ✅ Stripe integration for subscriptions and payments
 - ✅ Protected routes and API endpoints

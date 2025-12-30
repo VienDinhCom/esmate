@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import { env } from "@/lib/env";
-import { stripe as betterAuthStripe, StripePlan } from "@better-auth/stripe";
+import { StripePlan } from "@better-auth/stripe";
 
 export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
   apiVersion: "2025-12-15.clover",
@@ -76,14 +76,3 @@ export const plans = {
       },
     }),
 };
-
-// https://www.better-auth.com/docs/plugins/stripe
-export const stripePlugin = betterAuthStripe({
-  stripeClient: stripe,
-  createCustomerOnSignUp: true,
-  stripeWebhookSecret: env.STRIPE_WEBHOOK_SECRET,
-  subscription: {
-    enabled: true,
-    plans: async () => [await plans.base(), await plans.plus()],
-  },
-});
