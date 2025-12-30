@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { auth, RBAC, Auth, Options, Permissions, UserRole } from "./config";
 import { intersection } from "@esmate/utils";
+import { ExtractBody } from "@/lib/types";
 
 async function verifySession<P extends Permissions, O extends Options<P>>(options?: O): Promise<Auth<P, O>> {
   let me: Auth<P, O>["me"];
@@ -71,7 +72,26 @@ async function verifySession<P extends Permissions, O extends Options<P>>(option
   };
 }
 
+export async function createBillingPortal(options: ExtractBody<typeof auth.api.createBillingPortal>) {
+  const res = await auth.api.createBillingPortal({
+    body: options,
+    headers: await headers(),
+  });
+
+  return res;
+}
+
+export async function upgradeSubscription(options: ExtractBody<typeof auth.api.upgradeSubscription>) {
+  const res = await auth.api.upgradeSubscription({
+    body: options,
+    headers: await headers(),
+  });
+
+  return res;
+}
+
 export const authServer = {
   verifySession,
-  ...auth.api,
+  createBillingPortal,
+  upgradeSubscription,
 };
