@@ -79,8 +79,7 @@ export type Permissions = {
 
 export interface Options<P extends Permissions> {
   id?: string;
-  sign?: "up" | "in";
-  redirect?: string;
+  callbackUrl?: string;
   permissions?: P;
 }
 

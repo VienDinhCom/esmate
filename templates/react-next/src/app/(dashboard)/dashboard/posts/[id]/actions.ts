@@ -9,7 +9,7 @@ import { PostUpdateSchema } from "@/lib/schema";
 import z from "zod";
 
 export async function updatePostAction(formData: z.infer<typeof PostUpdateSchema>) {
-  const { me, permissions } = await authServer.getAuth({
+  const { me, permissions } = await authServer.verifySession({
     permissions: { posts: ["update any", "update own"] },
   });
 

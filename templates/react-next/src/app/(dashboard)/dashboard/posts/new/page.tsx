@@ -2,7 +2,7 @@ import { NewPostForm } from "./new-post-form";
 import { authServer } from "@/lib/auth";
 
 export default async function NewPostPage() {
-  await authServer.getAuth({
+  await authServer.verifySession({
     permissions: { posts: ["create"] },
   });
 

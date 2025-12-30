@@ -7,7 +7,7 @@ import { invariant } from "@esmate/utils";
 import { authServer } from "@/lib/auth";
 
 export async function deletePostAction(formData: FormData) {
-  const { me, permissions } = await authServer.getAuth({
+  const { me, permissions } = await authServer.verifySession({
     permissions: { posts: ["delete any", "delete own"] },
   });
 

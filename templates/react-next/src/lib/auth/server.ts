@@ -5,7 +5,7 @@ import { headers } from "next/headers";
 import { auth, RBAC, Auth, Options, Permissions, UserRole } from "./config";
 import { intersection } from "@esmate/utils";
 
-async function getAuth<P extends Permissions, O extends Options<P>>(options?: O): Promise<Auth<P, O>> {
+async function verifySession<P extends Permissions, O extends Options<P>>(options?: O): Promise<Auth<P, O>> {
   let me: Auth<P, O>["me"];
   let permissions: Record<string, string[]> | undefined = undefined;
 
@@ -24,12 +24,8 @@ async function getAuth<P extends Permissions, O extends Options<P>>(options?: O)
     const session = await auth.api.getSession({ headers: await headers() });
 
     if (session === null) {
-      if (options?.sign === "in") {
-        redirect(`/auth/sign-in${options.redirect ? `?redirect=${options.redirect}` : ""}`);
-      }
-
-      if (options?.sign === "up") {
-        redirect(`/auth/sign-up${options.redirect ? `?redirect=${options.redirect}` : ""}`);
+      if (options?.callbackUrl) {
+        redirect(`/auth/sign-in?callbackUrl=${options.callbackUrl}`);
       }
 
       throw new Error("Not authenticated");
@@ -64,6 +60,8 @@ async function getAuth<P extends Permissions, O extends Options<P>>(options?: O)
     invariant(permitted.success, "User does not have permission");
   }
 
+  invariant(me.role, "User role not found");
+
   return {
     me: me,
     permissions: permissions as O["permissions"],
@@ -71,5 +69,6 @@ async function getAuth<P extends Permissions, O extends Options<P>>(options?: O)
 }
 
 export const authServer = {
-  getAuth,
+  verifySession,
+  ...auth.api,
 };

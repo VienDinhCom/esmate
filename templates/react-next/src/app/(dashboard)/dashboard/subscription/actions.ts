@@ -1,6 +1,6 @@
 "use server";
 
-import { auth } from "@/lib/auth";
+import { authServer } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 
@@ -9,7 +9,7 @@ export async function manageSubscriptionAction(formData: FormData) {
 
   if (!subscriptionId) redirect("/pricing");
 
-  const { url } = await auth.api.createBillingPortal({
+  const { url } = await authServer.createBillingPortal({
     body: { locale: "en" },
     headers: await headers(),
   });

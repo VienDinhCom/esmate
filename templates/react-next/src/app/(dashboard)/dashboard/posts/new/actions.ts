@@ -8,7 +8,7 @@ import { PostInsertSchema } from "@/lib/schema";
 import z from "zod";
 
 export async function createPostAction(formData: z.infer<typeof PostInsertSchema>) {
-  const { me } = await authServer.getAuth({
+  const { me } = await authServer.verifySession({
     permissions: { posts: ["create"] },
   });
 

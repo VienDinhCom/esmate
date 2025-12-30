@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default async function EditPostPage({ params }: Props) {
-  const { me, permissions } = await authServer.getAuth({
+  const { me, permissions } = await authServer.verifySession({
     permissions: { posts: ["update any", "update own"] },
   });
 

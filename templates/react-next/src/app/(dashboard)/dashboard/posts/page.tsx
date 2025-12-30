@@ -8,8 +8,7 @@ import { deletePostAction } from "./actions";
 import { authServer } from "@/lib/auth";
 
 export default async function PostsPage() {
-  const { me, permissions } = await authServer.getAuth({
-    sign: "in",
+  const { me, permissions } = await authServer.verifySession({
     permissions: {
       posts: ["read any", "read own"],
     },
@@ -21,7 +20,7 @@ export default async function PostsPage() {
         with: { author: true },
       })
     : await db.query.post.findMany({
-        where: orm.eq(schema.post.authorId, me.id),
+        // where: orm.eq(schema.post.authorId, me.id),
         orderBy: orm.desc(schema.post.createdAt),
         with: { author: true },
       });
