@@ -1,6 +1,5 @@
 import { relations } from "drizzle-orm";
 import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
-import { createInsertSchema, createSelectSchema, createUpdateSchema } from "drizzle-zod";
 import { user } from "./auth";
 
 export const post = pgTable(
@@ -28,7 +27,3 @@ export const postRelations = relations(post, ({ one }) => ({
     references: [user.id],
   }),
 }));
-
-export const PostSelectSchema = createSelectSchema(post);
-export const PostInsertSchema = createInsertSchema(post).omit({ id: true, authorId: true });
-export const PostUpdateSchema = createUpdateSchema(post).required({ authorId: true });

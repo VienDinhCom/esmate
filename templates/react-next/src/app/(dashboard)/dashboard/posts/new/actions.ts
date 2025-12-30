@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { authServer } from "@/lib/auth";
 import { db, schema } from "@/lib/db";
-import { PostInsertSchema } from "@/lib/db/schema";
+import { PostInsertSchema } from "@/lib/schema";
 import z from "zod";
 
 export async function createPostAction(formData: z.infer<typeof PostInsertSchema>) {

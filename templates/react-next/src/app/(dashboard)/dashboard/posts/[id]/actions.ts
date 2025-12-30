@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { authServer } from "@/lib/auth";
 import { db, orm, schema } from "@/lib/db";
 import { invariant } from "@esmate/utils";
-import { PostUpdateSchema } from "@/lib/db/schema";
+import { PostUpdateSchema } from "@/lib/schema";
 import z from "zod";
 
 export async function updatePostAction(formData: z.infer<typeof PostUpdateSchema>) {

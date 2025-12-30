@@ -9,7 +9,7 @@ import { Textarea } from "@esmate/shadcn/components/ui/textarea";
 import { useZodForm } from "@esmate/shadcn/hooks/use-zod-form";
 import { Loader2 } from "@esmate/shadcn/pkgs/lucide-react";
 import { updatePostAction } from "./actions";
-import { PostUpdateSchema } from "@/lib/db/schema";
+import { PostUpdateSchema } from "@/lib/schema";
 import z from "zod";
 
 interface Props {
