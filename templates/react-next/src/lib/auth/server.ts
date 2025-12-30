@@ -44,9 +44,12 @@ async function verifySession<P extends Permissions, O extends Options<P>>(option
     permissions = {};
 
     for (const [resource, requestedActions] of Object.entries(options?.permissions)) {
-      const roleActions = RBAC.roles[me.role].statements[resource];
+      const roleActions = RBAC.roles[me.role].statements[resource] || [];
+      const allowedActions = intersection(roleActions, requestedActions);
 
-      permissions[resource] = intersection(roleActions, requestedActions);
+      invariant(allowedActions.length > 0, `User does not have any of the requested permissions for ${resource}`);
+
+      permissions[resource] = allowedActions;
     }
 
     const permitted = await auth.api.userHasPermission({

@@ -14,13 +14,18 @@ export async function deletePostAction(formData: FormData) {
   const id = formData.get("id") as string;
   invariant(id, "Post ID is required");
 
-  if (permissions.posts.includes("delete own")) {
-    await db.delete(schema.post).where(orm.and(orm.eq(schema.post.id, id), orm.eq(schema.post.authorId, me.id)));
-  }
+  let deleted = [];
 
   if (permissions.posts.includes("delete any")) {
-    await db.delete(schema.post).where(orm.eq(schema.post.id, id));
+    deleted = await db.delete(schema.post).where(orm.eq(schema.post.id, id)).returning();
+  } else {
+    deleted = await db
+      .delete(schema.post)
+      .where(orm.and(orm.eq(schema.post.id, id), orm.eq(schema.post.authorId, me.id)))
+      .returning();
   }
+
+  invariant(deleted.length > 0, "Post not found or you don't have permission to delete it");
 
   revalidatePath("/dashboard/posts");
   redirect("/dashboard/posts");
