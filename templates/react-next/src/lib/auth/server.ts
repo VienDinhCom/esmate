@@ -7,7 +7,7 @@ import { intersection } from "@esmate/utils";
 
 async function getAuth<P extends Permissions>(options?: Options<P>): Promise<Auth<P>> {
   let me: Auth<P>["me"];
-  const permissions: Record<string, string[]> = {};
+  let permissions: Record<string, string[]> | undefined = undefined;
 
   if (options?.id) {
     const user = await db.query.user.findFirst({ where: orm.eq(schema.user.id, options.id) });
@@ -45,6 +45,8 @@ async function getAuth<P extends Permissions>(options?: Options<P>): Promise<Aut
 
   // if permissions are required, check if the user has them
   if (options?.permissions) {
+    permissions = {};
+
     for (const [resource, requestedActions] of Object.entries(options?.permissions)) {
       const roleActions = RBAC.roles[me.role].statements[resource];
 
@@ -53,9 +55,9 @@ async function getAuth<P extends Permissions>(options?: Options<P>): Promise<Aut
 
     const permitted = await auth.api.userHasPermission({
       body: {
+        permissions,
         userId: me.id,
         role: me.role,
-        permissions,
       },
     });
 
@@ -64,7 +66,7 @@ async function getAuth<P extends Permissions>(options?: Options<P>): Promise<Aut
 
   return {
     me: me,
-    permissions: permissions as P,
+    permissions: permissions as Options<P>["permissions"],
   };
 }
 

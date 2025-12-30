@@ -91,5 +91,5 @@ export interface Auth<P extends Permissions> {
     email: string;
     role: UserRole;
   };
-  permissions: P;
+  permissions: Options<P>["permissions"];
 }
