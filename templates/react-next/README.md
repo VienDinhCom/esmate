@@ -11,8 +11,7 @@ This template is built with:
 - **Authentication**: [Better Auth](https://www.better-auth.com/) – A complete open-source authentication solution for
   Next.js applications.
 - **Authorization**: [RBAC](https://www.better-auth.com/docs/plugins/admin#access-control) – Built-in role-based access
-  control and permission management provided by Better Auth, enabling server-side and client-side authorization in
-  Next.js.
+  control and permission management.
 - **Payments**: [Stripe](https://stripe.com/) – A complete payment platform engineered for growth.
 - **Database**: [PostgreSQL](https://www.postgresql.org/) – A powerful, open-source object-relational database system.
 - **ORM**: [Drizzle ORM](https://orm.drizzle.team/) – A lightweight and performant TypeScript ORM for Node.js and
