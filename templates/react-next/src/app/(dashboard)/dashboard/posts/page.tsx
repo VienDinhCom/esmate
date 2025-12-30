@@ -20,7 +20,7 @@ export default async function PostsPage() {
         with: { author: true },
       })
     : await db.query.post.findMany({
-        // where: orm.eq(schema.post.authorId, me.id),
+        where: orm.eq(schema.post.authorId, me.id),
         orderBy: orm.desc(schema.post.createdAt),
         with: { author: true },
       });
