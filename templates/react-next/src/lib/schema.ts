@@ -5,4 +5,4 @@ export const UserSelectSchema = createSelectSchema(user);
 
 export const PostSelectSchema = createSelectSchema(post);
 export const PostInsertSchema = createInsertSchema(post).omit({ id: true, authorId: true });
-export const PostUpdateSchema = createUpdateSchema(post).required({ authorId: true });
+export const PostUpdateSchema = createUpdateSchema(post).required({ authorId: true, id: true });

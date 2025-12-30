@@ -16,7 +16,7 @@ export async function updatePostAction(formData: z.infer<typeof PostUpdateSchema
   const data = PostUpdateSchema.parse(formData);
 
   const post = await db.query.post.findFirst({
-    where: orm.eq(schema.post.id, data.id!),
+    where: orm.eq(schema.post.id, data.id),
   });
 
   invariant(post, "Post not found");
@@ -25,14 +25,14 @@ export async function updatePostAction(formData: z.infer<typeof PostUpdateSchema
     await db
       .update(schema.post)
       .set({ title: data.title, content: data.content, published: data.published })
-      .where(orm.eq(schema.post.id, data.id!));
+      .where(orm.eq(schema.post.id, data.id));
   }
 
   if (permissions.posts.includes("update own")) {
     await db
       .update(schema.post)
       .set({ title: data.title, content: data.content, published: data.published })
-      .where(orm.and(orm.eq(schema.post.authorId, me.id), orm.eq(schema.post.id, data.id!)));
+      .where(orm.and(orm.eq(schema.post.authorId, me.id), orm.eq(schema.post.id, data.id)));
   }
 
   revalidatePath("/dashboard/posts");
