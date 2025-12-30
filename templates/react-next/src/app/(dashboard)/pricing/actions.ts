@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 import { invariant } from "@esmate/utils";
 
 export async function upgradeSubscriptionAction(formData: FormData) {
-  const {} = await authServer.verifySession();
+  await authServer.verifySession();
 
   const planName = formData.get("planName") as Plan["name"];
 
