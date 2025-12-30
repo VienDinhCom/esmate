@@ -2,19 +2,14 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { userHasAnyPermission } from "@/lib/admin";
 import { db, orm, schema } from "@/lib/db";
 import { invariant } from "@esmate/utils";
-import { getAuthOrThrow } from "@/lib/auth";
+import { authServer } from "@/lib/auth";
 
 export async function deletePostAction(formData: FormData) {
-  const me = await getAuthOrThrow();
-
-  const { permissions } = await userHasAnyPermission(me.id, {
-    posts: ["delete any", "delete own"],
+  const { me, permissions } = await authServer.getAuth({
+    permissions: { posts: ["delete any", "delete own"] },
   });
-
-  invariant(permissions, "You don't have permission to delete this post");
 
   const id = formData.get("id") as string;
   invariant(id, "Post ID is required");

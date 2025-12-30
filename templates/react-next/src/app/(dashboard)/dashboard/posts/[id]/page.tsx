@@ -1,6 +1,5 @@
-import { headers } from "next/headers";
-import { notFound, redirect } from "next/navigation";
-import { auth } from "@/lib/auth";
+import { notFound } from "next/navigation";
+import { authServer } from "@/lib/auth";
 import { db, orm, schema } from "@/lib/db";
 import { EditPostForm } from "./edit-post-form";
 
@@ -9,29 +8,21 @@ type Props = {
 };
 
 export default async function EditPostPage({ params }: Props) {
-  const { id } = await params;
-
-  const session = await auth.api.getSession({ headers: await headers() });
-
-  if (!session) {
-    redirect(`/auth/sign-in?redirect=/dashboard/posts/${id}`);
-  }
-
-  const post = await db.query.post.findFirst({
-    where: orm.eq(schema.post.id, id),
+  const { me, permissions } = await authServer.getAuth({
+    permissions: { posts: ["update any", "update own"] },
   });
 
-  if (!post) {
-    notFound();
-  }
+  const { id } = await params;
 
-  // Check authorization: must be owner or admin
-  const isOwner = post.authorId === session.user.id;
-  const isAdmin = session.user.role === "admin";
+  const post = permissions?.posts.includes("update any")
+    ? await db.query.post.findFirst({
+        where: orm.eq(schema.post.id, id),
+      })
+    : await db.query.post.findFirst({
+        where: orm.and(orm.eq(schema.post.id, id), orm.eq(schema.post.authorId, me.id)),
+      });
 
-  if (!isOwner && !isAdmin) {
-    redirect("/dashboard/posts");
-  }
+  if (!post) notFound();
 
   return (
     <section className="flex-1 p-4 lg:p-8">

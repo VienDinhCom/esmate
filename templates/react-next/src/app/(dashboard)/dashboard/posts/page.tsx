@@ -1,19 +1,18 @@
 import Link from "next/link";
-import { getAuthOrSignIn } from "@/lib/auth";
 import { db, orm, schema } from "@/lib/db";
 import { Card, CardContent, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Badge } from "@esmate/shadcn/components/ui/badge";
 import { Plus, Pencil } from "@esmate/shadcn/pkgs/lucide-react";
 import { deletePostAction } from "./actions";
+import { authServer } from "@/lib/auth";
 
 export default async function PostsPage() {
-  const me = await getAuthOrSignIn("/dashboard/posts");
+  const { me, permissions } = await authServer.getAuth({
+    sign: "in",
+  });
 
-  const isAdmin = me.role === "admin";
-
-  // Admin sees all posts, users see only their own
-  const posts = isAdmin
+  const posts = permissions?.posts?.includes("read any")
     ? await db.query.post.findMany({
         orderBy: orm.desc(schema.post.createdAt),
         with: { author: true },
@@ -50,7 +49,7 @@ export default async function PostsPage() {
                 <div className="flex items-start justify-between">
                   <div>
                     <CardTitle className="text-lg">{post.title}</CardTitle>
-                    {isAdmin && <p className="mt-1 text-sm text-gray-500">By {post.author.name}</p>}
+                    {me.role === "admin" && <p className="mt-1 text-sm text-gray-500">By {post.author.name}</p>}
                   </div>
                   <div className="flex items-center gap-2">
                     <Badge variant={post.published ? "default" : "secondary"}>

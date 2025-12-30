@@ -2,25 +2,15 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { auth, getAuthOrSignIn } from "@/lib/auth";
+import { authServer } from "@/lib/auth";
 import { db, schema } from "@/lib/db";
-import { invariant } from "@esmate/utils";
 import { PostInsertSchema } from "@/lib/db/schema";
 import z from "zod";
 
 export async function createPostAction(formData: z.infer<typeof PostInsertSchema>) {
-  const me = await getAuthOrSignIn("/dashboard/posts/new");
-
-  const permission = await auth.api.userHasPermission({
-    body: {
-      userId: me.id,
-      permission: {
-        posts: ["create"],
-      },
-    },
+  const { me } = await authServer.getAuth({
+    permissions: { posts: ["create"] },
   });
-
-  invariant(permission.success, "You don't have permission to create a post");
 
   const data = PostInsertSchema.parse(formData);
 
