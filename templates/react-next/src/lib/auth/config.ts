@@ -84,12 +84,12 @@ export interface Options<P extends Permissions> {
   permissions?: P;
 }
 
-export interface Auth<P extends Permissions> {
+export interface Auth<P extends Permissions, O extends Options<P>> {
   me: {
     id: string;
     name: string;
     email: string;
     role: UserRole;
   };
-  permissions: Options<P>["permissions"];
+  permissions: O["permissions"];
 }

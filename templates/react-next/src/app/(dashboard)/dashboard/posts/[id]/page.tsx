@@ -14,7 +14,7 @@ export default async function EditPostPage({ params }: Props) {
 
   const { id } = await params;
 
-  const post = permissions?.posts.includes("update any")
+  const post = permissions.posts.includes("update any")
     ? await db.query.post.findFirst({
         where: orm.eq(schema.post.id, id),
       })

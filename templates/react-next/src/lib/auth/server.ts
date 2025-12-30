@@ -5,8 +5,8 @@ import { headers } from "next/headers";
 import { auth, RBAC, Auth, Options, Permissions, UserRole } from "./config";
 import { intersection } from "@esmate/utils";
 
-async function getAuth<P extends Permissions>(options?: Options<P>): Promise<Auth<P>> {
-  let me: Auth<P>["me"];
+async function getAuth<P extends Permissions, O extends Options<P>>(options?: O): Promise<Auth<P, O>> {
+  let me: Auth<P, O>["me"];
   let permissions: Record<string, string[]> | undefined = undefined;
 
   if (options?.id) {
@@ -66,7 +66,7 @@ async function getAuth<P extends Permissions>(options?: Options<P>): Promise<Aut
 
   return {
     me: me,
-    permissions: permissions as Options<P>["permissions"],
+    permissions: permissions as O["permissions"],
   };
 }
 

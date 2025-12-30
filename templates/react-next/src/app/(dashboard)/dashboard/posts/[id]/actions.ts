@@ -21,14 +21,14 @@ export async function updatePostAction(formData: z.infer<typeof PostUpdateSchema
 
   invariant(post, "Post not found");
 
-  if (permissions?.posts.includes("update any")) {
+  if (permissions.posts.includes("update any")) {
     await db
       .update(schema.post)
       .set({ title: data.title, content: data.content, published: data.published })
       .where(orm.eq(schema.post.id, data.id!));
   }
 
-  if (permissions?.posts.includes("update own")) {
+  if (permissions.posts.includes("update own")) {
     await db
       .update(schema.post)
       .set({ title: data.title, content: data.content, published: data.published })
