@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Alert, AlertDescription, AlertTitle } from "@esmate/shadcn/components/ui/alert";
 import { Button } from "@esmate/shadcn/components/ui/button";
 import {
@@ -13,9 +14,7 @@ import {
 import { AlertCircle, RefreshCw } from "@esmate/shadcn/pkgs/lucide-react";
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
+  const router = useRouter();
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
@@ -48,7 +47,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
             <RefreshCw className="mr-2 h-4 w-4" />
             Try Again
           </Button>
-          <Button variant="outline" className="w-full" onClick={() => (window.location.href = "/")}>
+          <Button variant="outline" className="w-full" onClick={() => router.replace("/")}>
             Go to Home
           </Button>
         </CardFooter>
