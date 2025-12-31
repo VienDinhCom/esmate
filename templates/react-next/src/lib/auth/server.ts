@@ -3,7 +3,7 @@ import { invariant } from "@esmate/utils";
 import { redirect } from "next/navigation";
 import { headers as getHeaders } from "next/headers";
 import { auth, Auth, Options, Permissions, UserRole } from "./config";
-import { ExtractBody } from "@/lib/types";
+import { BetterBody } from "@/lib/types";
 
 async function authenticate<P extends Permissions>(options?: Options): Promise<Auth<P>> {
   let user: Auth<P>["user"];
@@ -62,7 +62,7 @@ async function authenticate<P extends Permissions>(options?: Options): Promise<A
   };
 }
 
-export async function createBillingPortal(options: ExtractBody<typeof auth.api.createBillingPortal>) {
+export async function createBillingPortal(options: BetterBody<typeof auth.api.createBillingPortal>) {
   const res = await auth.api.createBillingPortal({
     body: options,
     headers: await getHeaders(),
@@ -71,7 +71,7 @@ export async function createBillingPortal(options: ExtractBody<typeof auth.api.c
   return res;
 }
 
-export async function upgradeSubscription(options: ExtractBody<typeof auth.api.upgradeSubscription>) {
+export async function upgradeSubscription(options: BetterBody<typeof auth.api.upgradeSubscription>) {
   const res = await auth.api.upgradeSubscription({
     body: options,
     headers: await getHeaders(),
