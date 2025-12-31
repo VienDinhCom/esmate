@@ -77,18 +77,17 @@ export type Permissions = {
   [R in keyof typeof RBAC.statements]?: (typeof RBAC.statements)[R][number][];
 };
 
-export interface Options<P extends Permissions> {
+export interface Options {
   id?: string;
   callbackUrl?: string;
-  permissions?: P;
 }
 
-export interface Auth<P extends Permissions, O extends Options<P>> {
+export interface Auth<P extends Permissions> {
   me: {
     id: string;
     name: string;
     email: string;
     role: UserRole;
   };
-  permissions: O["permissions"];
+  authorize: (permissions: P) => Promise<P>;
 }

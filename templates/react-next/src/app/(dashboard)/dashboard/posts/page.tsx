@@ -8,13 +8,13 @@ import { deletePostAction } from "./actions";
 import { authServer } from "@/lib/auth";
 
 export default async function PostsPage() {
-  const { me, permissions } = await authServer.verifySession({
-    permissions: {
-      posts: ["read any", "read own"],
-    },
+  const { me, authorize } = await authServer.verifySession();
+
+  const permissions = await authorize({
+    posts: [me.role === "admin" ? "read any" : "read own"],
   });
 
-  const posts = permissions.posts.includes("read any")
+  const posts = permissions.posts?.includes("read any")
     ? await db.query.post.findMany({
         orderBy: orm.desc(schema.post.createdAt),
         with: { author: true },

@@ -2,9 +2,9 @@ import { NewPostForm } from "./new-post-form";
 import { authServer } from "@/lib/auth";
 
 export default async function NewPostPage() {
-  await authServer.verifySession({
-    permissions: { posts: ["create"] },
-  });
+  const { authorize } = await authServer.verifySession();
+
+  await authorize({ posts: ["create"] });
 
   return (
     <section className="flex-1 p-4 lg:p-8">
