@@ -17,7 +17,7 @@ function SubscriptionSkeleton() {
 }
 
 async function ManageSubscription() {
-  const { me } = await authServer.verifySession();
+  const { me } = await authServer.authenticate();
   const user = await db.query.user.findFirst({
     where: orm.eq(schema.user.id, me.id),
   });

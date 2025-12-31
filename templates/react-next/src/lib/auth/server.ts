@@ -1,14 +1,13 @@
 import { db, orm, schema } from "@/lib/db";
 import { invariant } from "@esmate/utils";
 import { redirect } from "next/navigation";
-import { headers } from "next/headers";
-import { auth, RBAC, Auth, Options, Permissions, UserRole } from "./config";
-import { intersection } from "@esmate/utils";
+import { headers as getHeaders } from "next/headers";
+import { auth, Auth, Options, Permissions, UserRole } from "./config";
 import { ExtractBody } from "@/lib/types";
 
-async function verifySession<P extends Permissions, O extends Options<P>>(options?: O): Promise<Auth<P, O>> {
-  let me: Auth<P, O>["me"];
-  let permissions: Record<string, string[]> | undefined = undefined;
+async function authenticate<P extends Permissions>(options?: Options): Promise<Auth<P>> {
+  let me: Auth<P>["me"];
+  const headers = await getHeaders();
 
   if (options?.id) {
     const user = await db.query.user.findFirst({ where: orm.eq(schema.user.id, options.id) });
@@ -22,7 +21,7 @@ async function verifySession<P extends Permissions, O extends Options<P>>(option
       role: user.role as UserRole,
     };
   } else {
-    const session = await auth.api.getSession({ headers: await headers() });
+    const session = await auth.api.getSession({ headers });
 
     if (session === null) {
       if (options?.callbackUrl) {
@@ -40,19 +39,9 @@ async function verifySession<P extends Permissions, O extends Options<P>>(option
     };
   }
 
-  // if permissions are required, check if the user has them
-  if (options?.permissions) {
-    permissions = {};
+  invariant(me.role, "User role not found");
 
-    for (const [resource, requestedActions] of Object.entries(options?.permissions)) {
-      const roleActions = RBAC.roles[me.role].statements[resource] || [];
-      const allowedActions = intersection(roleActions, requestedActions);
-
-      invariant(allowedActions.length > 0, `User does not have any of the requested permissions for ${resource}`);
-
-      permissions[resource] = allowedActions;
-    }
-
+  async function authorize(permissions: P) {
     const permitted = await auth.api.userHasPermission({
       body: {
         permissions,
@@ -62,20 +51,21 @@ async function verifySession<P extends Permissions, O extends Options<P>>(option
     });
 
     invariant(permitted.success, "User does not have permission");
+
+    return permissions;
   }
 
-  invariant(me.role, "User role not found");
-
   return {
-    me: me,
-    permissions: permissions as O["permissions"],
+    me,
+    headers,
+    authorize,
   };
 }
 
 export async function createBillingPortal(options: ExtractBody<typeof auth.api.createBillingPortal>) {
   const res = await auth.api.createBillingPortal({
     body: options,
-    headers: await headers(),
+    headers: await getHeaders(),
   });
 
   return res;
@@ -84,14 +74,14 @@ export async function createBillingPortal(options: ExtractBody<typeof auth.api.c
 export async function upgradeSubscription(options: ExtractBody<typeof auth.api.upgradeSubscription>) {
   const res = await auth.api.upgradeSubscription({
     body: options,
-    headers: await headers(),
+    headers: await getHeaders(),
   });
 
   return res;
 }
 
 export const authServer = {
-  verifySession,
+  authenticate,
   createBillingPortal,
   upgradeSubscription,
 };

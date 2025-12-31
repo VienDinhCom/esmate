@@ -3,7 +3,7 @@ import { AccountForm } from "./account-form";
 import { authServer } from "@/lib/auth";
 
 export default async function GeneralPage() {
-  const { me } = await authServer.verifySession();
+  const { me } = await authServer.authenticate();
 
   return (
     <section className="flex-1 p-4 lg:p-8">

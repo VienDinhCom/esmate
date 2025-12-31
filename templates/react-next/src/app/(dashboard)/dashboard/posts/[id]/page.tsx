@@ -8,21 +8,17 @@ type Props = {
 };
 
 export default async function EditPostPage({ params }: Props) {
-  const { me, permissions } = await authServer.verifySession({
-    permissions: { posts: ["update any", "update own"] },
-  });
+  const { me, authorize } = await authServer.authenticate();
 
   const { id } = await params;
 
-  const post = permissions.posts.includes("update any")
-    ? await db.query.post.findFirst({
-        where: orm.eq(schema.post.id, id),
-      })
-    : await db.query.post.findFirst({
-        where: orm.and(orm.eq(schema.post.id, id), orm.eq(schema.post.authorId, me.id)),
-      });
+  const post = await db.query.post.findFirst({ where: orm.eq(schema.post.id, id) });
 
   if (!post) notFound();
+
+  await authorize({
+    posts: [post.authorId === me.id ? "update own" : "update any"],
+  });
 
   return (
     <section className="flex-1 p-4 lg:p-8">
