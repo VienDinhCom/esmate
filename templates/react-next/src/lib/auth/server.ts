@@ -9,6 +9,20 @@ async function authenticate<P extends Permissions>(options?: Options): Promise<A
   let me: Auth<P>["me"];
   const headers = await getHeaders();
 
+  async function authorize(permissions: P) {
+    const permitted = await auth.api.userHasPermission({
+      body: {
+        permissions,
+        userId: me.id,
+        role: me.role,
+      },
+    });
+
+    invariant(permitted.success, "User does not have permission");
+
+    return permissions;
+  }
+
   if (options?.id) {
     const user = await db.query.user.findFirst({ where: orm.eq(schema.user.id, options.id) });
 
@@ -40,20 +54,6 @@ async function authenticate<P extends Permissions>(options?: Options): Promise<A
   }
 
   invariant(me.role, "User role not found");
-
-  async function authorize(permissions: P) {
-    const permitted = await auth.api.userHasPermission({
-      body: {
-        permissions,
-        userId: me.id,
-        role: me.role,
-      },
-    });
-
-    invariant(permitted.success, "User does not have permission");
-
-    return permissions;
-  }
 
   return {
     me,
