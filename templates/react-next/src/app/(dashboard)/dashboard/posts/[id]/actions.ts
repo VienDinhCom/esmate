@@ -14,7 +14,7 @@ export async function updatePostAction(formData: z.infer<typeof PostUpdateSchema
 
   invariant(post, "Post not found");
 
-  const { me, authorize } = await authServer.verifySession();
+  const { me, authorize } = await authServer.authenticate();
 
   await authorize({
     posts: [post.authorId === me.id ? "update own" : "update any"],

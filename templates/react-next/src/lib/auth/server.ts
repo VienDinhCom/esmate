@@ -5,7 +5,7 @@ import { headers as getHeaders } from "next/headers";
 import { auth, Auth, Options, Permissions, UserRole } from "./config";
 import { ExtractBody } from "@/lib/types";
 
-async function verifySession<P extends Permissions>(options?: Options): Promise<Auth<P>> {
+async function authenticate<P extends Permissions>(options?: Options): Promise<Auth<P>> {
   let me: Auth<P>["me"];
   const headers = await getHeaders();
 
@@ -81,7 +81,7 @@ export async function upgradeSubscription(options: ExtractBody<typeof auth.api.u
 }
 
 export const authServer = {
-  verifySession,
+  authenticate,
   createBillingPortal,
   upgradeSubscription,
 };

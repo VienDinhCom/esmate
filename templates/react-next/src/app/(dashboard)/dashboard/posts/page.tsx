@@ -8,7 +8,7 @@ import { deletePostAction } from "./actions";
 import { authServer } from "@/lib/auth";
 
 export default async function PostsPage() {
-  const { me, authorize } = await authServer.verifySession();
+  const { me, authorize } = await authServer.authenticate();
 
   const permissions = await authorize({
     posts: [me.role === "admin" ? "read any" : "read own"],

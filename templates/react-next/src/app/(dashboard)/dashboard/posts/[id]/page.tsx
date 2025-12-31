@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default async function EditPostPage({ params }: Props) {
-  const { me, authorize } = await authServer.verifySession();
+  const { me, authorize } = await authServer.authenticate();
 
   const { id } = await params;
 

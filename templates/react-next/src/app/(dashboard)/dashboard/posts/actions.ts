@@ -15,7 +15,7 @@ export async function deletePostAction(formData: FormData) {
 
   invariant(post, "Post not found");
 
-  const { me, authorize } = await authServer.verifySession();
+  const { me, authorize } = await authServer.authenticate();
 
   await authorize({
     posts: [post.authorId === me.id ? "delete own" : "delete any"],

@@ -9,7 +9,7 @@ import z from "zod";
 
 export async function createPostAction(formData: z.infer<typeof PostInsertSchema>) {
   const data = PostInsertSchema.parse(formData);
-  const { me, authorize } = await authServer.verifySession();
+  const { me, authorize } = await authServer.authenticate();
 
   await authorize({ posts: ["create"] });
 
