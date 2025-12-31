@@ -4,7 +4,7 @@ import { adminClient } from "better-auth/client/plugins";
 import { Auth, Options, Permissions, UserRole } from "./config";
 import { invariant } from "@esmate/utils";
 
-const { getSession, admin } = createAuthClient({
+const client = createAuthClient({
   plugins: [adminClient(), stripeClient({ subscription: true })],
 });
 
@@ -17,7 +17,7 @@ async function authenticate<P extends Permissions>(options?: Options): Promise<O
   // } else
 
   {
-    const { data: session } = await getSession();
+    const { data: session } = await client.getSession();
 
     if (!session) {
       if (options?.callbackUrl) {
@@ -38,7 +38,7 @@ async function authenticate<P extends Permissions>(options?: Options): Promise<O
   invariant(user?.role, "User role not found");
 
   const authorize = async (permissions: P) => {
-    const permitted = admin.hasPermission({
+    const permitted = client.admin.hasPermission({
       permissions,
     });
 
