@@ -9,15 +9,14 @@ import { PostUpdateSchema } from "@/lib/schema";
 import z from "zod";
 
 export async function updatePostAction(formData: z.infer<typeof PostUpdateSchema>) {
+  const auth = await authServer.authenticate();
   const data = PostUpdateSchema.parse(formData);
   const post = await db.query.post.findFirst({ where: orm.eq(schema.post.id, data.id) });
 
   invariant(post, "Post not found");
 
-  const { me, authorize } = await authServer.authenticate();
-
-  await authorize({
-    posts: [post.authorId === me.id ? "update own" : "update any"],
+  await auth.authorize({
+    posts: [post.authorId === auth.user.id ? "update own" : "update any"],
   });
 
   await db

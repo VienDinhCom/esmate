@@ -84,7 +84,7 @@ export interface Options {
 }
 
 export interface Auth<P extends Permissions> {
-  me: {
+  user: {
     id: string;
     name: string;
     email: string;

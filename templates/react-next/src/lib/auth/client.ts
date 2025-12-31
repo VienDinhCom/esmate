@@ -29,17 +29,17 @@ async function authenticate<P extends Permissions>(options?: Options): Promise<O
     throw new Error("Not authenticated");
   }
 
-  const me = {
+  const user = {
     id: session.user.id,
     name: session.user.name,
     email: session.user.email,
     role: session.user.role as UserRole,
   };
 
-  invariant(me.role, "User role not found");
+  invariant(user.role, "User role not found");
 
   return {
-    me,
+    user,
     authorize,
   };
 }
