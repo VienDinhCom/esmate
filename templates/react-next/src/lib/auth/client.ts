@@ -38,7 +38,7 @@ async function authenticate<P extends Permissions>(options?: Options): Promise<O
   invariant(user?.role, "User role not found");
 
   const authorize = async (permissions: P) => {
-    const permitted = client.admin.hasPermission({
+    const permitted = await client.admin.hasPermission({
       permissions,
     });
 
