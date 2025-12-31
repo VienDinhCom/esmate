@@ -1,12 +1,13 @@
 import { db, orm, schema } from "@/lib/db";
 import { invariant } from "@esmate/utils";
 import { redirect } from "next/navigation";
-import { headers } from "next/headers";
+import { headers as getHeaders } from "next/headers";
 import { auth, Auth, Options, Permissions, UserRole } from "./config";
 import { ExtractBody } from "@/lib/types";
 
 async function verifySession<P extends Permissions>(options?: Options): Promise<Auth<P>> {
   let me: Auth<P>["me"];
+  const headers = await getHeaders();
 
   if (options?.id) {
     const user = await db.query.user.findFirst({ where: orm.eq(schema.user.id, options.id) });
@@ -20,7 +21,7 @@ async function verifySession<P extends Permissions>(options?: Options): Promise<
       role: user.role as UserRole,
     };
   } else {
-    const session = await auth.api.getSession({ headers: await headers() });
+    const session = await auth.api.getSession({ headers });
 
     if (session === null) {
       if (options?.callbackUrl) {
@@ -56,6 +57,7 @@ async function verifySession<P extends Permissions>(options?: Options): Promise<
 
   return {
     me,
+    headers,
     authorize,
   };
 }
@@ -63,7 +65,7 @@ async function verifySession<P extends Permissions>(options?: Options): Promise<
 export async function createBillingPortal(options: ExtractBody<typeof auth.api.createBillingPortal>) {
   const res = await auth.api.createBillingPortal({
     body: options,
-    headers: await headers(),
+    headers: await getHeaders(),
   });
 
   return res;
@@ -72,7 +74,7 @@ export async function createBillingPortal(options: ExtractBody<typeof auth.api.c
 export async function upgradeSubscription(options: ExtractBody<typeof auth.api.upgradeSubscription>) {
   const res = await auth.api.upgradeSubscription({
     body: options,
-    headers: await headers(),
+    headers: await getHeaders(),
   });
 
   return res;

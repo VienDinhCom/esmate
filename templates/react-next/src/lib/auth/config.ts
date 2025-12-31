@@ -8,6 +8,7 @@ import { admin } from "better-auth/plugins";
 import { stripe } from "@better-auth/stripe";
 import { stripe as stripeClient, plans } from "@/lib/stripe";
 import { env } from "@/lib/env";
+import { headers } from "next/headers";
 
 /**
  * Role Based Access Control
@@ -89,5 +90,6 @@ export interface Auth<P extends Permissions> {
     email: string;
     role: UserRole;
   };
+  headers: Awaited<ReturnType<typeof headers>>;
   authorize: (permissions: P) => Promise<P>;
 }
