@@ -9,20 +9,6 @@ async function authenticate<P extends Permissions>(options?: Options): Promise<A
   let user: Auth<P>["user"];
   const headers = await getHeaders();
 
-  async function authorize(permissions: P) {
-    const permitted = await auth.api.userHasPermission({
-      body: {
-        permissions,
-        userId: user.id,
-        role: user.role,
-      },
-    });
-
-    invariant(permitted.success, "User does not have permission");
-
-    return permissions;
-  }
-
   if (options?.id) {
     const data = await db.query.user.findFirst({ where: orm.eq(schema.user.id, options.id) });
 
@@ -55,6 +41,20 @@ async function authenticate<P extends Permissions>(options?: Options): Promise<A
 
   invariant(user.role, "User role not found");
 
+  const authorize = async (permissions: P) => {
+    const permitted = await auth.api.userHasPermission({
+      body: {
+        permissions,
+        userId: user.id,
+        role: user.role,
+      },
+    });
+
+    invariant(permitted.success, "User does not have permission");
+
+    return permissions;
+  };
+
   return {
     user,
     headers,
@@ -62,7 +62,7 @@ async function authenticate<P extends Permissions>(options?: Options): Promise<A
   };
 }
 
-export async function createBillingPortal(options: BetterBody<typeof auth.api.createBillingPortal>) {
+async function createBillingPortal(options: BetterBody<typeof auth.api.createBillingPortal>) {
   const res = await auth.api.createBillingPortal({
     body: options,
     headers: await getHeaders(),
@@ -71,7 +71,7 @@ export async function createBillingPortal(options: BetterBody<typeof auth.api.cr
   return res;
 }
 
-export async function upgradeSubscription(options: BetterBody<typeof auth.api.upgradeSubscription>) {
+async function upgradeSubscription(options: BetterBody<typeof auth.api.upgradeSubscription>) {
   const res = await auth.api.upgradeSubscription({
     body: options,
     headers: await getHeaders(),
