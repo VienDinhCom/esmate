@@ -42,7 +42,7 @@ async function authenticate<P extends Permissions>(options?: Options): Promise<O
       permissions,
     });
 
-    invariant(permitted, "User does not have permission");
+    invariant(permitted.data?.success, "User does not have permission");
 
     return permissions;
   };
