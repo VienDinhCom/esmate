@@ -8,22 +8,23 @@ import { deletePostAction } from "./actions";
 import { authServer } from "@/lib/auth";
 
 export default async function PostsPage() {
-  const { me, authorize } = await authServer.authenticate();
+  const auth = await authServer.authenticate();
 
-  const permissions = await authorize({
-    posts: [me.role === "user" ? "read own" : "read any"],
+  await auth.authorize({
+    posts: [auth.user.role === "user" ? "read own" : "read any"],
   });
 
-  const posts = permissions.posts?.includes("read own")
-    ? await db.query.post.findMany({
-        where: orm.eq(schema.post.authorId, me.id),
-        orderBy: orm.desc(schema.post.createdAt),
-        with: { author: true },
-      })
-    : await db.query.post.findMany({
-        orderBy: orm.desc(schema.post.createdAt),
-        with: { author: true },
-      });
+  const posts =
+    auth.user.role === "admin"
+      ? await db.query.post.findMany({
+          orderBy: orm.desc(schema.post.createdAt),
+          with: { author: true },
+        })
+      : await db.query.post.findMany({
+          where: orm.eq(schema.post.authorId, auth.user.id),
+          orderBy: orm.desc(schema.post.createdAt),
+          with: { author: true },
+        });
 
   return (
     <section className="flex-1 p-4 lg:p-8">
@@ -51,7 +52,7 @@ export default async function PostsPage() {
                 <div className="flex items-start justify-between">
                   <div>
                     <CardTitle className="text-lg">{post.title}</CardTitle>
-                    {me.role === "admin" && <p className="mt-1 text-sm text-gray-500">By {post.author.name}</p>}
+                    {auth.user.role === "admin" && <p className="mt-1 text-sm text-gray-500">By {post.author.name}</p>}
                   </div>
                   <div className="flex items-center gap-2">
                     <Badge variant={post.published ? "default" : "secondary"}>

@@ -8,16 +8,14 @@ type Props = {
 };
 
 export default async function EditPostPage({ params }: Props) {
-  const { me, authorize } = await authServer.authenticate();
-
+  const auth = await authServer.authenticate();
   const { id } = await params;
-
   const post = await db.query.post.findFirst({ where: orm.eq(schema.post.id, id) });
 
   if (!post) notFound();
 
-  await authorize({
-    posts: [post.authorId === me.id ? "update own" : "update any"],
+  await auth.authorize({
+    posts: [post.authorId === auth.user.id ? "update own" : "update any"],
   });
 
   return (

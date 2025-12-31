@@ -8,17 +8,17 @@ import { PostInsertSchema } from "@/lib/schema";
 import z from "zod";
 
 export async function createPostAction(formData: z.infer<typeof PostInsertSchema>) {
+  const auth = await authServer.authenticate();
   const data = PostInsertSchema.parse(formData);
-  const { me, authorize } = await authServer.authenticate();
 
-  await authorize({ posts: ["create"] });
+  await auth.authorize({ posts: ["create"] });
 
   await db.insert(schema.post).values({
     id: crypto.randomUUID(),
     title: data.title,
     content: data.content,
     published: data.published,
-    authorId: me.id,
+    authorId: auth.user.id,
   });
 
   revalidatePath("/dashboard/posts");

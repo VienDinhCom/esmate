@@ -17,9 +17,9 @@ function SubscriptionSkeleton() {
 }
 
 async function ManageSubscription() {
-  const { me } = await authServer.authenticate();
+  const auth = await authServer.authenticate();
   const user = await db.query.user.findFirst({
-    where: orm.eq(schema.user.id, me.id),
+    where: orm.eq(schema.user.id, auth.user.id),
   });
 
   invariant(user?.stripeCustomerId, "user must have a stripe customer id");

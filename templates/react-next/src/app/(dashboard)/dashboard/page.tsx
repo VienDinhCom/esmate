@@ -3,7 +3,7 @@ import { AccountForm } from "./account-form";
 import { authServer } from "@/lib/auth";
 
 export default async function GeneralPage() {
-  const { me } = await authServer.authenticate();
+  const auth = await authServer.authenticate();
 
   return (
     <section className="flex-1 p-4 lg:p-8">
@@ -14,7 +14,7 @@ export default async function GeneralPage() {
           <CardTitle>Account</CardTitle>
         </CardHeader>
         <CardContent>
-          <AccountForm name={me.name} email={me.email} />
+          <AccountForm name={auth.user.name} email={auth.user.email} />
         </CardContent>
       </Card>
     </section>
