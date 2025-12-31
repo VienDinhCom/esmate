@@ -11,16 +11,16 @@ export default async function PostsPage() {
   const { me, authorize } = await authServer.authenticate();
 
   const permissions = await authorize({
-    posts: [me.role === "admin" ? "read any" : "read own"],
+    posts: [me.role === "user" ? "read own" : "read any"],
   });
 
-  const posts = permissions.posts?.includes("read any")
+  const posts = permissions.posts?.includes("read own")
     ? await db.query.post.findMany({
+        where: orm.eq(schema.post.authorId, me.id),
         orderBy: orm.desc(schema.post.createdAt),
         with: { author: true },
       })
     : await db.query.post.findMany({
-        where: orm.eq(schema.post.authorId, me.id),
         orderBy: orm.desc(schema.post.createdAt),
         with: { author: true },
       });
