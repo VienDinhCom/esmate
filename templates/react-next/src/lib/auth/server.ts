@@ -1,26 +1,30 @@
-import { db, orm, schema } from "@/lib/db";
 import { invariant } from "@esmate/utils";
 import { redirect } from "next/navigation";
 import { headers as getHeaders } from "next/headers";
 import { auth, Auth, Options, Permissions, UserRole } from "./config";
 import { BetterBody } from "@/lib/types";
 
+async function authorize<P extends Permissions>(options: { id: string; headers?: Headers; permissions: P }) {
+  const headers = options.headers ?? (await getHeaders());
+
+  const permitted = await auth.api.userHasPermission({
+    body: {
+      userId: options.id,
+      permissions: options.permissions,
+    },
+    headers,
+  });
+
+  invariant(permitted.success, "User does not have permission");
+
+  return options.permissions;
+}
+
 async function authenticate<P extends Permissions>(options?: Options): Promise<Auth<P>> {
   let user: Auth<P>["user"];
   const headers = await getHeaders();
 
-  if (options?.id) {
-    const data = await db.query.user.findFirst({ where: orm.eq(schema.user.id, options.id) });
-
-    invariant(data, "User not found");
-
-    user = {
-      id: data.id,
-      name: data.name,
-      email: data.email,
-      role: data.role as UserRole,
-    };
-  } else {
+  {
     const session = await auth.api.getSession({ headers });
 
     if (session === null) {
@@ -41,24 +45,10 @@ async function authenticate<P extends Permissions>(options?: Options): Promise<A
 
   invariant(user.role, "User role not found");
 
-  const authorize = async (permissions: P) => {
-    const permitted = await auth.api.userHasPermission({
-      body: {
-        permissions,
-        userId: user.id,
-        role: user.role,
-      },
-    });
-
-    invariant(permitted.success, "User does not have permission");
-
-    return permissions;
-  };
-
   return {
     user,
     headers,
-    authorize,
+    authorize: (permissions: P) => authorize({ id: user.id, headers, permissions }),
   };
 }
 
@@ -81,6 +71,7 @@ async function upgradeSubscription(options: BetterBody<typeof auth.api.upgradeSu
 }
 
 export const authServer = {
+  authorize,
   authenticate,
   createBillingPortal,
   upgradeSubscription,
