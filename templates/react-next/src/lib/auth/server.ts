@@ -2,7 +2,6 @@ import { invariant } from "@esmate/utils";
 import { redirect } from "next/navigation";
 import { headers as getHeaders } from "next/headers";
 import { auth, Auth, Options, Permissions, UserRole } from "./config";
-import { BetterBody } from "@/lib/types";
 
 async function authorize<P extends Permissions>(options: { id: string; headers?: Headers; permissions: P }) {
   const headers = options.headers ?? (await getHeaders());
@@ -52,27 +51,7 @@ async function authenticate<P extends Permissions>(options?: Options): Promise<A
   };
 }
 
-async function createBillingPortal(options: BetterBody<typeof auth.api.createBillingPortal>) {
-  const res = await auth.api.createBillingPortal({
-    body: options,
-    headers: await getHeaders(),
-  });
-
-  return res;
-}
-
-async function upgradeSubscription(options: BetterBody<typeof auth.api.upgradeSubscription>) {
-  const res = await auth.api.upgradeSubscription({
-    body: options,
-    headers: await getHeaders(),
-  });
-
-  return res;
-}
-
 export const authServer = {
   authorize,
   authenticate,
-  createBillingPortal,
-  upgradeSubscription,
 };
