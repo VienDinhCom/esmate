@@ -8,13 +8,19 @@ const client = createAuthClient({
   plugins: [adminClient(), stripeClient({ subscription: true })],
 });
 
+async function authorize<P extends Permissions>(options: { id: string; permissions: P }) {
+  const permitted = await client.admin.hasPermission({
+    userId: options.id,
+    permissions: options.permissions,
+  });
+
+  invariant(permitted.data?.success, "User does not have permission");
+
+  return options.permissions;
+}
+
 async function authenticate<P extends Permissions>(options?: Options): Promise<Omit<Auth<P>, "headers">> {
   let user: Auth<P>["user"];
-
-  // if (options?.id) {
-  //   user = {
-  //   };
-  // } else
 
   {
     const { data: session } = await client.getSession();
@@ -37,22 +43,13 @@ async function authenticate<P extends Permissions>(options?: Options): Promise<O
 
   invariant(user?.role, "User role not found");
 
-  const authorize = async (permissions: P) => {
-    const permitted = await client.admin.hasPermission({
-      permissions,
-    });
-
-    invariant(permitted.data?.success, "User does not have permission");
-
-    return permissions;
-  };
-
   return {
     user,
-    authorize,
+    authorize: (permissions: P) => authorize({ id: user.id, permissions }),
   };
 }
 
 export const authClient = {
+  authorize,
   authenticate,
 };
