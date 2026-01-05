@@ -1,6 +1,9 @@
 import Stripe from "stripe";
 import { env } from "@/lib/env";
 import { StripePlan } from "@better-auth/stripe";
+import { headers as getHeaders } from "next/headers";
+import { auth } from "./auth/config";
+import { BetterBody } from "@/lib/types";
 
 export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
   apiVersion: "2025-12-15.clover",
@@ -76,3 +79,29 @@ export const plans = {
       },
     }),
 };
+
+export async function createBillingPortal(
+  options: BetterBody<typeof auth.api.createBillingPortal> & { headers?: Headers },
+) {
+  const headers = options.headers ?? (await getHeaders());
+
+  const res = await auth.api.createBillingPortal({
+    body: options,
+    headers,
+  });
+
+  return res;
+}
+
+export async function upgradeSubscription(
+  options: BetterBody<typeof auth.api.upgradeSubscription> & { headers?: Headers },
+) {
+  const headers = options.headers ?? (await getHeaders());
+
+  const res = await auth.api.upgradeSubscription({
+    body: options,
+    headers,
+  });
+
+  return res;
+}
