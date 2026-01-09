@@ -1,7 +1,7 @@
 import { betterAuth } from "better-auth";
 import { nextCookies } from "better-auth/next-js";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { db } from "@/lib/db";
+import { db } from "@/lib/database";
 import { createAccessControl, Role } from "better-auth/plugins/access";
 import { adminAc, defaultStatements } from "better-auth/plugins/admin/access";
 import { admin } from "better-auth/plugins";

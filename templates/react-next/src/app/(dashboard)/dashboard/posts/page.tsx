@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { db, orm, schema } from "@/lib/db";
+import { db, orm, schema } from "@/lib/database";
 import { Card, CardContent, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Badge } from "@esmate/shadcn/components/ui/badge";

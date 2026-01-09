@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { db, orm, schema } from "@/lib/db";
+import { db, orm, schema } from "@/lib/database";
 import { invariant } from "@esmate/utils";
 import { authenticate } from "@/lib/services/auth";
 

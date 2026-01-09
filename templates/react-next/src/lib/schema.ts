@@ -1,4 +1,4 @@
-import { post, user } from "@/lib/db/schema";
+import { post, user } from "@/lib/database/schema";
 import { createInsertSchema, createSelectSchema, createUpdateSchema } from "drizzle-zod";
 
 export const UserSelectSchema = createSelectSchema(user);

@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { authenticate } from "@/lib/services/auth";
-import { db, orm, schema } from "@/lib/db";
+import { db, orm, schema } from "@/lib/database";
 import { invariant } from "@esmate/utils";
 import { PostUpdateSchema } from "@/lib/schema";
 import z from "zod";

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { authenticate } from "@/lib/services/auth";
-import { db, orm, schema } from "@/lib/db";
+import { db, orm, schema } from "@/lib/database";
 import { EditPostForm } from "./edit-post-form";
 
 type Props = {

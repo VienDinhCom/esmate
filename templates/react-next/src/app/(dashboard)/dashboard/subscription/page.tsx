@@ -1,5 +1,5 @@
 import { authenticate } from "@/lib/services/auth";
-import { db, orm, schema } from "@/lib/db";
+import { db, orm, schema } from "@/lib/database";
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Suspense } from "react";
