@@ -6,8 +6,8 @@ import { createAccessControl, Role } from "better-auth/plugins/access";
 import { adminAc, defaultStatements } from "better-auth/plugins/admin/access";
 import { admin } from "better-auth/plugins";
 import { stripe } from "@better-auth/stripe";
-import { stripe as stripeClient, plans } from "@/lib/stripe";
-import { env } from "@/lib/env";
+import { stripe as stripeClient, plans } from "./stripe";
+import { env } from "@/lib/config/env";
 import { headers } from "next/headers";
 
 /**

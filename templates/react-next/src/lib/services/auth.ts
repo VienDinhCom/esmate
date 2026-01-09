@@ -3,7 +3,7 @@
 import { invariant } from "@esmate/utils";
 import { redirect } from "next/navigation";
 import { headers as getHeaders } from "next/headers";
-import { auth, Auth, AuthUser, Options, Permissions, UserRole } from "../auth";
+import { auth, Auth, AuthUser, Options, Permissions, UserRole } from "../config/auth";
 
 export async function authorize<P extends Permissions>(options: { id: string; headers?: Headers; permissions: P }) {
   const headers = options.headers ?? (await getHeaders());

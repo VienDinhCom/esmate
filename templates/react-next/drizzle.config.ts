@@ -1,5 +1,5 @@
 import { defineConfig } from "drizzle-kit";
-import { env } from "@/lib/env";
+import { env } from "@/lib/config/env";
 
 export default defineConfig({
   casing: "snake_case",

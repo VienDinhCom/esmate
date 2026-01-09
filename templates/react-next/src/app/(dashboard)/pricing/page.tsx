@@ -1,6 +1,6 @@
 import { Check } from "@esmate/shadcn/pkgs/lucide-react";
 import { SubmitButton } from "./submit-button";
-import { plans } from "@/lib/stripe";
+import { plans } from "@/lib/config/stripe";
 import { invariant } from "@esmate/utils";
 import { upgradeSubscriptionAction } from "./actions";
 

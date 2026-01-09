@@ -1,10 +1,11 @@
 "use server";
 
 import { authenticate } from "@/lib/services/auth";
-import { env } from "@/lib/env";
-import { Plan, upgradeSubscription } from "@/lib/stripe";
+import { env } from "@/lib/config/env";
+import { Plan } from "@/lib/config/stripe";
 import { redirect } from "next/navigation";
 import { invariant } from "@esmate/utils";
+import { upgradeSubscription } from "@/lib/services/stripe";
 
 export async function upgradeSubscriptionAction(formData: FormData) {
   const auth = await authenticate();

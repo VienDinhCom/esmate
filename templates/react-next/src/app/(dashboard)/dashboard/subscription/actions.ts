@@ -1,7 +1,7 @@
 "use server";
 
 import { authenticate } from "@/lib/services/auth";
-import { createBillingPortal } from "@/lib/stripe";
+import { createBillingPortal } from "@/lib/services/stripe";
 import { redirect } from "next/navigation";
 
 export async function manageSubscriptionAction(formData: FormData) {
