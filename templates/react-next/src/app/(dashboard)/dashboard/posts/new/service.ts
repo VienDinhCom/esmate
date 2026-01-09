@@ -7,7 +7,7 @@ import { db, schema } from "@/lib/database";
 import { PostInsertSchema } from "@/lib/schema";
 import z from "zod";
 
-export async function createPostAction(formData: z.infer<typeof PostInsertSchema>) {
+export async function createPost(formData: z.infer<typeof PostInsertSchema>) {
   const auth = await authenticate();
   const data = PostInsertSchema.parse(formData);
 
