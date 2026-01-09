@@ -2,13 +2,13 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { authServer } from "@/lib/auth";
-import { db, schema } from "@/lib/db";
+import { authenticate } from "@/lib/services/auth";
+import { db, schema } from "@/lib/database";
 import { PostInsertSchema } from "@/lib/schema";
 import z from "zod";
 
 export async function createPostAction(formData: z.infer<typeof PostInsertSchema>) {
-  const auth = await authServer.authenticate();
+  const auth = await authenticate();
   const data = PostInsertSchema.parse(formData);
 
   await auth.authorize({ posts: ["create"] });

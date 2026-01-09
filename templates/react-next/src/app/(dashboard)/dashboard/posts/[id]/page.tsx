@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import { authServer } from "@/lib/auth";
-import { db, orm, schema } from "@/lib/db";
+import { authenticate } from "@/lib/services/auth";
+import { db, orm, schema } from "@/lib/database";
 import { EditPostForm } from "./edit-post-form";
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default async function EditPostPage({ params }: Props) {
-  const auth = await authServer.authenticate();
+  const auth = await authenticate();
   const { id } = await params;
   const post = await db.query.post.findFirst({ where: orm.eq(schema.post.id, id) });
 

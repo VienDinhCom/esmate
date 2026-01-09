@@ -1,10 +1,10 @@
-import { authServer } from "@/lib/auth";
-import { db, orm, schema } from "@/lib/db";
+import { authenticate } from "@/lib/services/auth";
+import { db, orm, schema } from "@/lib/database";
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Suspense } from "react";
 import { invariant } from "@esmate/utils";
-import { manageSubscriptionAction } from "./actions";
+import { manageSubscriptionAction } from "./service";
 
 function SubscriptionSkeleton() {
   return (
@@ -17,7 +17,7 @@ function SubscriptionSkeleton() {
 }
 
 async function ManageSubscription() {
-  const auth = await authServer.authenticate();
+  const auth = await authenticate();
   const user = await db.query.user.findFirst({
     where: orm.eq(schema.user.id, auth.user.id),
   });

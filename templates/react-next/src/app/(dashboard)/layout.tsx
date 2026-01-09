@@ -1,12 +1,12 @@
-import { authServer } from "@/lib/auth";
+import { getAuthUser } from "@/lib/services/auth";
 import { Header } from "./header";
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
-  const auth = await authServer.authenticate();
+  const user = await getAuthUser();
 
   return (
     <section className="flex min-h-screen flex-col">
-      <Header user={auth.user} />
+      <Header user={user} />
       {children}
     </section>
   );

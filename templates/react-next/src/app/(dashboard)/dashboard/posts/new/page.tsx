@@ -1,8 +1,8 @@
 import { NewPostForm } from "./new-post-form";
-import { authServer } from "@/lib/auth";
+import { authenticate } from "@/lib/services/auth";
 
 export default async function NewPostPage() {
-  const auth = await authServer.authenticate();
+  const auth = await authenticate();
 
   await auth.authorize({ posts: ["create"] });
 

@@ -1,13 +1,13 @@
 import { betterAuth } from "better-auth";
 import { nextCookies } from "better-auth/next-js";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { db } from "@/lib/db";
+import { db } from "@/lib/database";
 import { createAccessControl, Role } from "better-auth/plugins/access";
 import { adminAc, defaultStatements } from "better-auth/plugins/admin/access";
 import { admin } from "better-auth/plugins";
 import { stripe } from "@better-auth/stripe";
-import { stripe as stripeClient, plans } from "@/lib/stripe";
-import { env } from "@/lib/env";
+import { stripe as stripeClient, plans } from "./stripe";
+import { env } from "@/lib/config/env";
 import { headers } from "next/headers";
 
 /**
@@ -83,13 +83,15 @@ export interface Options {
   callbackUrl?: string;
 }
 
+export interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+}
+
 export interface Auth<P extends Permissions> {
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    role: UserRole;
-  };
+  user: AuthUser;
   headers: Awaited<ReturnType<typeof headers>>;
   authorize: (permissions: P) => Promise<P>;
 }

@@ -8,7 +8,7 @@ import { Label } from "@esmate/shadcn/components/ui/label";
 import { Textarea } from "@esmate/shadcn/components/ui/textarea";
 import { useZodForm } from "@esmate/shadcn/hooks/use-zod-form";
 import { Loader2 } from "@esmate/shadcn/pkgs/lucide-react";
-import { updatePostAction } from "./actions";
+import { updatePostAction } from "./service";
 import { PostUpdateSchema } from "@/lib/schema";
 import z from "zod";
 

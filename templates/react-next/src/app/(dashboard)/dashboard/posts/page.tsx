@@ -1,14 +1,14 @@
 import Link from "next/link";
-import { db, orm, schema } from "@/lib/db";
+import { db, orm, schema } from "@/lib/database";
 import { Card, CardContent, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Badge } from "@esmate/shadcn/components/ui/badge";
 import { Plus, Pencil } from "@esmate/shadcn/pkgs/lucide-react";
-import { deletePostAction } from "./actions";
-import { authServer } from "@/lib/auth";
+import { deletePostAction } from "./service";
+import { authenticate } from "@/lib/services/auth";
 
 export default async function PostsPage() {
-  const auth = await authServer.authenticate();
+  const auth = await authenticate();
 
   await auth.authorize({
     posts: [auth.user.role === "user" ? "read own" : "read any"],
