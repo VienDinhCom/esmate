@@ -4,7 +4,7 @@ import { Button } from "@esmate/shadcn/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Suspense } from "react";
 import { invariant } from "@esmate/utils";
-import { manageSubscriptionAction } from "./actions";
+import { manageSubscriptionAction } from "./service";
 
 function SubscriptionSkeleton() {
   return (

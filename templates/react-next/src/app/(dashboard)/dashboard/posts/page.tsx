@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@esmate/shadcn/compone
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Badge } from "@esmate/shadcn/components/ui/badge";
 import { Plus, Pencil } from "@esmate/shadcn/pkgs/lucide-react";
-import { deletePostAction } from "./actions";
+import { deletePostAction } from "./service";
 import { authenticate } from "@/lib/services/auth";
 
 export default async function PostsPage() {
