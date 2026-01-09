@@ -4,10 +4,10 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { db, orm, schema } from "@/lib/db";
 import { invariant } from "@esmate/utils";
-import { authServer } from "@/lib/auth";
+import { authenticate } from "@/lib/services/auth";
 
 export async function deletePostAction(formData: FormData) {
-  const auth = await authServer.authenticate();
+  const auth = await authenticate();
 
   const id = formData.get("id") as string;
   invariant(id, "Post ID is required");

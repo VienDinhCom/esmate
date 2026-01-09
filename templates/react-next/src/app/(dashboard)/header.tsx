@@ -12,7 +12,7 @@ import {
 } from "@esmate/shadcn/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@esmate/shadcn/components/ui/avatar";
 import { useRouter } from "next/navigation";
-import { authClient } from "@/lib/auth";
+import { authClient } from "@/lib/utils";
 
 interface User {
   id: string;

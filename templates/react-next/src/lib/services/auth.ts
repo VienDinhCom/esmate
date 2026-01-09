@@ -1,9 +1,11 @@
+"use server";
+
 import { invariant } from "@esmate/utils";
 import { redirect } from "next/navigation";
 import { headers as getHeaders } from "next/headers";
-import { auth, Auth, Options, Permissions, UserRole } from "./config";
+import { auth, Auth, AuthUser, Options, Permissions, UserRole } from "../auth";
 
-async function authorize<P extends Permissions>(options: { id: string; headers?: Headers; permissions: P }) {
+export async function authorize<P extends Permissions>(options: { id: string; headers?: Headers; permissions: P }) {
   const headers = options.headers ?? (await getHeaders());
 
   const permitted = await auth.api.userHasPermission({
@@ -19,7 +21,7 @@ async function authorize<P extends Permissions>(options: { id: string; headers?:
   return options.permissions;
 }
 
-async function authenticate<P extends Permissions>(options?: Options): Promise<Auth<P>> {
+export async function authenticate<P extends Permissions>(options?: Options): Promise<Auth<P>> {
   let user: Auth<P>["user"];
   const headers = await getHeaders();
 
@@ -51,7 +53,19 @@ async function authenticate<P extends Permissions>(options?: Options): Promise<A
   };
 }
 
-export const authServer = {
-  authorize,
-  authenticate,
-};
+export async function getAuthUser(): Promise<AuthUser | null> {
+  const headers = await getHeaders();
+
+  const session = await auth.api.getSession({ headers });
+
+  if (session === null) {
+    return null;
+  }
+
+  return {
+    id: session.user.id,
+    name: session.user.name,
+    email: session.user.email,
+    role: session.user.role as UserRole,
+  };
+}

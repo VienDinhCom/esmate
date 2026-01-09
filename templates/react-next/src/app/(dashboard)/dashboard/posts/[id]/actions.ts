@@ -2,14 +2,14 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { authServer } from "@/lib/auth";
+import { authenticate } from "@/lib/services/auth";
 import { db, orm, schema } from "@/lib/db";
 import { invariant } from "@esmate/utils";
 import { PostUpdateSchema } from "@/lib/schema";
 import z from "zod";
 
 export async function updatePostAction(formData: z.infer<typeof PostUpdateSchema>) {
-  const auth = await authServer.authenticate();
+  const auth = await authenticate();
   const data = PostUpdateSchema.parse(formData);
   const post = await db.query.post.findFirst({ where: orm.eq(schema.post.id, data.id) });
 

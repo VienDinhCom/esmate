@@ -2,7 +2,7 @@ import Stripe from "stripe";
 import { env } from "@/lib/env";
 import { StripePlan } from "@better-auth/stripe";
 import { headers as getHeaders } from "next/headers";
-import { auth } from "./auth/config";
+import { auth } from "./auth";
 import { BetterBody } from "@/lib/types";
 
 export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {

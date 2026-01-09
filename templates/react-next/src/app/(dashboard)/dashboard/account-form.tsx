@@ -1,6 +1,6 @@
 "use client";
 
-import { authClient } from "@/lib/auth";
+import { authClient } from "@/lib/utils";
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Input } from "@esmate/shadcn/components/ui/input";
 import { Label } from "@esmate/shadcn/components/ui/label";

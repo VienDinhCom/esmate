@@ -1,9 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { AccountForm } from "./account-form";
-import { authServer } from "@/lib/auth";
+import { authenticate } from "@/lib/services/auth";
 
 export default async function GeneralPage() {
-  const auth = await authServer.authenticate();
+  const auth = await authenticate();
 
   return (
     <section className="flex-1 p-4 lg:p-8">

@@ -1,11 +1,11 @@
 "use server";
 
-import { authServer } from "@/lib/auth";
+import { authenticate } from "@/lib/services/auth";
 import { createBillingPortal } from "@/lib/stripe";
 import { redirect } from "next/navigation";
 
 export async function manageSubscriptionAction(formData: FormData) {
-  const auth = await authServer.authenticate();
+  const auth = await authenticate();
 
   const subscriptionId = formData.get("subscriptionId");
 

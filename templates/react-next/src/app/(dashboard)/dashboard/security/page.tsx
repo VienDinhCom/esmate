@@ -7,9 +7,9 @@ import { Label } from "@esmate/shadcn/components/ui/label";
 import { useZodForm } from "@esmate/shadcn/hooks/use-zod-form";
 import z from "@esmate/shadcn/pkgs/zod";
 import { toast } from "@esmate/shadcn/pkgs/sonner";
-import { authClient } from "@/lib/auth";
 import { Loader2, Lock, Trash2 } from "@esmate/shadcn/pkgs/lucide-react";
 import { redirect } from "next/navigation";
+import { authClient } from "@/lib/utils";
 
 const PasswordSchema = z
   .object({

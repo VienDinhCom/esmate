@@ -83,13 +83,15 @@ export interface Options {
   callbackUrl?: string;
 }
 
+export interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+}
+
 export interface Auth<P extends Permissions> {
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    role: UserRole;
-  };
+  user: AuthUser;
   headers: Awaited<ReturnType<typeof headers>>;
   authorize: (permissions: P) => Promise<P>;
 }
