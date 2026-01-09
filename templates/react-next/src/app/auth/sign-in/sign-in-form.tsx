@@ -22,7 +22,7 @@ const FormSchema = z.object({
 export function SignInForm({ className, ...props }: React.ComponentProps<"div">) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectURL = searchParams.get("redirect") || "/";
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
   const [error, setError] = useState<string | null>(null);
   const form = useZodForm({
     schema: FormSchema,
@@ -39,7 +39,7 @@ export function SignInForm({ className, ...props }: React.ComponentProps<"div">)
       { email, password },
       {
         onSuccess: () => {
-          router.push(redirectURL);
+          router.push(callbackUrl);
         },
         onError: (ctx) => {
           setError(ctx.error.message || "Something went wrong. Please try again.");
@@ -94,7 +94,7 @@ export function SignInForm({ className, ...props }: React.ComponentProps<"div">)
             </div>
             <div className="mt-4 text-center text-sm">
               Don&apos;t have an account?{" "}
-              <a href={`/auth/sign-up?redirect=${redirectURL}`} className="underline underline-offset-4">
+              <a href={`/auth/sign-up?callbackUrl=${callbackUrl}`} className="underline underline-offset-4">
                 Sign up
               </a>
             </div>
