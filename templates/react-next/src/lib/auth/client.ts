@@ -50,6 +50,7 @@ async function authenticate<P extends Permissions>(options?: Options): Promise<O
 }
 
 export const authClient = {
+  ...client,
   authorize,
   authenticate,
 };

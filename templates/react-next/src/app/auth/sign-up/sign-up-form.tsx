@@ -9,7 +9,7 @@ import { useZodForm } from "@esmate/shadcn/hooks/use-zod-form";
 import { cn } from "@esmate/shadcn/lib/utils";
 import { z } from "@esmate/shadcn/pkgs/zod";
 
-import { authClient } from "@/lib/utils";
+import { authClient } from "@/lib/auth";
 
 const FormSchema = z.object({
   name: z.string().min(1, "Name is required"),
