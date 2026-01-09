@@ -1,13 +1,15 @@
+import z from "zod";
 import Stripe from "stripe";
 import { env } from "@/lib/config/env";
 import { StripePlan } from "@better-auth/stripe";
+import { PlanSchema } from "../schema";
 
 export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
   apiVersion: "2025-12-15.clover",
 });
 
 export interface Plan extends StripePlan {
-  name: "base" | "plus";
+  name: z.infer<typeof PlanSchema>;
   description: string;
   price: number;
 }

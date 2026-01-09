@@ -1,28 +1,17 @@
 "use server";
 
-import { authenticate } from "@/lib/services/auth";
-import { env } from "@/lib/config/env";
-import { Plan } from "@/lib/config/stripe";
-import { redirect } from "next/navigation";
 import { invariant } from "@esmate/utils";
+import { redirect } from "next/navigation";
+import { authenticate } from "@/lib/services/auth";
 import { upgradeSubscription } from "@/lib/services/stripe";
+import { PlanSchema } from "@/lib/schema";
 
 export async function upgradeSubscriptionAction(formData: FormData) {
-  const auth = await authenticate();
+  await authenticate();
 
-  const planName = formData.get("planName") as Plan["name"];
-
-  invariant(planName, "plan is required");
-
-  const session = await upgradeSubscription({
-    plan: planName,
-    headers: auth.headers,
-    cancelUrl: `${env.BASE_URL}/pricing`,
-    returnUrl: `${env.BASE_URL}/dashboard`,
-    successUrl: `${env.BASE_URL}/dashboard/subscription`,
-  });
+  const plan = PlanSchema.parse(formData.get("planName"));
+  const session = await upgradeSubscription(plan);
 
   invariant(session.url, "session url is required");
-
   redirect(session.url);
 }

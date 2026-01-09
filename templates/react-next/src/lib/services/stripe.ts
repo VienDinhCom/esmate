@@ -1,30 +1,32 @@
-import { headers as getHeaders } from "next/headers";
+import { headers } from "next/headers";
 import { auth } from "@/lib/config/auth";
-import { BetterBody } from "@/lib/types";
+import { Plan } from "@/lib/config/stripe";
+import { env } from "@/lib/config/env";
+import { redirect } from "next/navigation";
 
-
-export async function createBillingPortal(
-  options: BetterBody<typeof auth.api.createBillingPortal> & { headers?: Headers },
-) {
-  const headers = options.headers ?? (await getHeaders());
-
-  const res = await auth.api.createBillingPortal({
-    body: options,
-    headers,
+export async function upgradeSubscription(plan: Plan["name"]) {
+  const res = await auth.api.upgradeSubscription({
+    body: {
+      plan,
+      cancelUrl: `${env.BASE_URL}/pricing`,
+      returnUrl: `${env.BASE_URL}/dashboard`,
+      successUrl: `${env.BASE_URL}/dashboard/subscription`,
+    },
+    headers: await headers(),
   });
 
   return res;
 }
 
-export async function upgradeSubscription(
-  options: BetterBody<typeof auth.api.upgradeSubscription> & { headers?: Headers },
-) {
-  const headers = options.headers ?? (await getHeaders());
+export async function manageSubscription(subscriptionId?: string) {
+  if (!subscriptionId) {
+    redirect("/pricing");
+  }
 
-  const res = await auth.api.upgradeSubscription({
-    body: options,
-    headers,
+  const portal = await auth.api.createBillingPortal({
+    body: { locale: "en" },
+    headers: await headers(),
   });
 
-  return res;
+  redirect(portal.url);
 }

@@ -1,20 +1,9 @@
 "use server";
 
 import { authenticate } from "@/lib/services/auth";
-import { createBillingPortal } from "@/lib/services/stripe";
-import { redirect } from "next/navigation";
+import { manageSubscription } from "@/lib/services/stripe";
 
 export async function manageSubscriptionAction(formData: FormData) {
-  const auth = await authenticate();
-
-  const subscriptionId = formData.get("subscriptionId");
-
-  if (!subscriptionId) redirect("/pricing");
-
-  const portal = await createBillingPortal({
-    locale: "en",
-    headers: auth.headers,
-  });
-
-  redirect(portal.url);
+  await authenticate();
+  await manageSubscription(formData.get("subscriptionId") as string);
 }
