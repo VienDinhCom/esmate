@@ -1,3 +1,5 @@
+"use server";
+
 import { headers } from "next/headers";
 import { auth } from "@/lib/config/auth";
 import { Plan } from "@/lib/config/stripe";
