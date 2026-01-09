@@ -8,7 +8,7 @@ import { Label } from "@esmate/shadcn/components/ui/label";
 import { Textarea } from "@esmate/shadcn/components/ui/textarea";
 import { useZodForm } from "@esmate/shadcn/hooks/use-zod-form";
 import { Loader2 } from "@esmate/shadcn/pkgs/lucide-react";
-import { createPostAction } from "./service";
+import { createPost } from "./service";
 import { PostInsertSchema } from "@/lib/schema";
 
 export function NewPostForm() {
@@ -22,7 +22,7 @@ export function NewPostForm() {
   });
 
   const onSubmit = form.handleSubmit(async (data) => {
-    await createPostAction(data);
+    await createPost(data);
   });
 
   return (
