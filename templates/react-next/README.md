@@ -53,7 +53,7 @@ purposes.
 2.  **Install dependencies:**
 
     ```bash
-    npm run install
+    npm install
     ```
 
 3.  **Set up environment variables:**
