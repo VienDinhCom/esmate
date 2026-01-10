@@ -55,7 +55,6 @@ export async function authenticate<P extends Permissions>(options?: Options): Pr
 
 export async function getAuthUser(): Promise<AuthUser | null> {
   const headers = await getHeaders();
-
   const session = await auth.api.getSession({ headers });
 
   if (session === null) {
