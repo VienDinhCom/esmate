@@ -14,7 +14,7 @@ npm run start
 To build this application for production:
 
 ```bash
-npm build
+npm run build
 ```
 
 ## Testing
