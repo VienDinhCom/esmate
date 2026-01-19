@@ -53,6 +53,7 @@ export function Person() {
         onClick={() =>
           setState((draft) => {
             draft.age += 1;
+            return draft;
           })
         }
         type="button"
@@ -105,8 +106,12 @@ const useStore = createImmerStore<Store>((set) => ({
     name: "John",
     age: 30,
   },
-  incrementAge: () => set((draft) => draft.person.age++),
-  decrementAge: () => set((draft) => draft.person.age--),
+  incrementAge: () => set((draft) => {
+    draft.person.age++
+  }),
+  decrementAge: () => set((draft) => {
+    draft.person.age--
+  }),
 }));
 
 export function Person() {
