@@ -1,6 +1,11 @@
 import { useState } from "react";
+import { createFileRoute } from "@tanstack/react-router";
 
-export function App() {
+export const Route = createFileRoute("/")({
+  component: RouteComponent,
+});
+
+function RouteComponent() {
   const [message, setMessage] = useState("Click me to call /api/hello");
 
   const handleClick = async () => {
