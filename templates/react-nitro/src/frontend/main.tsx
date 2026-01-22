@@ -1,7 +1,14 @@
+import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import { createRouter, RouterProvider } from "@tanstack/react-router";
-import { routeTree } from "./route-tree.gen.ts";
+
+import { getTanStackQueryContext, TanStackQueryProvider } from "@/frontend/config/query";
+import "@/frontend/assets/styles/global.css";
+
+import { reportWebVitals } from "@/frontend/config/web-vitals";
+import { routeTree } from "@/frontend/config/router";
+
+const queryContext = getTanStackQueryContext();
 
 const router = createRouter({
   routeTree,
@@ -9,7 +16,7 @@ const router = createRouter({
   defaultPreload: "intent",
   defaultPreloadStaleTime: 0,
   defaultStructuralSharing: true,
-  context: {},
+  context: { ...queryContext },
 });
 
 declare module "@tanstack/react-router" {
@@ -20,6 +27,10 @@ declare module "@tanstack/react-router" {
 
 ReactDOM.createRoot(document.getElementById("app") as HTMLElement).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <TanStackQueryProvider {...queryContext}>
+      <RouterProvider router={router} />
+    </TanStackQueryProvider>
   </StrictMode>,
 );
+
+reportWebVitals();
