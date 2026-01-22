@@ -4,5 +4,6 @@ dist
 .nitro
 .cache
 .output
+.tanstack
 .env
 .env.local
