@@ -2,11 +2,10 @@ import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 
-import { getTanStackQueryContext, TanStackQueryProvider } from "@/frontend/config/query";
 import "@/frontend/assets/styles/global.css";
 
-import { reportWebVitals } from "@/frontend/config/web-vitals";
-import { routeTree } from "@/frontend/config/router";
+import { reportWebVitals } from "@/frontend/lib/web-vitals";
+import { routeTree, getTanStackQueryContext, TanStackQueryProvider } from "@/frontend/lib/tanstack";
 
 const queryContext = getTanStackQueryContext();
 

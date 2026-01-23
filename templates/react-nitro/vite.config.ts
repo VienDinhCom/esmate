@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import { nitro } from "nitro/vite";
 import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
+import tailwind from "@tailwindcss/vite";
 import { tanstackRouter as router } from "@tanstack/router-plugin/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
@@ -11,10 +11,10 @@ export default defineConfig({
       target: "react",
       autoCodeSplitting: true,
       routesDirectory: "src/frontend/routes",
-      generatedRouteTree: "src/frontend/config/router/route-tree.gen.ts",
+      generatedRouteTree: "src/frontend/lib/tanstack/router.ts",
     }),
     react(),
-    tailwindcss(),
+    tailwind(),
     nitro({
       serverDir: "src/backend",
     }),

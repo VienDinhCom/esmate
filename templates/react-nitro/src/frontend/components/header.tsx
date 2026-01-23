@@ -11,6 +11,10 @@ export default function Header() {
         <div className="px-2 font-bold">
           <Link to="/todos">Todos</Link>
         </div>
+
+        <div className="px-2 font-bold">
+          <Link to="/chat">Chat</Link>
+        </div>
       </nav>
     </header>
   );

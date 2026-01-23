@@ -5,9 +5,9 @@ import { Send, User } from "@esmate/shadcn/pkgs/lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useRef, useState } from "react";
-import { useSubscription } from "@/frontend/hooks/use-subscription";
+import { useSubscription } from "@/frontend/hooks";
 
-import { rpc, rpcQuery } from "@/frontend/utils/rpc";
+import { rpc, rpcQuery } from "@/frontend/lib/rpc";
 
 export const Route = createFileRoute("/chat")({
   component: RouteComponent,

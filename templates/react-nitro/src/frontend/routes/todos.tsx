@@ -6,7 +6,7 @@ import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
 
-import { rpcQuery } from "@/frontend/utils/rpc";
+import { rpcQuery } from "@/frontend/lib/rpc";
 
 export const Route = createFileRoute("/todos")({
   component: RouteComponent,
