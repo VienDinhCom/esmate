@@ -1,3 +1,3 @@
-export { routeTree } from "./router";
+export { TanStackApp } from "./app";
 export { TanStackDevTools } from "./devtools";
-export { getTanStackQueryContext, TanStackQueryProvider } from "./query";
+export { queryClient } from "./query";
