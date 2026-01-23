@@ -1,6 +1,10 @@
-import { os, EventPublisher } from "@orpc/server";
-import { z } from "zod";
-import { ChatMessageInsertSchema, ChatMessageSchema } from "@/shared/schema";
+import type { z } from "zod";
+
+import { EventPublisher, os } from "@orpc/server";
+
+import type { ChatMessageSchema } from "@/shared/schema";
+
+import { ChatMessageInsertSchema } from "@/shared/schema";
 
 const publisher = new EventPublisher<{
   "message-sent": z.infer<typeof ChatMessageSchema>;

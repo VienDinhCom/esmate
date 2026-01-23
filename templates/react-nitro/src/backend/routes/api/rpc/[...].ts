@@ -1,6 +1,7 @@
-import { RPCHandler } from "@orpc/server/fetch";
 import { onError } from "@orpc/server";
+import { RPCHandler } from "@orpc/server/fetch";
 import { defineEventHandler } from "nitro/h3";
+
 import { router } from "@/backend/router";
 
 const handler = new RPCHandler(router, {

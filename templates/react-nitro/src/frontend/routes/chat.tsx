@@ -1,3 +1,6 @@
+import type z from "zod";
+
+import { useImmerState } from "@esmate/react/hooks";
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Input } from "@esmate/shadcn/components/ui/input";
@@ -5,12 +8,11 @@ import { Send, User } from "@esmate/shadcn/pkgs/lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useRef } from "react";
-import { useSubscription } from "@/frontend/hooks";
-import { useImmerState } from "@esmate/react/hooks";
 
-import { rpc, rpcQuery } from "@/frontend/lib/rpc";
 import type { ChatMessageSchema } from "@/shared/schema";
-import type z from "zod";
+
+import { useSubscription } from "@/frontend/hooks";
+import { rpc, rpcQuery } from "@/frontend/lib/rpc";
 
 export const Route = createFileRoute("/chat")({
   component: RouteComponent,
@@ -56,25 +58,26 @@ function RouteComponent() {
 
   const handleSubmit = (e?: React.FormEvent) => {
     e?.preventDefault();
-    if (!state.text.trim()) return;
+    if (!state.text.trim()) 
+return;
     sendMessage({ user: state.user, text: state.text });
   };
 
   return (
-    <div className="flex justify-center py-10 h-[calc(100vh-4rem)]">
-      <Card className="w-full max-w-2xl shadow-2xl flex flex-col h-full">
-        <CardHeader className="space-y-1 shrink-0">
+    <div className="flex h-[calc(100vh-4rem)] justify-center py-10">
+      <Card className="flex h-full w-full max-w-2xl flex-col shadow-2xl">
+        <CardHeader className="shrink-0 space-y-1">
           <CardTitle className="text-3xl font-bold tracking-tight">Chat</CardTitle>
           <CardDescription className="text-base">Global chat room</CardDescription>
         </CardHeader>
-        <CardContent className="flex-1 flex flex-col gap-4 min-h-0">
-          <div className="flex-1 overflow-y-auto space-y-4 pr-4">
+        <CardContent className="flex min-h-0 flex-1 flex-col gap-4">
+          <div className="flex-1 space-y-4 overflow-y-auto pr-4">
             {state.messages.length === 0 ? (
-              <div className="text-center text-slate-500 py-10">No messages yet. Say hello!</div>
+              <div className="py-10 text-center text-slate-500">No messages yet. Say hello!</div>
             ) : (
-              state.messages.map((message, index) => (
+              state.messages.map((message) => (
                 <div
-                  key={index}
+                  key={message.createdAt}
                   className={`flex flex-col ${message.user === state.user ? "items-end" : "items-start"}`}
                 >
                   <div
@@ -82,10 +85,10 @@ function RouteComponent() {
                       message.user === state.user ? "bg-primary text-primary-foreground" : "bg-muted"
                     }`}
                   >
-                    <div className="text-xs opacity-70 mb-1 font-bold">{message.user}</div>
+                    <div className="mb-1 text-xs font-bold opacity-70">{message.user}</div>
                     <div>{message.text}</div>
                   </div>
-                  <div className="text-[10px] text-slate-400 mt-1">
+                  <div className="mt-1 text-[10px] text-slate-400">
                     {new Date(message.createdAt).toLocaleTimeString()}
                   </div>
                 </div>
@@ -94,10 +97,10 @@ function RouteComponent() {
             <div ref={scrollRef} />
           </div>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-2 shrink-0 pt-4 border-t">
+          <form onSubmit={handleSubmit} className="flex shrink-0 flex-col gap-2 border-t pt-4">
             <div className="flex gap-2">
               <div className="relative w-32 shrink-0">
-                <User className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-400" />
+                <User className="absolute top-2.5 left-2.5 h-4 w-4 text-slate-400" />
                 <Input
                   value={state.user}
                   onChange={(e) =>
