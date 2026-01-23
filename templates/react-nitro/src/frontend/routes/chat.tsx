@@ -4,7 +4,8 @@ import { Input } from "@esmate/shadcn/components/ui/input";
 import { Send, User } from "@esmate/shadcn/pkgs/lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import { useSubscription } from "@/frontend/hooks/use-subscription";
 
 import { rpc, rpcQuery } from "@/frontend/utils/rpc";
 
@@ -24,26 +25,14 @@ function RouteComponent() {
   const [text, setText] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const controller = new AbortController();
-
-    (async () => {
-      try {
-        const iterator = await rpc.chat.feed({}, { signal: controller.signal });
-        for await (const message of iterator) {
-          setMessages((prev) => [...prev, message]);
-          setTimeout(() => scrollRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
-        }
-      } catch (err) {
-        // ignore abort errors
-        console.error(err);
-      }
-    })();
-
-    return () => {
-      controller.abort();
-    };
-  }, []);
+  useSubscription({
+    fn: (signal) => rpc.chat.feed({}, { signal }),
+    onData: (message) => {
+      setMessages((prev) => [...prev, message]);
+      setTimeout(() => scrollRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
+    },
+    deps: [],
+  });
 
   const { mutate: sendMessage } = useMutation(
     rpcQuery.chat.send.mutationOptions({
