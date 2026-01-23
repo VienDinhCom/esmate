@@ -13,11 +13,7 @@ export const Route = createFileRoute("/todos")({
 });
 
 function RouteComponent() {
-  const { data, refetch } = useSuspenseQuery(
-    rpcQuery.todo.list.queryOptions({
-      input: {},
-    }),
-  );
+  const { data, refetch } = useSuspenseQuery(rpcQuery.todo.list.queryOptions());
 
   const [todo, setTodo] = useState("");
 

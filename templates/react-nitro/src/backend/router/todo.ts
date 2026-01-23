@@ -1,7 +1,7 @@
 import { os } from "@orpc/server";
 import { z } from "zod";
 
-import { TodoSchema } from "@/shared/schema";
+import { TodoInsertSchema, TodoSchema } from "@/shared/schema";
 
 const todosData = [
   { id: 1, name: "Get groceries" },
@@ -10,14 +10,11 @@ const todosData = [
 ];
 
 export const todo = {
-  list: os
-    .input(z.object({}))
-    .output(z.array(TodoSchema))
-    .handler(() => {
-      return todosData;
-    }),
+  list: os.output(z.array(TodoSchema)).handler(() => {
+    return todosData;
+  }),
   add: os
-    .input(z.object({ name: z.string() }))
+    .input(TodoInsertSchema)
     .output(TodoSchema)
     .handler(({ input }) => {
       const newTodo = { id: todosData.length + 1, name: input.name };
