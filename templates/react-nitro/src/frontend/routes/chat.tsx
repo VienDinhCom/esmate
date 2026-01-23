@@ -4,31 +4,40 @@ import { Input } from "@esmate/shadcn/components/ui/input";
 import { Send, User } from "@esmate/shadcn/pkgs/lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useSubscription } from "@/frontend/hooks";
+import { useImmerState } from "@esmate/react/hooks";
 
 import { rpc, rpcQuery } from "@/frontend/lib/rpc";
+import type { ChatMessageSchema } from "@/shared/schema";
+import type z from "zod";
 
 export const Route = createFileRoute("/chat")({
   component: RouteComponent,
 });
 
-type Message = {
+interface State {
+  messages: z.infer<typeof ChatMessageSchema>[];
   user: string;
   text: string;
-  createdAt: number;
-};
+}
 
 function RouteComponent() {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [user, setUser] = useState("Anonymous");
-  const [text, setText] = useState("");
+  const [state, setState] = useImmerState<State>({
+    messages: [],
+    user: "Anonymous",
+    text: "",
+  });
+
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useSubscription({
     fn: (signal) => rpc.chat.feed({}, { signal }),
     onData: (message) => {
-      setMessages((prev) => [...prev, message]);
+      setState((draft) => {
+        draft.messages.push(message);
+        return draft;
+      });
       setTimeout(() => scrollRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
     },
     deps: [],
@@ -37,15 +46,18 @@ function RouteComponent() {
   const { mutate: sendMessage } = useMutation(
     rpcQuery.chat.send.mutationOptions({
       onSuccess: () => {
-        setText("");
+        setState((draft) => {
+          draft.text = "";
+          return draft;
+        });
       },
     }),
   );
 
   const handleSubmit = (e?: React.FormEvent) => {
     e?.preventDefault();
-    if (!text.trim()) return;
-    sendMessage({ user, text });
+    if (!state.text.trim()) return;
+    sendMessage({ user: state.user, text: state.text });
   };
 
   return (
@@ -57,20 +69,25 @@ function RouteComponent() {
         </CardHeader>
         <CardContent className="flex-1 flex flex-col gap-4 min-h-0">
           <div className="flex-1 overflow-y-auto space-y-4 pr-4">
-            {messages.length === 0 ? (
+            {state.messages.length === 0 ? (
               <div className="text-center text-slate-500 py-10">No messages yet. Say hello!</div>
             ) : (
-              messages.map((msg, i) => (
-                <div key={i} className={`flex flex-col ${msg.user === user ? "items-end" : "items-start"}`}>
+              state.messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`flex flex-col ${message.user === state.user ? "items-end" : "items-start"}`}
+                >
                   <div
                     className={`max-w-[80%] rounded-lg px-4 py-2 ${
-                      msg.user === user ? "bg-primary text-primary-foreground" : "bg-muted"
+                      message.user === state.user ? "bg-primary text-primary-foreground" : "bg-muted"
                     }`}
                   >
-                    <div className="text-xs opacity-70 mb-1 font-bold">{msg.user}</div>
-                    <div>{msg.text}</div>
+                    <div className="text-xs opacity-70 mb-1 font-bold">{message.user}</div>
+                    <div>{message.text}</div>
                   </div>
-                  <div className="text-[10px] text-slate-400 mt-1">{new Date(msg.createdAt).toLocaleTimeString()}</div>
+                  <div className="text-[10px] text-slate-400 mt-1">
+                    {new Date(message.createdAt).toLocaleTimeString()}
+                  </div>
                 </div>
               ))
             )}
@@ -81,15 +98,30 @@ function RouteComponent() {
             <div className="flex gap-2">
               <div className="relative w-32 shrink-0">
                 <User className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-400" />
-                <Input value={user} onChange={(e) => setUser(e.target.value)} placeholder="Name" className="pl-9" />
+                <Input
+                  value={state.user}
+                  onChange={(e) =>
+                    setState((draft) => {
+                      draft.user = e.target.value;
+                      return draft;
+                    })
+                  }
+                  placeholder="Name"
+                  className="pl-9"
+                />
               </div>
               <Input
-                value={text}
-                onChange={(e) => setText(e.target.value)}
+                value={state.text}
+                onChange={(e) =>
+                  setState((draft) => {
+                    draft.text = e.target.value;
+                    return draft;
+                  })
+                }
                 placeholder="Type a message..."
                 className="flex-1"
               />
-              <Button type="submit" size="icon" disabled={!text.trim()}>
+              <Button type="submit" size="icon" disabled={!state.text.trim()}>
                 <Send className="h-4 w-4" />
               </Button>
             </div>

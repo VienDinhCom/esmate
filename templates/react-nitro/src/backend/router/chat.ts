@@ -1,18 +1,13 @@
 import { os, EventPublisher } from "@orpc/server";
 import { z } from "zod";
-
-type Message = {
-  user: string;
-  text: string;
-  createdAt: number;
-};
+import { ChatMessageInsertSchema, ChatMessageSchema } from "@/shared/schema";
 
 const publisher = new EventPublisher<{
-  "message-sent": Message;
+  "message-sent": z.infer<typeof ChatMessageSchema>;
 }>();
 
 export const chat = {
-  send: os.input(z.object({ user: z.string(), text: z.string() })).handler(async ({ input }) => {
+  send: os.input(ChatMessageInsertSchema).handler(async ({ input }) => {
     const message = { ...input, createdAt: Date.now() };
     publisher.publish("message-sent", message);
     return message;
