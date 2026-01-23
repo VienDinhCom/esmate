@@ -7,3 +7,4 @@ dist
 .tanstack
 .env
 .env.local
+database.sqlite
