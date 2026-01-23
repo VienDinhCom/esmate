@@ -8,18 +8,18 @@ type Message = {
 };
 
 const publisher = new EventPublisher<{
-  "message-updated": Message;
+  "message-sent": Message;
 }>();
 
 export const chat = {
   send: os.input(z.object({ user: z.string(), text: z.string() })).handler(async ({ input }) => {
     const message = { ...input, createdAt: Date.now() };
-    publisher.publish("message-updated", message);
+    publisher.publish("message-sent", message);
     return message;
   }),
 
   feed: os.handler(async function* () {
-    const iterator = publisher.subscribe("message-updated");
+    const iterator = publisher.subscribe("message-sent");
 
     for await (const message of iterator) {
       yield message;
