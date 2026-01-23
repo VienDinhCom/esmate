@@ -1,9 +1,16 @@
 {
+  "name": "esmate-react-nitro",
   "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "homepage": "https://github.com/viendinhcom/esmate",
   "scripts": {
-    "build": "tsc && vite build",
-    "dev": "vite dev",
-    "preview": "vite preview"
+    "dev": "esmate task dev",
+    "build": "esmate task build",
+    "start": "esmate task start",
+    "test": "esmate task test",
+    "check": "esmate task check",
+    "fix": "esmate task fix"
   },
   "dependencies": {
     "@esmate/react": "^3.1.4",
@@ -22,15 +29,39 @@
     "zod": "^4.3.5"
   },
   "devDependencies": {
+    "@esmate/eslint": "^1.2.3",
+    "@esmate/prettier": "^1.0.6",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/router-plugin": "^1.154.7",
     "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.2",
+    "eslint": "^9.39.2",
+    "esmate": "^2.1.4",
+    "jsdom": "^27.4.0",
     "nitro": "latest",
+    "prettier": "^3.8.1",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
     "vite-tsconfig-paths": "^6.0.4",
+    "vitest": "^4.0.18",
     "web-vitals": "^5.1.0"
+  },
+  "tasks": {
+    "dev": "vite",
+    "test": "vitest run",
+    "start": "vite preview",
+    "build": [
+      "tsc --noEmit",
+      "vite build"
+    ],
+    "fix": [
+      "esmate fmt",
+      "esmate lint --fix"
+    ],
+    "check": [
+      "esmate fmt --check",
+      "esmate lint"
+    ]
   }
 }
