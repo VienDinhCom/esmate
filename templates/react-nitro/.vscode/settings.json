@@ -1,0 +1,28 @@
+{
+  "editor.formatOnSave": true,
+  "emmet.triggerExpansionOnTab": true,
+
+  "prettier.enable": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  "eslint.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+
+  "tailwindCSS.classFunctions": ["cn"],
+  "typescript.tsdk": "node_modules/typescript/lib",
+
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "files.watcherExclude": {
+    "src/frontend/lib/tanstack/router.ts": true
+  },
+  "search.exclude": {
+    "src/frontend/lib/tanstack/router.ts": true
+  },
+  "files.readonlyInclude": {
+    "src/frontend/lib/tanstack/router.ts": true
+  }
+}
