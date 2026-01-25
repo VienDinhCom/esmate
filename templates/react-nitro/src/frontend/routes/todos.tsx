@@ -1,27 +1,43 @@
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Input } from "@esmate/shadcn/components/ui/input";
-import { CheckCircle2 } from "@esmate/shadcn/pkgs/lucide-react";
+import { CheckCircle2, Circle, Trash2 } from "@esmate/shadcn/pkgs/lucide-react";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
 
-import { rpcQuery } from "@/frontend/lib/rpc";
+import { orpcQuery } from "@/frontend/lib/orpc";
 
 export const Route = createFileRoute("/todos")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { data, refetch } = useSuspenseQuery(rpcQuery.todo.list.queryOptions());
-
   const [todo, setTodo] = useState("");
 
+  const { data, refetch } = useSuspenseQuery(orpcQuery.todo.list.queryOptions());
+
   const { mutate: addTodo } = useMutation(
-    rpcQuery.todo.add.mutationOptions({
+    orpcQuery.todo.add.mutationOptions({
       onSuccess: () => {
         refetch();
         setTodo("");
+      },
+    }),
+  );
+
+  const { mutate: toggleTodo } = useMutation(
+    orpcQuery.todo.toggle.mutationOptions({
+      onSuccess: () => {
+        refetch();
+      },
+    }),
+  );
+
+  const { mutate: deleteTodo } = useMutation(
+    orpcQuery.todo.delete.mutationOptions({
+      onSuccess: () => {
+        refetch();
       },
     }),
   );
@@ -50,8 +66,32 @@ function RouteComponent() {
                   key={t.id}
                   className="group flex items-center gap-3 rounded-lg border bg-card p-4 shadow-sm transition-all hover:shadow-md"
                 >
-                  <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-slate-400 transition-colors group-hover:text-green-500" />
-                  <span className="flex-1 text-base font-medium">{t.name}</span>
+                  <button
+                    type="button"
+                    onClick={() => toggleTodo({ id: t.id })}
+                    className="flex-shrink-0 transition-transform active:scale-90"
+                  >
+                    {t.done ? (
+                      <CheckCircle2 className="h-6 w-6 text-green-500" />
+                    ) : (
+                      <Circle className="h-6 w-6 text-slate-300 group-hover:text-slate-400" />
+                    )}
+                  </button>
+                  <span
+                    className={`flex-1 text-base font-medium transition-all ${
+                      t.done ? "text-slate-400 line-through" : "text-slate-900 dark:text-slate-100"
+                    }`}
+                  >
+                    {t.name}
+                  </span>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => deleteTodo({ id: t.id })}
+                    className="opacity-0 transition-opacity group-hover:opacity-100 hover:bg-destructive/10 hover:text-destructive"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
                 </div>
               ))
             )}

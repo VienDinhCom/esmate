@@ -1,8 +1,7 @@
-import { z } from "zod";
+import { createInsertSchema, createSelectSchema, createUpdateSchema } from "drizzle-zod";
 
-export const TodoSchema = z.object({
-  id: z.number().int().min(1),
-  name: z.string(),
-});
+import { todo } from "@/backend/lib/db/schema";
 
-export const TodoInsertSchema = TodoSchema.omit({ id: true });
+export const TodoSelectSchema = createSelectSchema(todo);
+export const TodoInsertSchema = createInsertSchema(todo).omit({ id: true, userId: true });
+export const TodoUpdateSchema = createUpdateSchema(todo);

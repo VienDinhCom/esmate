@@ -4,40 +4,46 @@ import { useImmerState } from "@esmate/react/hooks";
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Input } from "@esmate/shadcn/components/ui/input";
-import { Send, User } from "@esmate/shadcn/pkgs/lucide-react";
-import { useMutation } from "@tanstack/react-query";
+import { Send } from "@esmate/shadcn/pkgs/lucide-react";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useRef } from "react";
 
-import type { ChatMessageSchema } from "@/shared/schema";
+import type { MessageSelectSchemaWithSender } from "@/shared/schema";
 
 import { useSubscription } from "@/frontend/hooks";
-import { rpc, rpcQuery } from "@/frontend/lib/rpc";
+import { authClient } from "@/frontend/lib/auth";
+import { orpcClient, orpcQuery } from "@/frontend/lib/orpc";
 
 export const Route = createFileRoute("/chat")({
+  loader: ({ context }) => context.queryClient.ensureQueryData(orpcQuery.message.fetch.queryOptions()),
   component: RouteComponent,
 });
 
 interface State {
-  messages: z.infer<typeof ChatMessageSchema>[];
-  user: string;
-  text: string;
+  messages: z.infer<typeof MessageSelectSchemaWithSender>[];
+  message: string;
 }
 
 function RouteComponent() {
+  const session = authClient.useSession();
+  const { data: initialMessages } = useSuspenseQuery(orpcQuery.message.fetch.queryOptions());
+
   const [state, setState] = useImmerState<State>({
-    messages: [],
-    user: "Anonymous",
-    text: "",
+    messages: initialMessages,
+    message: "",
   });
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useSubscription({
-    fn: (signal) => rpc.chat.feed({}, { signal }),
+    fn: (signal) => orpcClient.message.feed({}, { signal }),
     onData: (message) => {
       setState((draft) => {
-        draft.messages.push(message);
+        // Only add if it doesn't already exist (to avoid duplicates from fetch/subscription overlap)
+        if (!draft.messages.find((m) => m.id === message.id)) {
+          draft.messages.push(message);
+        }
         return draft;
       });
       setTimeout(() => scrollRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
@@ -46,10 +52,10 @@ function RouteComponent() {
   });
 
   const { mutate: sendMessage } = useMutation(
-    rpcQuery.chat.send.mutationOptions({
+    orpcQuery.message.send.mutationOptions({
       onSuccess: () => {
         setState((draft) => {
-          draft.text = "";
+          draft.message = "";
           return draft;
         });
       },
@@ -58,9 +64,10 @@ function RouteComponent() {
 
   const handleSubmit = (e?: React.FormEvent) => {
     e?.preventDefault();
-    if (!state.text.trim()) 
-return;
-    sendMessage({ user: state.user, text: state.text });
+    if (!state.message.trim()) {
+      return;
+    }
+    sendMessage({ message: state.message });
   };
 
   return (
@@ -75,56 +82,44 @@ return;
             {state.messages.length === 0 ? (
               <div className="py-10 text-center text-slate-500">No messages yet. Say hello!</div>
             ) : (
-              state.messages.map((message) => (
-                <div
-                  key={message.createdAt}
-                  className={`flex flex-col ${message.user === state.user ? "items-end" : "items-start"}`}
-                >
-                  <div
-                    className={`max-w-[80%] rounded-lg px-4 py-2 ${
-                      message.user === state.user ? "bg-primary text-primary-foreground" : "bg-muted"
-                    }`}
-                  >
-                    <div className="mb-1 text-xs font-bold opacity-70">{message.user}</div>
-                    <div>{message.text}</div>
+              state.messages.map((message) => {
+                const isCurrentUser = message.userId === session.data?.user.id;
+                return (
+                  <div key={message.id} className={`flex flex-col ${isCurrentUser ? "items-end" : "items-start"}`}>
+                    <div
+                      className={`max-w-[80%] rounded-lg px-4 py-2 ${
+                        isCurrentUser ? "bg-blue-100 text-blue-900" : "bg-muted"
+                      }`}
+                    >
+                      <div className="mb-1 text-xs font-bold opacity-70" title={message.id}>
+                        {isCurrentUser ? "You" : message.sender.name}
+                      </div>
+                      <div>{message.message}</div>
+                    </div>
+                    <div className="mt-1 text-[10px] text-slate-400">
+                      {new Date(message.createdAt).toLocaleTimeString()}
+                    </div>
                   </div>
-                  <div className="mt-1 text-[10px] text-slate-400">
-                    {new Date(message.createdAt).toLocaleTimeString()}
-                  </div>
-                </div>
-              ))
+                );
+              })
             )}
             <div ref={scrollRef} />
           </div>
 
           <form onSubmit={handleSubmit} className="flex shrink-0 flex-col gap-2 border-t pt-4">
             <div className="flex gap-2">
-              <div className="relative w-32 shrink-0">
-                <User className="absolute top-2.5 left-2.5 h-4 w-4 text-slate-400" />
-                <Input
-                  value={state.user}
-                  onChange={(e) =>
-                    setState((draft) => {
-                      draft.user = e.target.value;
-                      return draft;
-                    })
-                  }
-                  placeholder="Name"
-                  className="pl-9"
-                />
-              </div>
               <Input
-                value={state.text}
+                value={state.message}
                 onChange={(e) =>
                   setState((draft) => {
-                    draft.text = e.target.value;
+                    draft.message = e.target.value;
                     return draft;
                   })
                 }
                 placeholder="Type a message..."
                 className="flex-1"
               />
-              <Button type="submit" size="icon" disabled={!state.text.trim()}>
+              <Button type="submit" size="icon" disabled={!state.message.trim()}>
                 <Send className="h-4 w-4" />
               </Button>
             </div>

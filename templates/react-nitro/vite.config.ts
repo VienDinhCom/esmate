@@ -20,4 +20,7 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
+  nitro: {
+    preset: "node",
+  },
 });
