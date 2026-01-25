@@ -14,6 +14,7 @@ export function useSubscription<T>(options: Options<T>) {
 
     (async () => {
       try {
+        setError(null);
         const iterator = await options.fn(controller.signal);
         for await (const item of iterator) {
           options.onData(item);

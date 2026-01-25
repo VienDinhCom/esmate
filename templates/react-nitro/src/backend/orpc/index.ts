@@ -1,7 +1,7 @@
-import { chat } from "./chat";
+import { message } from "./message";
 import { todo } from "./todo";
 
 export const router = {
   todo,
-  chat,
+  message,
 };

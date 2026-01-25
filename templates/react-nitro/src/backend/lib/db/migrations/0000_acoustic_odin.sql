@@ -51,7 +51,7 @@ CREATE TABLE `verification` (
 );
 --> statement-breakpoint
 CREATE INDEX `verification_identifier_idx` ON `verification` (`identifier`);--> statement-breakpoint
-CREATE TABLE `chat` (
+CREATE TABLE `message` (
 	`id` text PRIMARY KEY NOT NULL,
 	`message` text NOT NULL,
 	`user_id` text NOT NULL,

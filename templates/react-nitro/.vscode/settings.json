@@ -24,5 +24,14 @@
   },
   "files.readonlyInclude": {
     "src/frontend/lib/tanstack/router.ts": true
-  }
+  },
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "database": "${workspaceFolder:react-nitro}/database.sqlite",
+      "name": "ESMate React Nitro"
+    }
+  ],
+  "sqltools.useNodeRuntime": true
 }

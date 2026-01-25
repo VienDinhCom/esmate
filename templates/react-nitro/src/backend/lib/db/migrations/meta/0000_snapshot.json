@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "23330ff6-9196-4733-aa23-7d6df1a84279",
+  "id": "a8321993-2247-441a-9761-68b053f1fb03",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -356,8 +356,8 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
-    "chat": {
-      "name": "chat",
+    "message": {
+      "name": "message",
       "columns": {
         "id": {
           "name": "id",
@@ -399,9 +399,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "chat_user_id_user_id_fk": {
-          "name": "chat_user_id_user_id_fk",
-          "tableFrom": "chat",
+        "message_user_id_user_id_fk": {
+          "name": "message_user_id_user_id_fk",
+          "tableFrom": "message",
           "tableTo": "user",
           "columnsFrom": [
             "user_id"

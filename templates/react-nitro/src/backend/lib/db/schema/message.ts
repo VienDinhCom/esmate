@@ -1,12 +1,14 @@
 import { relations } from "drizzle-orm";
 import { sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-import { createdAt, updatedAt } from "@/backend/database/utils";
+import { createdAt, updatedAt } from "@/backend/lib/db/utils";
 
 import { user } from "./auth";
 
-export const chat = sqliteTable("chat", {
-  id: text().primaryKey(),
+export const message = sqliteTable("message", {
+  id: text()
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
   message: text().notNull(),
   userId: text()
     .notNull()
@@ -15,9 +17,9 @@ export const chat = sqliteTable("chat", {
   updatedAt,
 });
 
-export const chatRelations = relations(chat, ({ one }) => ({
+export const messageRelations = relations(message, ({ one }) => ({
   sender: one(user, {
-    fields: [chat.userId],
+    fields: [message.userId],
     references: [user.id],
   }),
 }));
