@@ -24,7 +24,10 @@ If you like this project, hit the **STAR** button to bookmark it ⭐️
 
 - [**react-spa**](/templates/react-spa) — A React Starter for Single Page Applications Powered by TanStack Router.
 - [**react-astro**](/templates/react-astro) — A React Starter for Full Stack Applications Powered by Astro & TanStack.
-- [**react-next**](/templates/react-next) — A React Starter for Full Stack Applications Powered by Next.js, Drizzle, and Stripe.
+- [**react-next**](/templates/react-next) — A React Starter for Full Stack Applications Powered by Next.js, Drizzle, and
+  Stripe.
+- [**react-nitro**](/templates/react-nitro) — A React Starter for Full Stack Applications Powered by TanStack, Nitro &
+  Vite.
 
 If you like this project, hit the **STAR** button to bookmark it ⭐️
 
@@ -32,12 +35,15 @@ If you like this project, hit the **STAR** button to bookmark it ⭐️
 
 Starting a new JavaScript or TypeScript project shouldn’t feel like a battle.
 
-But it usually does. Before writing any real code, we install tools, configure linters, set up frameworks, and run long setup commands—just to get started. We do it so often that it feels normal, but is it actually helping?
+But it usually does. Before writing any real code, we install tools, configure linters, set up frameworks, and run long
+setup commands—just to get started. We do it so often that it feels normal, but is it actually helping?
 
-We’ve seen that things can be simpler. Clean defaults and less setup work better. Node.js isn’t going away, so instead of fighting it, we should make it easier to use.
+We’ve seen that things can be simpler. Clean defaults and less setup work better. Node.js isn’t going away, so instead
+of fighting it, we should make it easier to use.
 
 That’s why I built **ESMate**.
 
-It’s not a new runtime. It’s a small helper that gives you the basics out of the box, removes most of the setup pain, and lets you start building right away.
+It’s not a new runtime. It’s a small helper that gives you the basics out of the box, removes most of the setup pain,
+and lets you start building right away.
 
 Less ritual. More building.
