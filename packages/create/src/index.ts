@@ -37,7 +37,7 @@ const main = defineCommand({
       let template = args.template;
       let name = kebabCase(args.name || "");
 
-      const templates = ["react-spa", "react-astro", "react-next"];
+      const templates = ["react-spa", "react-nitro", "react-next", "react-astro"];
 
       if (!template) {
         template = await consola.prompt("Select a template: ", { type: "select", options: templates });
