@@ -15,7 +15,7 @@ import { useSubscription } from "@/frontend/hooks";
 import { authClient } from "@/frontend/lib/auth";
 import { orpcClient, orpcQuery } from "@/frontend/lib/orpc";
 
-export const Route = createFileRoute("/chat")({
+export const Route = createFileRoute("/(app)/chat")({
   loader: ({ context }) => context.queryClient.ensureQueryData(orpcQuery.message.fetch.queryOptions()),
   component: RouteComponent,
 });

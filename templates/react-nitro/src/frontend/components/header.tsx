@@ -1,6 +1,11 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
+
+import { authClient } from "@/frontend/lib/auth";
 
 export default function Header() {
+  const session = authClient.useSession();
+  const navigate = useNavigate();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="container mx-auto flex h-14 items-center justify-center px-4">
@@ -27,6 +32,26 @@ export default function Header() {
           >
             Chat
           </Link>
+          {session.data?.user ? (
+            <button
+              type="button"
+              onClick={async () => {
+                await authClient.signOut();
+                navigate({ to: "/" });
+              }}
+              className="text-foreground/60 transition-colors hover:text-foreground/80"
+            >
+              Sign Out
+            </button>
+          ) : (
+            <Link
+              to="/auth/sign-in"
+              className="text-foreground/60 transition-colors hover:text-foreground/80"
+              activeProps={{ className: "font-bold text-foreground" }}
+            >
+              Sign In
+            </Link>
+          )}
         </nav>
       </div>
     </header>

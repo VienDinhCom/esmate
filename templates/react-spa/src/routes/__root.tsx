@@ -2,9 +2,8 @@ import type { QueryClient } from "@tanstack/react-query";
 
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 
-import { TanStackDevTools } from "@/config/devtools";
-
-import Header from "../components/header";
+import Header from "@/components/header";
+import { TanStackDevTools } from "@/lib/tanstack";
 
 interface MyRouterContext {
   queryClient: QueryClient;

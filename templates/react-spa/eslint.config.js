@@ -8,5 +8,5 @@ export default defineConfig({
     query: true,
     router: true,
   },
-  ignores: ["src/routeTree.gen.ts"],
+  ignores: ["src/lib/tanstack/router.ts"],
 });

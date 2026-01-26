@@ -2,51 +2,50 @@ import { Button } from "@esmate/shadcn/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Input } from "@esmate/shadcn/components/ui/input";
 import { Label } from "@esmate/shadcn/components/ui/label";
+import { useZodForm } from "@esmate/shadcn/hooks/use-zod-form";
+import { z } from "@esmate/shadcn/pkgs/zod";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
 
 import { authClient } from "@/frontend/lib/auth";
 
+const FormSchema = z.object({
+  name: z.string().min(3, "Name must be at least 3 characters long"),
+  email: z.string().email("Invalid email"),
+  password: z.string().min(8, "Password must be at least 8 characters long"),
+});
+
 export const Route = createFileRoute("/auth/sign-up")({
   component: RouteComponent,
+  validateSearch: z.object({
+    callbackUrl: z.string().optional(),
+  }),
 });
 
 function RouteComponent() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [image, setImage] = useState<File | null>(null);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const search = Route.useSearch();
+  const form = useZodForm({
+    schema: FormSchema,
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
+  });
 
-  const signUp = async () => {
-    await authClient.signUp.email(
-      {
-        email,
-        password,
-        name,
-        image: image ? await convertBase64(image) : undefined,
+  const handleSubmit = form.handleSubmit(async (values) => {
+    authClient.signUp.email(values, {
+      onSuccess: () => {
+        navigate({ to: search.callbackUrl || "/" });
       },
-      {
-        onRequest: () => {
-          setLoading(true);
-        },
-        onResponse: () => {
-          setLoading(false);
-        },
-        onError: (ctx) => {
-          // eslint-disable-next-line no-alert
-          alert(ctx.error.message);
-        },
-        onSuccess: () => {
-          navigate({ to: "/" });
-        },
+      onError: (ctx) => {
+        console.error(ctx.error);
       },
-    );
-  };
+    });
+  });
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50 p-4">
+    <div className="flex items-center justify-center bg-slate-50 p-4 pt-10">
       <Card className="w-full max-w-md shadow-xl">
         <CardHeader className="space-y-1 text-center">
           <CardTitle className="text-3xl font-bold">Create an account</CardTitle>
@@ -55,32 +54,37 @@ function RouteComponent() {
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="name">Name</Label>
-            <Input id="name" placeholder="John Doe" value={name} onChange={(e) => setName(e.target.value)} />
+            <Input id="name" placeholder="John Doe" {...form.register("name")} />
+            {form.formState.errors.name && (
+              <p className="text-sm font-medium text-destructive">{form.formState.errors.name.message}</p>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <Input id="email" type="email" placeholder="email@example.com" {...form.register("email")} />
+            {form.formState.errors.email && (
+              <p className="text-sm font-medium text-destructive">{form.formState.errors.email.message}</p>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <Input id="password" type="password" {...form.register("password")} />
+            {form.formState.errors.password && (
+              <p className="text-sm font-medium text-destructive">{form.formState.errors.password.message}</p>
+            )}
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="image">Profile Image (Optional)</Label>
-            <Input id="image" type="file" accept="image/*" onChange={(e) => setImage(e.target.files?.[0] || null)} />
-          </div>
-          <Button className="w-full" onClick={signUp} disabled={loading}>
-            {loading ? "Creating account..." : "Sign Up"}
+          <Button className="w-full" onClick={handleSubmit} disabled={form.formState.isSubmitting}>
+            {form.formState.isSubmitting ? "Creating account..." : "Sign Up"}
           </Button>
           <div className="text-center text-sm text-slate-500">
             Already have an account?{" "}
-            <Link to="/auth/sign-in" className="font-semibold text-primary hover:underline">
+            <Link
+              to="/auth/sign-in"
+              search={{
+                callbackUrl: search.callbackUrl || "/",
+              }}
+              className="font-semibold text-primary hover:underline"
+            >
               Sign In
             </Link>
           </div>
@@ -88,13 +92,4 @@ function RouteComponent() {
       </Card>
     </div>
   );
-}
-
-async function convertBase64(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
-  });
 }
