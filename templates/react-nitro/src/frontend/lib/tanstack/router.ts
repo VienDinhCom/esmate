@@ -9,20 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './../../routes/__root'
-import { Route as TodosRouteImport } from './../../routes/todos'
-import { Route as ChatRouteImport } from './../../routes/chat'
+import { Route as appRouteRouteImport } from './../../routes/(app)/route'
 import { Route as IndexRouteImport } from './../../routes/index'
 import { Route as AuthSignUpRouteImport } from './../../routes/auth/sign-up'
 import { Route as AuthSignInRouteImport } from './../../routes/auth/sign-in'
+import { Route as appTodosRouteImport } from './../../routes/(app)/todos'
+import { Route as appChatRouteImport } from './../../routes/(app)/chat'
 
-const TodosRoute = TodosRouteImport.update({
-  id: '/todos',
-  path: '/todos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ChatRoute = ChatRouteImport.update({
-  id: '/chat',
-  path: '/chat',
+const appRouteRoute = appRouteRouteImport.update({
+  id: '/(app)',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -40,26 +35,37 @@ const AuthSignInRoute = AuthSignInRouteImport.update({
   path: '/auth/sign-in',
   getParentRoute: () => rootRouteImport,
 } as any)
+const appTodosRoute = appTodosRouteImport.update({
+  id: '/todos',
+  path: '/todos',
+  getParentRoute: () => appRouteRoute,
+} as any)
+const appChatRoute = appChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => appRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/chat': typeof ChatRoute
-  '/todos': typeof TodosRoute
+  '/chat': typeof appChatRoute
+  '/todos': typeof appTodosRoute
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/chat': typeof ChatRoute
-  '/todos': typeof TodosRoute
+  '/chat': typeof appChatRoute
+  '/todos': typeof appTodosRoute
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/chat': typeof ChatRoute
-  '/todos': typeof TodosRoute
+  '/(app)': typeof appRouteRouteWithChildren
+  '/(app)/chat': typeof appChatRoute
+  '/(app)/todos': typeof appTodosRoute
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
 }
@@ -68,31 +74,30 @@ export interface FileRouteTypes {
   fullPaths: '/' | '/chat' | '/todos' | '/auth/sign-in' | '/auth/sign-up'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/chat' | '/todos' | '/auth/sign-in' | '/auth/sign-up'
-  id: '__root__' | '/' | '/chat' | '/todos' | '/auth/sign-in' | '/auth/sign-up'
+  id:
+    | '__root__'
+    | '/'
+    | '/(app)'
+    | '/(app)/chat'
+    | '/(app)/todos'
+    | '/auth/sign-in'
+    | '/auth/sign-up'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ChatRoute: typeof ChatRoute
-  TodosRoute: typeof TodosRoute
+  appRouteRoute: typeof appRouteRouteWithChildren
   AuthSignInRoute: typeof AuthSignInRoute
   AuthSignUpRoute: typeof AuthSignUpRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/todos': {
-      id: '/todos'
-      path: '/todos'
-      fullPath: '/todos'
-      preLoaderRoute: typeof TodosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/chat': {
-      id: '/chat'
-      path: '/chat'
-      fullPath: '/chat'
-      preLoaderRoute: typeof ChatRouteImport
+    '/(app)': {
+      id: '/(app)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof appRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -116,13 +121,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignInRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(app)/todos': {
+      id: '/(app)/todos'
+      path: '/todos'
+      fullPath: '/todos'
+      preLoaderRoute: typeof appTodosRouteImport
+      parentRoute: typeof appRouteRoute
+    }
+    '/(app)/chat': {
+      id: '/(app)/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof appChatRouteImport
+      parentRoute: typeof appRouteRoute
+    }
   }
 }
 
+interface appRouteRouteChildren {
+  appChatRoute: typeof appChatRoute
+  appTodosRoute: typeof appTodosRoute
+}
+
+const appRouteRouteChildren: appRouteRouteChildren = {
+  appChatRoute: appChatRoute,
+  appTodosRoute: appTodosRoute,
+}
+
+const appRouteRouteWithChildren = appRouteRoute._addFileChildren(
+  appRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ChatRoute: ChatRoute,
-  TodosRoute: TodosRoute,
+  appRouteRoute: appRouteRouteWithChildren,
   AuthSignInRoute: AuthSignInRoute,
   AuthSignUpRoute: AuthSignUpRoute,
 }

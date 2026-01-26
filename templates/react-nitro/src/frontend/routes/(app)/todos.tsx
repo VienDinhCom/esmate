@@ -8,7 +8,7 @@ import { useCallback, useState } from "react";
 
 import { orpcQuery } from "@/frontend/lib/orpc";
 
-export const Route = createFileRoute("/todos")({
+export const Route = createFileRoute("/(app)/todos")({
   component: RouteComponent,
 });
 
