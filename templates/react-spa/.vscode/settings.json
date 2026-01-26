@@ -11,14 +11,18 @@
   },
 
   "tailwindCSS.classFunctions": ["cn"],
+  "typescript.tsdk": "node_modules/typescript/lib",
 
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
   "files.watcherExclude": {
-    "**/routeTree.gen.ts": true
+    "src/frontend/lib/tanstack/router.ts": true
   },
   "search.exclude": {
-    "**/routeTree.gen.ts": true
+    "src/frontend/lib/tanstack/router.ts": true
   },
   "files.readonlyInclude": {
-    "**/routeTree.gen.ts": true
+    "src/frontend/lib/tanstack/router.ts": true
   }
 }
