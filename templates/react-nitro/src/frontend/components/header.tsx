@@ -34,8 +34,8 @@ export default function Header() {
           {session.data?.user ? (
             <button
               type="button"
-              onClick={() => {
-                authClient.signOut();
+              onClick={async () => {
+                await authClient.signOut();
                 redirect({ to: "/" });
               }}
               className="text-foreground/60 transition-colors hover:text-foreground/80"

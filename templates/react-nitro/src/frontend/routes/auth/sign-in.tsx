@@ -49,7 +49,7 @@ function RouteComponent() {
         });
       },
       onSuccess: () => {
-        navigate({ to: "/", search: { callbackUrl: search.callbackUrl || "/" } });
+        navigate({ to: search.callbackUrl || "/" });
       },
     });
   });

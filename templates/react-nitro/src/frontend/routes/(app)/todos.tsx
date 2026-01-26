@@ -69,7 +69,7 @@ function RouteComponent() {
                   <button
                     type="button"
                     onClick={() => toggleTodo({ id: t.id })}
-                    className="flex-shrink-0 transition-transform active:scale-90"
+                    className="shrink-0 transition-transform active:scale-90"
                   >
                     {t.done ? (
                       <CheckCircle2 className="h-6 w-6 text-green-500" />
