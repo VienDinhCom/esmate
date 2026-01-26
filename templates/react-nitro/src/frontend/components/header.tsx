@@ -1,9 +1,10 @@
-import { Link, redirect } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 
 import { authClient } from "@/frontend/lib/auth";
 
 export default function Header() {
   const session = authClient.useSession();
+  const navigate = useNavigate();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
@@ -36,7 +37,7 @@ export default function Header() {
               type="button"
               onClick={async () => {
                 await authClient.signOut();
-                redirect({ to: "/" });
+                navigate({ to: "/" });
               }}
               className="text-foreground/60 transition-colors hover:text-foreground/80"
             >
