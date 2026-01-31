@@ -13,49 +13,20 @@ Everything you need to ship production-ready apps.
 
 A carefully curated stack of modern technologies that work perfectly together.
 
-### ⚡ Lightning Fast
+### 🎨 Frontend Excellence
 
-Built on **Vite** and **Nitro** for instant dev server startup and blazing-fast HMR.
+Built with **Vite**, **React**, and **TanStack Router** for a blazing-fast, type-safe single page application
+experience. Styled with **Tailwind CSS** and **shadcn/ui** for modern, accessible interfaces.
 
-### 🛡️ Type-Safe APIs
+### 🔋 Backend Power
 
-End-to-end type safety with **oRPC**. Write backend procedures, get automatic frontend types.
+Powered by **Nitro** for universal deployment and **oRPC** for end-to-end type safety. Includes **Drizzle ORM** for
+database management and **Better Auth** for a complete authentication solution.
 
-### ✅ Ready for Production
+### 🛠️ Developer Experience
 
-Better Auth, Drizzle ORM, and battle-tested patterns out of the box.
-
-## 🌍 Deploy Anywhere
-
-Nitro can generate different output formats suitable for different hosting providers from the same code base. Using
-built-in presets, you can easily configure Nitro to adjust its output format with almost no additional code or
-configuration!
-
-### Zero-Config Providers
-
-When deploying to production using CI/CD, Nitro tries to automatically detect the provider environment and set the right
-one without any additional configuration required.
-
-- Node.js, Bun, Deno
-- AWS Amplify, Azure, Cloudflare
-- Firebase App Hosting, Netlify, Vercel
-- Stormkit, Zeabur, Deno Deploy
-
-## 🎮 Demo Applications
-
-Explore fully functional demo apps built with this template to see the stack in action.
-
-### ☑️ Todo App
-
-A complete CRUD application demonstrating oRPC mutations, optimistic updates, and real-time state management with
-TanStack Query.
-
-### 💬 Real-time Chat
-
-A live chat room showcasing oRPC subscriptions (Server-Sent Events) for real-time updates, message persistence, and
-multi-user communication.
-
----
+Includes **ESMate**, a modern task runner and CLI that streamlines project management, automates formatting, and
+enhances your development workflow.
 
 ## 🛠️ Getting Started
 
@@ -104,6 +75,36 @@ multi-user communication.
 - `npm run test`: Runs unit tests using Vitest.
 - `npm run fix`: Automatically fixes code formatting and linting issues.
 - `npm run check`: Checks the codebase for formatting and linting errors.
+
+## 🌍 Deploy Anywhere
+
+Nitro can generate different output formats suitable for different hosting providers from the same code base. Using
+built-in presets, you can easily configure Nitro to adjust its output format with almost no additional code or
+configuration!
+
+### Zero-Config Providers
+
+When deploying to production using CI/CD, Nitro tries to automatically detect the provider environment and set the right
+one without any additional configuration required.
+
+- Node.js, Bun, Deno
+- AWS Amplify, Azure, Cloudflare
+- Firebase App Hosting, Netlify, Vercel
+- Stormkit, Zeabur, Deno Deploy
+
+## 🎮 Demo Applications
+
+Explore fully functional demo apps built with this template to see the stack in action.
+
+### ☑️ Todo App
+
+A complete CRUD application demonstrating oRPC mutations, optimistic updates, and real-time state management with
+TanStack Query.
+
+### 💬 Real-time Chat
+
+A live chat room showcasing oRPC subscriptions (Server-Sent Events) for real-time updates, message persistence, and
+multi-user communication.
 
 ## ☁️ Deployment
 
