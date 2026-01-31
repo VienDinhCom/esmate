@@ -1,6 +1,6 @@
 import { createInsertSchema, createSelectSchema, createUpdateSchema } from "drizzle-zod";
 
-import { message } from "@/backend/lib/db/schema";
+import { message } from "@/backend/database/schema";
 
 import { UserSelectSchema } from "./user";
 

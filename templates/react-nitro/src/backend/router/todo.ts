@@ -1,7 +1,7 @@
 import { invariant } from "@esmate/utils";
 import { z } from "zod";
 
-import { db, orm, schema } from "@/backend/lib/db";
+import { db, orm, schema } from "@/backend/database";
 import { authMiddleware, os } from "@/backend/lib/orpc";
 import { TodoInsertSchema, TodoSelectSchema } from "@/shared/schema";
 

@@ -4,7 +4,7 @@ import { CORSPlugin } from "@orpc/server/plugins";
 import { defineEventHandler } from "nitro/h3";
 
 import { createORPCContext } from "@/backend/lib/orpc";
-import { router } from "@/backend/orpc";
+import { router } from "@/backend/router";
 
 const handler = new RPCHandler(router, {
   plugins: [new CORSPlugin()],

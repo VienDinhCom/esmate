@@ -49,8 +49,8 @@ export const createUser = os.handler(async ({ input }) => {
 ### Database & Schema (Drizzle)
 
 ```typescript
-// ✅ Good - Use db and schema from @/backend/lib/db
-import { db, schema } from "@/backend/lib/db";
+// ✅ Good - Use db and schema from @/backend/database
+import { db, schema } from "@/backend/database";
 // ✅ Good - Zod schemas in src/shared/schema/
 import { insertUserSchema, selectUserSchema } from "@/shared/schema/user";
 

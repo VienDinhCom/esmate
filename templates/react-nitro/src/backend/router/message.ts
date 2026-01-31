@@ -2,7 +2,7 @@ import { z } from "@esmate/shadcn/pkgs/zod";
 import { invariant } from "@esmate/utils";
 import { eventIterator, EventPublisher } from "@orpc/server";
 
-import { db, orm, schema } from "@/backend/lib/db";
+import { db, orm, schema } from "@/backend/database";
 import { authMiddleware, os } from "@/backend/lib/orpc";
 import { MessageInsertSchema, MessageSelectSchema, MessageSelectSchemaWithSender } from "@/shared/schema";
 
