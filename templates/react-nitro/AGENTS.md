@@ -62,7 +62,9 @@ const users = await db.select().from(schema.users);
 
 ### Routing (TanStack Router)
 
-```typescript
+```tsx
+import { Link, useNavigate } from "@tanstack/react-router";
+
 // ✅ Good - File-based route with createFileRoute
 export const Route = createFileRoute("/teams/$teamId")({
   component: TeamPage,
@@ -72,8 +74,9 @@ export const Route = createFileRoute("/teams/$teamId")({
 });
 
 // ✅ Good - Navigation
-import { Link, useNavigate } from "@tanstack/react-router";
-<Link to="/teams/$teamId" params={{ teamId: team.id }}>View Team</Link>
+<Link to="/teams/$teamId" params={{ teamId: team.id }}>
+  View Team
+</Link>;
 ```
 
 ### UI & Styling (@esmate/shadcn)
