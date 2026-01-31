@@ -15,12 +15,12 @@ export const Route = createFileRoute("/(app)/todos")({
 function RouteComponent() {
   const [todo, setTodo] = useState("");
 
-  const { data, refetch } = useSuspenseQuery(orpcQuery.todo.list.queryOptions());
+  const todoListQuery = useSuspenseQuery(orpcQuery.todo.list.queryOptions());
 
   const { mutate: addTodo } = useMutation(
     orpcQuery.todo.add.mutationOptions({
       onSuccess: () => {
-        refetch();
+        todoListQuery.refetch();
         setTodo("");
       },
     }),
@@ -29,7 +29,7 @@ function RouteComponent() {
   const { mutate: toggleTodo } = useMutation(
     orpcQuery.todo.toggle.mutationOptions({
       onSuccess: () => {
-        refetch();
+        todoListQuery.refetch();
       },
     }),
   );
@@ -37,7 +37,7 @@ function RouteComponent() {
   const { mutate: deleteTodo } = useMutation(
     orpcQuery.todo.delete.mutationOptions({
       onSuccess: () => {
-        refetch();
+        todoListQuery.refetch();
       },
     }),
   );
@@ -47,6 +47,8 @@ function RouteComponent() {
       addTodo({ name: todo });
     }
   }, [addTodo, todo]);
+
+  const todos = todoListQuery.data;
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
@@ -58,31 +60,31 @@ function RouteComponent() {
         <CardContent className="space-y-6">
           {/* Todo List */}
           <div className="space-y-2">
-            {data.length === 0 ? (
+            {todos.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <CheckCircle2 className="mb-4 h-12 w-12 text-muted-foreground/50" />
                 <p className="text-muted-foreground">No todos yet. Add one to get started!</p>
               </div>
             ) : (
-              data.map((t) => (
+              todos.map((todo) => (
                 <div
-                  key={t.id}
+                  key={todo.id}
                   className="group flex items-center gap-3 rounded-lg border bg-card p-3 transition-colors hover:bg-accent/50"
                 >
                   <button
                     type="button"
-                    onClick={() => toggleTodo({ id: t.id })}
+                    onClick={() => toggleTodo({ id: todo.id })}
                     className="shrink-0 text-muted-foreground transition-colors hover:text-primary"
                   >
-                    {t.done ? <CheckCircle2 className="h-5 w-5 text-primary" /> : <Circle className="h-5 w-5" />}
+                    {todo.done ? <CheckCircle2 className="h-5 w-5 text-primary" /> : <Circle className="h-5 w-5" />}
                   </button>
-                  <span className={`flex-1 ${t.done ? "text-muted-foreground line-through" : "text-foreground"}`}>
-                    {t.name}
+                  <span className={`flex-1 ${todo.done ? "text-muted-foreground line-through" : "text-foreground"}`}>
+                    {todo.name}
                   </span>
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => deleteTodo({ id: t.id })}
+                    onClick={() => deleteTodo({ id: todo.id })}
                     className="h-8 w-8 opacity-0 transition-opacity group-hover:opacity-100"
                   >
                     <Trash2 className="h-4 w-4 text-destructive" />

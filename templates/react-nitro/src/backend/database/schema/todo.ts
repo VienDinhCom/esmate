@@ -1,7 +1,7 @@
 import { relations } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-import { createdAt, updatedAt } from "@/backend/lib/db/utils";
+import { createdAt, updatedAt } from "@/backend/database/utils";
 
 import { user } from "./auth";
 

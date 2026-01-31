@@ -49,8 +49,8 @@ export const createUser = os.handler(async ({ input }) => {
 ### Database & Schema (Drizzle)
 
 ```typescript
-// ✅ Good - Use db and schema from @/backend/lib/db
-import { db, schema } from "@/backend/lib/db";
+// ✅ Good - Use db and schema from @/backend/database
+import { db, schema } from "@/backend/database";
 // ✅ Good - Zod schemas in src/shared/schema/
 import { insertUserSchema, selectUserSchema } from "@/shared/schema/user";
 
@@ -83,13 +83,15 @@ validation should be handled using `@esmate/shadcn/hooks/use-zod-form`.
 
 ```typescript
 // ✅ Good - Import from @esmate/shadcn
-import { Button, Card, Input } from "@esmate/shadcn/components/ui";
+import { Button } from "@esmate/shadcn/components/ui/button";
 import { useZodForm } from "@esmate/shadcn/hooks/use-zod-form";
 import { cn } from "@esmate/shadcn/libs/utils";
-import { z } from "@esmate/shadcn/pkgs/zod";
-// ❌ Bad - Direct package imports
-import { Button } from "shadcn/ui";
 import { z } from "zod";
+
+// ❌ Bad - Direct package imports
+import { Button } from "@/frontend/components/ui/button";
+import { useMobile } from "@/frontend/hooks/use-mobile";
+import { cn } from "@/frontend/libs/utils";
 ```
 
 ### Authentication (Better Auth)
@@ -102,8 +104,8 @@ const { data: session } = authClient.useSession();
 
 // ✅ Good - Backend authorized procedures access user via context
 export const getMyTeams = os.handler(async ({ context }) => {
-  const userId = context.user.id;
-  return await db.select().from(schema.teams).where(eq(schema.teams.ownerId, userId));
+  invariant(context.user, "unauthenticated");
+  return await db.select().from(schema.teams).where(eq(schema.teams.ownerId, context.user.id));
 });
 ```
 

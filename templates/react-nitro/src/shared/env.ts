@@ -1,6 +1,6 @@
-import { z } from "@esmate/shadcn/pkgs/zod";
 import { createEnv } from "@t3-oss/env-core";
 import process from "node:process";
+import { z } from "zod";
 
 export const env = createEnv({
   clientPrefix: "VITE_",
