@@ -77,7 +77,9 @@ import { Link, useNavigate } from "@tanstack/react-router";
 ```
 
 ### UI & Styling (@esmate/shadcn)
-This project uses a specialized distribution of Shadcn UI via the `@esmate/shadcn` package, and all form logic and validation should be handled using `@esmate/shadcn/hooks/use-zod-form`.
+
+This project uses a specialized distribution of Shadcn UI via the `@esmate/shadcn` package, and all form logic and
+validation should be handled using `@esmate/shadcn/hooks/use-zod-form`.
 
 ```typescript
 // ✅ Good - Import from @esmate/shadcn
