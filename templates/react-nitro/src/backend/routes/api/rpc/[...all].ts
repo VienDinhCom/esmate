@@ -3,7 +3,7 @@ import { RPCHandler } from "@orpc/server/fetch";
 import { CORSPlugin } from "@orpc/server/plugins";
 import { defineEventHandler } from "nitro/h3";
 
-import { createContext } from "@/backend/lib/orpc";
+import { createORPCContext } from "@/backend/lib/orpc";
 import { router } from "@/backend/orpc";
 
 const handler = new RPCHandler(router, {
@@ -18,7 +18,7 @@ const handler = new RPCHandler(router, {
 export default defineEventHandler(async (event) => {
   const { matched, response } = await handler.handle(event.req, {
     prefix: "/api/rpc",
-    context: await createContext(event),
+    context: await createORPCContext(event),
   });
 
   if (matched) {

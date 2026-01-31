@@ -1,9 +1,9 @@
+import { z } from "@esmate/shadcn/pkgs/zod";
 import { invariant } from "@esmate/utils";
 import { eventIterator, EventPublisher } from "@orpc/server";
-import { z } from "zod";
 
 import { db, orm, schema } from "@/backend/lib/db";
-import { os } from "@/backend/lib/orpc";
+import { authMiddleware, os } from "@/backend/lib/orpc";
 import { MessageInsertSchema, MessageSelectSchema, MessageSelectSchemaWithSender } from "@/shared/schema";
 
 const publisher = new EventPublisher<{
@@ -12,11 +12,10 @@ const publisher = new EventPublisher<{
 
 export const message = {
   add: os
+    .use(authMiddleware)
     .input(MessageInsertSchema)
     .output(MessageSelectSchema)
     .handler(async ({ input, context }) => {
-      invariant(context.user, "unauthenticated");
-
       const [message] = await db
         .insert(schema.message)
         .values({ ...input, userId: context.user.id })
@@ -38,19 +37,21 @@ export const message = {
       return message;
     }),
 
-  list: os.output(z.array(MessageSelectSchemaWithSender)).handler(async ({ context }) => {
-    invariant(context.user, "unauthenticated");
+  list: os
+    .use(authMiddleware)
+    .output(z.array(MessageSelectSchemaWithSender))
+    .handler(async () => {
+      return db.query.message.findMany({ with: { sender: true } });
+    }),
 
-    return db.query.message.findMany({ with: { sender: true } });
-  }),
+  subscribe: os
+    .use(authMiddleware)
+    .output(eventIterator(MessageSelectSchemaWithSender))
+    .handler(async function* () {
+      const iterator = publisher.subscribe("sent");
 
-  subscribe: os.output(eventIterator(MessageSelectSchemaWithSender)).handler(async function* ({ context }) {
-    invariant(context.user, "unauthenticated");
-
-    const iterator = publisher.subscribe("sent");
-
-    for await (const message of iterator) {
-      yield message;
-    }
-  }),
+      for await (const message of iterator) {
+        yield message;
+      }
+    }),
 };
