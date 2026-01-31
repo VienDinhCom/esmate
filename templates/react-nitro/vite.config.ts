@@ -13,13 +13,13 @@ export default defineConfig({
     router({
       target: "react",
       autoCodeSplitting: true,
-      routesDirectory: "src/frontend/routes",
-      generatedRouteTree: "src/frontend/lib/tanstack/router.ts",
+      routesDirectory: "./src/frontend/routes",
+      generatedRouteTree: "./src/frontend/lib/tanstack/router.ts",
     }),
     react(),
     tailwind(),
     nitro({
-      serverDir: "src/backend",
+      serverDir: "./src/backend",
     }),
     tsconfigPaths(),
   ],

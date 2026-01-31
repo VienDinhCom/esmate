@@ -1,7 +1,7 @@
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Input } from "@esmate/shadcn/components/ui/input";
-import { CheckCircle2, Circle, Trash2 } from "@esmate/shadcn/pkgs/lucide-react";
+import { CheckCircle2, Circle, Plus, Trash2 } from "@esmate/shadcn/pkgs/lucide-react";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
@@ -43,60 +43,56 @@ function RouteComponent() {
   );
 
   const submitTodo = useCallback(() => {
-    addTodo({ name: todo });
+    if (todo.trim().length > 0) {
+      addTodo({ name: todo });
+    }
   }, [addTodo, todo]);
 
   return (
-    <div className="flex justify-center py-10">
-      <Card className="w-full max-w-2xl shadow-2xl">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-3xl font-bold tracking-tight">My Todos</CardTitle>
-          <CardDescription className="text-base">Manage your tasks and stay organized</CardDescription>
+    <div className="mx-auto max-w-2xl px-4 py-8">
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-2xl">Todos</CardTitle>
+          <CardDescription>Manage your tasks and stay organized</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="space-y-3">
+          {/* Todo List */}
+          <div className="space-y-2">
             {data.length === 0 ? (
-              <div className="rounded-lg border-2 border-dashed border-slate-200 p-8 text-center dark:border-slate-800">
-                <CheckCircle2 className="mx-auto mb-2 h-12 w-12 text-slate-300 dark:text-slate-700" />
-                <p className="text-sm text-slate-500 dark:text-slate-400">No todos yet. Add one to get started!</p>
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <CheckCircle2 className="mb-4 h-12 w-12 text-muted-foreground/50" />
+                <p className="text-muted-foreground">No todos yet. Add one to get started!</p>
               </div>
             ) : (
               data.map((t) => (
                 <div
                   key={t.id}
-                  className="group flex items-center gap-3 rounded-lg border bg-card p-4 shadow-sm transition-all hover:shadow-md"
+                  className="group flex items-center gap-3 rounded-lg border bg-card p-3 transition-colors hover:bg-accent/50"
                 >
                   <button
                     type="button"
                     onClick={() => toggleTodo({ id: t.id })}
-                    className="shrink-0 transition-transform active:scale-90"
+                    className="shrink-0 text-muted-foreground transition-colors hover:text-primary"
                   >
-                    {t.done ? (
-                      <CheckCircle2 className="h-6 w-6 text-green-500" />
-                    ) : (
-                      <Circle className="h-6 w-6 text-slate-300 group-hover:text-slate-400" />
-                    )}
+                    {t.done ? <CheckCircle2 className="h-5 w-5 text-primary" /> : <Circle className="h-5 w-5" />}
                   </button>
-                  <span
-                    className={`flex-1 text-base font-medium transition-all ${
-                      t.done ? "text-slate-400 line-through" : "text-slate-900 dark:text-slate-100"
-                    }`}
-                  >
+                  <span className={`flex-1 ${t.done ? "text-muted-foreground line-through" : "text-foreground"}`}>
                     {t.name}
                   </span>
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => deleteTodo({ id: t.id })}
-                    className="opacity-0 transition-opacity group-hover:opacity-100 hover:bg-destructive/10 hover:text-destructive"
+                    className="h-8 w-8 opacity-0 transition-opacity group-hover:opacity-100"
                   >
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2 className="h-4 w-4 text-destructive" />
                   </Button>
                 </div>
               ))
             )}
           </div>
 
+          {/* Add Todo Form */}
           <div className="flex gap-2">
             <Input
               type="text"
@@ -110,7 +106,8 @@ function RouteComponent() {
               placeholder="Enter a new todo..."
               className="flex-1"
             />
-            <Button type="button" disabled={todo.trim().length === 0} onClick={submitTodo} className="px-6">
+            <Button type="button" disabled={todo.trim().length === 0} onClick={submitTodo}>
+              <Plus className="mr-2 h-4 w-4" />
               Add
             </Button>
           </div>

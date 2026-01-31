@@ -1,34 +1,89 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-interface Options<T> {
-  fn: (signal: AbortSignal) => Promise<AsyncIterable<T>>;
-  onData: (data: T) => void;
-  deps?: React.DependencyList;
+export interface Options<TOutput, TError = Error> {
+  subscribe: (signal: AbortSignal) => Promise<AsyncIterable<TOutput>>;
+  onStarted?: () => void;
+  onData?: (data: TOutput) => void;
+  onError?: (error: TError) => void;
+  onComplete?: () => void;
+  enabled?: boolean;
 }
 
-export function useSubscription<T>(options: Options<T>) {
-  const [error, setError] = useState<Error | null>(null);
+export interface Result<TOutput, TError = Error> {
+  status: "idle" | "connecting" | "pending" | "error";
+  data: TOutput | undefined;
+  error: TError | null;
+  reset: () => void;
+}
+
+export function useSubscription<TOutput, TError = Error>(options: Options<TOutput, TError>): Result<TOutput, TError> {
+  const { subscribe, ...restOptions } = options;
+  const enabled = restOptions.enabled ?? true;
+
+  const [status, setStatus] = useState<Result<TOutput, TError>["status"]>("idle");
+  const [data, setData] = useState<TOutput | undefined>(undefined);
+  const [error, setError] = useState<TError | null>(null);
+
+  const optionsRef = useRef(restOptions);
+  optionsRef.current = restOptions;
+
+  const subscribeRef = useRef(subscribe);
+  subscribeRef.current = subscribe;
+
+  const reset = useCallback(() => {
+    setStatus("idle");
+    setData(undefined);
+    setError(null);
+  }, []);
 
   useEffect(() => {
+    if (!enabled) {
+      return;
+    }
+
     const controller = new AbortController();
 
-    (async () => {
+    const execute = async () => {
+      setStatus("connecting");
+      optionsRef.current.onStarted?.();
+
       try {
-        setError(null);
-        const iterator = await options.fn(controller.signal);
+        const iterator = await subscribeRef.current(controller.signal);
+
+        if (controller.signal.aborted) {
+          return;
+        }
+
+        setStatus("pending");
+
         for await (const item of iterator) {
-          options.onData(item);
+          if (controller.signal.aborted) {
+            break;
+          }
+          setData(item);
+          optionsRef.current.onData?.(item);
+        }
+
+        if (!controller.signal.aborted) {
+          optionsRef.current.onComplete?.();
         }
       } catch (err) {
-        setError(err as Error);
+        if (controller.signal.aborted) {
+          return;
+        }
+        const error = err as TError;
+        setError(error);
+        setStatus("error");
+        optionsRef.current.onError?.(error);
       }
-    })();
+    };
+
+    execute();
 
     return () => {
       controller.abort();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, options.deps);
+  }, [enabled]);
 
-  return { error };
+  return { status, data, error, reset };
 }

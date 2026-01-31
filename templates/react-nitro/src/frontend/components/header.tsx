@@ -1,3 +1,4 @@
+import { Button } from "@esmate/shadcn/components/ui/button";
 import { Link, useNavigate } from "@tanstack/react-router";
 
 import { authClient } from "@/frontend/lib/auth";
@@ -7,52 +8,50 @@ export default function Header() {
   const navigate = useNavigate();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
-      <div className="container mx-auto flex h-14 items-center justify-center px-4">
-        <nav className="flex items-center space-x-6 text-base font-medium">
+    <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-sm">
+      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
+        <nav className="flex items-center gap-1">
           <Link
             to="/"
             activeOptions={{ exact: true }}
-            className="text-foreground/60 transition-colors hover:text-foreground/80"
-            activeProps={{ className: "font-bold text-foreground" }}
+            className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+            activeProps={{ className: "bg-accent text-accent-foreground" }}
           >
             Home
           </Link>
           <Link
             to="/todos"
-            className="text-foreground/60 transition-colors hover:text-foreground/80"
-            activeProps={{ className: "font-bold text-foreground" }}
+            className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+            activeProps={{ className: "bg-accent text-accent-foreground" }}
           >
             Todos
           </Link>
           <Link
             to="/chat"
-            className="text-foreground/60 transition-colors hover:text-foreground/80"
-            activeProps={{ className: "font-bold text-foreground" }}
+            className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+            activeProps={{ className: "bg-accent text-accent-foreground" }}
           >
             Chat
           </Link>
+        </nav>
+        <div className="flex items-center gap-2">
           {session.data?.user ? (
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={async () => {
                 await authClient.signOut();
                 navigate({ to: "/" });
               }}
-              className="text-foreground/60 transition-colors hover:text-foreground/80"
             >
               Sign Out
-            </button>
+            </Button>
           ) : (
-            <Link
-              to="/auth/sign-in"
-              className="text-foreground/60 transition-colors hover:text-foreground/80"
-              activeProps={{ className: "font-bold text-foreground" }}
-            >
-              Sign In
-            </Link>
+            <Button variant="ghost" size="sm" asChild>
+              <Link to="/auth/sign-in">Sign In</Link>
+            </Button>
           )}
-        </nav>
+        </div>
       </div>
     </header>
   );
