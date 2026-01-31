@@ -68,9 +68,6 @@ import { Link, useNavigate } from "@tanstack/react-router";
 // ✅ Good - File-based route with createFileRoute
 export const Route = createFileRoute("/teams/$teamId")({
   component: TeamPage,
-  loader: async ({ params }) => {
-    return await orpcQuery.team.getById.query({ id: params.teamId });
-  },
 });
 
 // ✅ Good - Navigation
