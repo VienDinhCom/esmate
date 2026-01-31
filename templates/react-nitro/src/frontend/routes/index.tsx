@@ -4,7 +4,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@esma
 import {
   ArrowRight,
   CheckCircle2,
-  Cloud,
   ExternalLink,
   MessageSquare,
   Shield,
