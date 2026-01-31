@@ -2,8 +2,8 @@
 
 > ✨ **Modern MERN Stack Replacement**
 
-**A modern full-stack template with React, Nitro Server Toolkit, oRPC type-safe APIs, TanStack Router, and beautiful UI
-powered by shadcn/ui.**
+**A modern full-stack template with React, Nitro Server Toolkit, oRPC type-safe APIs, Drizzle ORM, Better Auth, TanStack
+Router, and beautiful UI powered by shadcn/ui.**
 
 Everything you need to ship production-ready apps.
 
