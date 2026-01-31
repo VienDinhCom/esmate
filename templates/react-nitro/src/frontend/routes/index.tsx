@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@esma
 import {
   ArrowRight,
   CheckCircle2,
+  Cloud,
   ExternalLink,
   MessageSquare,
   Shield,
@@ -22,11 +23,11 @@ function App() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-linear-to-b from-muted/50 to-background py-20 lg:py-32">
+      <section className="relative overflow-hidden bg-linear-to-b from-muted/50 to-background pt-10 pb-20 lg:py-32 lg:pt-16">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(45%_45%_at_50%_50%,var(--color-primary)_0%,transparent_100%)] opacity-5" />
         <div className="mx-auto max-w-5xl px-4 text-center">
           <div className="mb-8 flex justify-center">
-            <img src={logo} alt="ESMate logo" className="h-24 w-24 animate-pulse" />
+            <img src={logo} alt="ESMate logo" className="h-48 w-48 animate-pulse" />
           </div>
 
           <Badge variant="secondary" className="mb-6">
@@ -67,7 +68,7 @@ function App() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20">
+      <section className="pt-10 pb-20">
         <div className="mx-auto max-w-5xl px-4">
           <div className="mb-12 text-center">
             <h2 className="mb-4 text-3xl font-bold">Everything You Need</h2>
@@ -108,8 +109,60 @@ function App() {
         </div>
       </section>
 
-      {/* Demo Apps Section */}
+      {/* Deployment Section */}
       <section className="bg-muted/30 py-20">
+        <div className="mx-auto max-w-5xl px-4">
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-3xl font-bold">Deploy Anywhere</h2>
+            <p className="mx-auto max-w-2xl text-muted-foreground">
+              Nitro can generate different output formats suitable for different hosting providers from the same code
+              base. Using built-in presets, you can easily configure Nitro to adjust its output format with almost no
+              additional code or configuration!
+            </p>
+          </div>
+
+          <div className="mb-12 text-center">
+            <Card>
+              <CardHeader>
+                <CardTitle>Zero-Config Providers</CardTitle>
+                <CardDescription>
+                  When deploying to production using CI/CD, Nitro tries to automatically detect the provider environment
+                  and set the right one without any additional configuration required. Currently, the providers below
+                  can be auto-detected with zero config.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 justify-center gap-4 md:grid-cols-4">
+                  {[
+                    "Node.js",
+                    "Bun",
+                    "Deno",
+                    "AWS Amplify",
+                    "Azure",
+                    "Cloudflare",
+                    "Firebase App Hosting",
+                    "Netlify",
+                    "Stormkit",
+                    "Vercel",
+                    "Zeabur",
+                    "Deno Deploy",
+                  ].map((provider) => (
+                    <div
+                      key={provider}
+                      className="flex items-center justify-center rounded-md border bg-background p-4 text-center font-medium shadow-xs"
+                    >
+                      {provider}
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Demo Apps Section */}
+      <section className="bg-muted/30 pt-10 pb-20">
         <div className="mx-auto max-w-5xl px-4">
           <div className="mb-12 text-center">
             <h2 className="mb-4 text-3xl font-bold">Demo Applications</h2>
