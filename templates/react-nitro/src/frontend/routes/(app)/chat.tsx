@@ -2,7 +2,7 @@ import { useImmerState } from "@esmate/react/hooks";
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
 import { Input } from "@esmate/shadcn/components/ui/input";
-import { Send } from "@esmate/shadcn/pkgs/lucide-react";
+import { MessageSquare, Send } from "@esmate/shadcn/pkgs/lucide-react";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useRef } from "react";
@@ -58,49 +58,69 @@ function RouteComponent() {
   const messages = messageListQuery.data;
 
   return (
-    <div>
-      <Card>
+    <div className="mx-auto flex max-w-2xl flex-col px-4 py-8">
+      <Card className="flex flex-1 flex-col">
         <CardHeader>
-          <CardTitle>Chat</CardTitle>
-          <CardDescription>Global chat room</CardDescription>
+          <CardTitle className="text-2xl">Chat</CardTitle>
+          <CardDescription>Global chat room — messages are visible to everyone</CardDescription>
         </CardHeader>
-        <CardContent>
-          <div>
+        <CardContent className="flex flex-1 flex-col space-y-4">
+          {/* Messages Area */}
+          <div
+            className="flex-1 space-y-4 overflow-y-auto rounded-lg border bg-muted/30 p-4"
+            style={{ minHeight: 300, maxHeight: 400 }}
+          >
             {messages.length === 0 ? (
-              <div>No messages yet. Say hello!</div>
+              <div className="flex h-full flex-col items-center justify-center py-12 text-center">
+                <MessageSquare className="mb-4 h-12 w-12 text-muted-foreground/50" />
+                <p className="text-muted-foreground">No messages yet. Say hello!</p>
+              </div>
             ) : (
-              messages.map((message) => {
-                const isCurrentUser = message.userId === session.data?.user.id;
-                return (
-                  <div key={message.id}>
-                    <div>
-                      <div title={message.id}>{isCurrentUser ? "You" : message.sender.name}</div>
-                      <div>{message.message}</div>
+              <>
+                {messages.map((message) => {
+                  const isCurrentUser = message.userId === session.data?.user.id;
+                  return (
+                    <div key={message.id} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"}`}>
+                      <div
+                        className={`max-w-[75%] rounded-lg px-4 py-2 ${
+                          isCurrentUser ? "bg-primary text-primary-foreground" : "bg-accent text-accent-foreground"
+                        }`}
+                      >
+                        <div className="mb-1 text-xs font-medium opacity-80">
+                          {isCurrentUser ? "You" : message.sender.name}
+                        </div>
+                        <div className="wrap-break-word">{message.message}</div>
+                        <div className="mt-1 text-right text-xs opacity-60">
+                          {new Date(message.createdAt).toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </div>
+                      </div>
                     </div>
-                    <div>{new Date(message.createdAt).toLocaleTimeString()}</div>
-                  </div>
-                );
-              })
+                  );
+                })}
+                <div ref={scrollRef} />
+              </>
             )}
-            <div ref={scrollRef} />
           </div>
 
-          <form onSubmit={handleSubmit}>
-            <div>
-              <Input
-                value={state.message}
-                onChange={(e) =>
-                  setState((draft) => {
-                    draft.message = e.target.value;
-                    return draft;
-                  })
-                }
-                placeholder="Type a message..."
-              />
-              <Button type="submit" size="icon" disabled={!state.message.trim()}>
-                <Send />
-              </Button>
-            </div>
+          {/* Message Input */}
+          <form onSubmit={handleSubmit} className="flex gap-2">
+            <Input
+              value={state.message}
+              onChange={(e) =>
+                setState((draft) => {
+                  draft.message = e.target.value;
+                  return draft;
+                })
+              }
+              placeholder="Type a message..."
+              className="flex-1"
+            />
+            <Button type="submit" size="icon" disabled={!state.message.trim()}>
+              <Send className="h-4 w-4" />
+            </Button>
           </form>
         </CardContent>
       </Card>

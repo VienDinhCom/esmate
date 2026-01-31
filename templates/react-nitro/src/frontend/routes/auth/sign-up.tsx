@@ -45,43 +45,47 @@ function RouteComponent() {
   });
 
   return (
-    <div>
-      <Card>
-        <CardHeader>
-          <CardTitle>Create an account</CardTitle>
+    <div className="flex min-h-[calc(100vh-3.5rem)] items-center justify-center p-4">
+      <Card className="w-full max-w-md">
+        <CardHeader className="space-y-1 text-center">
+          <CardTitle className="text-2xl font-bold">Create an account</CardTitle>
           <CardDescription>Enter your details to get started</CardDescription>
         </CardHeader>
-        <CardContent>
-          <div>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
             <Label htmlFor="name">Name</Label>
             <Input id="name" placeholder="John Doe" {...form.register("name")} />
-            {form.formState.errors.name && <p>{form.formState.errors.name.message}</p>}
+            {form.formState.errors.name && (
+              <p className="text-sm text-destructive">{form.formState.errors.name.message}</p>
+            )}
           </div>
-          <div>
+          <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input id="email" type="email" placeholder="email@example.com" {...form.register("email")} />
-            {form.formState.errors.email && <p>{form.formState.errors.email.message}</p>}
+            {form.formState.errors.email && (
+              <p className="text-sm text-destructive">{form.formState.errors.email.message}</p>
+            )}
           </div>
-          <div>
+          <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
             <Input id="password" type="password" {...form.register("password")} />
-            {form.formState.errors.password && <p>{form.formState.errors.password.message}</p>}
+            {form.formState.errors.password && (
+              <p className="text-sm text-destructive">{form.formState.errors.password.message}</p>
+            )}
           </div>
-          <Button onClick={handleSubmit} disabled={form.formState.isSubmitting}>
+          <Button className="w-full" onClick={handleSubmit} disabled={form.formState.isSubmitting}>
             {form.formState.isSubmitting ? "Creating account..." : "Sign Up"}
           </Button>
-          <div>
+          <p className="text-center text-sm text-muted-foreground">
             Already have an account?{" "}
             <Link
               to="/auth/sign-in"
-              search={{
-                callbackUrl: search.callbackUrl || "/",
-              }}
-              className=""
+              search={{ callbackUrl: search.callbackUrl || "/" }}
+              className="font-medium text-primary underline-offset-4 hover:underline"
             >
               Sign In
             </Link>
-          </div>
+          </p>
         </CardContent>
       </Card>
     </div>
