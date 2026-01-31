@@ -11,7 +11,7 @@ const publisher = new EventPublisher<{
 }>();
 
 export const message = {
-  send: os
+  create: os
     .input(MessageInsertSchema)
     .output(MessageSelectSchema)
     .handler(async ({ input, context }) => {
@@ -38,13 +38,13 @@ export const message = {
       return message;
     }),
 
-  fetch: os.output(z.array(MessageSelectSchemaWithSender)).handler(async ({ context }) => {
+  list: os.output(z.array(MessageSelectSchemaWithSender)).handler(async ({ context }) => {
     invariant(context.user, "unauthenticated");
 
     return db.query.message.findMany({ with: { sender: true } });
   }),
 
-  feed: os.output(eventIterator(MessageSelectSchemaWithSender)).handler(async function* ({ context }) {
+  subscribe: os.output(eventIterator(MessageSelectSchemaWithSender)).handler(async function* ({ context }) {
     invariant(context.user, "unauthenticated");
 
     const iterator = publisher.subscribe("sent");

@@ -16,7 +16,6 @@ import { authClient } from "@/frontend/lib/auth";
 import { orpcClient, orpcQuery } from "@/frontend/lib/orpc";
 
 export const Route = createFileRoute("/(app)/chat")({
-  loader: ({ context }) => context.queryClient.ensureQueryData(orpcQuery.message.fetch.queryOptions()),
   component: RouteComponent,
 });
 
@@ -27,7 +26,7 @@ interface State {
 
 function RouteComponent() {
   const session = authClient.useSession();
-  const { data: initialMessages } = useSuspenseQuery(orpcQuery.message.fetch.queryOptions());
+  const { data: initialMessages } = useSuspenseQuery(orpcQuery.message.list.queryOptions());
 
   const [state, setState] = useImmerState<State>({
     messages: initialMessages,
@@ -37,7 +36,7 @@ function RouteComponent() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useSubscription({
-    fn: (signal) => orpcClient.message.feed({}, { signal }),
+    fn: (signal) => orpcClient.message.subscribe({}, { signal }),
     onData: (message) => {
       setState((draft) => {
         // Only add if it doesn't already exist (to avoid duplicates from fetch/subscription overlap)
@@ -52,7 +51,7 @@ function RouteComponent() {
   });
 
   const { mutate: sendMessage } = useMutation(
-    orpcQuery.message.send.mutationOptions({
+    orpcQuery.message.create.mutationOptions({
       onSuccess: () => {
         setState((draft) => {
           draft.message = "";
