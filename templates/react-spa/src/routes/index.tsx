@@ -129,7 +129,7 @@ function App() {
 
             <div className="flex flex-wrap justify-center gap-3">
               {[
-                "React 19",
+                "React",
                 "TypeScript",
                 "Vite",
                 "TanStack Router",
