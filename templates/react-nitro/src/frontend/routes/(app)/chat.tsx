@@ -44,7 +44,7 @@ function RouteComponent() {
   });
 
   const { mutate: sendMessage } = useMutation(
-    orpcQuery.message.create.mutationOptions({
+    orpcQuery.message.add.mutationOptions({
       onSuccess: () => {
         setState((draft) => {
           draft.message = "";

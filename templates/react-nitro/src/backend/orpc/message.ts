@@ -11,7 +11,7 @@ const publisher = new EventPublisher<{
 }>();
 
 export const message = {
-  create: os
+  add: os
     .input(MessageInsertSchema)
     .output(MessageSelectSchema)
     .handler(async ({ input, context }) => {
