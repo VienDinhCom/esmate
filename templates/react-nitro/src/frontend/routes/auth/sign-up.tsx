@@ -3,8 +3,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@esma
 import { Input } from "@esmate/shadcn/components/ui/input";
 import { Label } from "@esmate/shadcn/components/ui/label";
 import { useZodForm } from "@esmate/shadcn/hooks/use-zod-form";
-import { z } from "@esmate/shadcn/pkgs/zod";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { z } from "zod";
 
 import { authClient } from "@/frontend/lib/auth";
 
