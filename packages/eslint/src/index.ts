@@ -28,6 +28,13 @@ type Options = OptionsConfig & {
      */
     query?: boolean;
   };
+
+  /**
+   * File case configs.
+   */
+  filenameCase?: {
+    ignore?: string[];
+  };
 };
 
 /**
@@ -81,7 +88,7 @@ export function defineConfig(options: Options, ...configs: Linter.Config[]): Ret
           "error",
           {
             case: "kebabCase",
-            ignore: ["README.md"],
+            ignore: ["AGENTS.md", "CLAUDE.md", "README.md", "LICENSE", "\\$", ...(options.filenameCase?.ignore || [])],
           },
         ],
       },
