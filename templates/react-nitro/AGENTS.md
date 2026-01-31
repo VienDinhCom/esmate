@@ -15,7 +15,7 @@ npm run test     # Run unit tests with Vitest
 
 ## Project Knowledge
 
-- **Tech Stack:** Nitro (Backend), Vite + React 19 (Frontend), oRPC (API), TanStack Router (Routing), Drizzle ORM
+- **Tech Stack:** Nitro (Backend), Vite + React (Frontend), oRPC (API), TanStack Router (Routing), Drizzle ORM
   (Database), Better Auth (Auth), Tailwind CSS (Styling)
 - **Tooling:** [ESMate](https://github.com/viendinhcom/esmate) is used as a task runner and project manager
 - **File Structure:**
