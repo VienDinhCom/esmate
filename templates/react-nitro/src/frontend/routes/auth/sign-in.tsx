@@ -55,28 +55,24 @@ function RouteComponent() {
   });
 
   return (
-    <div className="flex items-center justify-center bg-slate-50 p-4 pt-10">
-      <Card className="w-full max-w-md shadow-xl">
-        <CardHeader className="space-y-1 text-center">
-          <CardTitle className="text-3xl font-bold">Sign In</CardTitle>
+    <div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Sign In</CardTitle>
           <CardDescription>Enter your email and password to sign in</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
+        <CardContent>
+          <div>
             <Label htmlFor="email">Email</Label>
             <Input id="email" type="email" placeholder="email@example.com" {...form.register("email")} />
-            {form.formState.errors.email && (
-              <p className="text-sm font-medium text-destructive">{form.formState.errors.email.message}</p>
-            )}
+            {form.formState.errors.email && <p>{form.formState.errors.email.message}</p>}
           </div>
-          <div className="space-y-2">
+          <div>
             <Label htmlFor="password">Password</Label>
             <Input id="password" type="password" {...form.register("password")} />
-            {form.formState.errors.password && (
-              <p className="text-sm font-medium text-destructive">{form.formState.errors.password.message}</p>
-            )}
+            {form.formState.errors.password && <p>{form.formState.errors.password.message}</p>}
           </div>
-          <Button className="w-full" onClick={handleSubmit} disabled={form.formState.isSubmitting}>
+          <Button onClick={handleSubmit} disabled={form.formState.isSubmitting}>
             {form.formState.isSubmitting ? "Signing in..." : "Sign In"}
           </Button>
           {state.error && (
@@ -84,13 +80,9 @@ function RouteComponent() {
               <AlertDescription>Email or password is incorrect.</AlertDescription>
             </Alert>
           )}
-          <div className="text-center text-sm text-slate-500">
+          <div>
             Don't have an account?{" "}
-            <Link
-              to="/auth/sign-up"
-              search={{ callbackUrl: search.callbackUrl || "/" }}
-              className="font-semibold text-primary hover:underline"
-            >
+            <Link to="/auth/sign-up" search={{ callbackUrl: search.callbackUrl || "/" }} className="">
               Sign Up
             </Link>
           </div>

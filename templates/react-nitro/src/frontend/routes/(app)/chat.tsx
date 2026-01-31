@@ -1,4 +1,3 @@
-
 import { useImmerState } from "@esmate/react/hooks";
 import { Button } from "@esmate/shadcn/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@esmate/shadcn/components/ui/card";
@@ -59,34 +58,26 @@ function RouteComponent() {
   const messages = messageListQuery.data;
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] justify-center py-10">
-      <Card className="flex h-full w-full max-w-2xl flex-col shadow-2xl">
-        <CardHeader className="shrink-0 space-y-1">
-          <CardTitle className="text-3xl font-bold tracking-tight">Chat</CardTitle>
-          <CardDescription className="text-base">Global chat room</CardDescription>
+    <div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Chat</CardTitle>
+          <CardDescription>Global chat room</CardDescription>
         </CardHeader>
-        <CardContent className="flex min-h-0 flex-1 flex-col gap-4">
-          <div className="flex-1 space-y-4 overflow-y-auto pr-4">
+        <CardContent>
+          <div>
             {messages.length === 0 ? (
-              <div className="py-10 text-center text-slate-500">No messages yet. Say hello!</div>
+              <div>No messages yet. Say hello!</div>
             ) : (
               messages.map((message) => {
                 const isCurrentUser = message.userId === session.data?.user.id;
                 return (
-                  <div key={message.id} className={`flex flex-col ${isCurrentUser ? "items-end" : "items-start"}`}>
-                    <div
-                      className={`max-w-[80%] rounded-lg px-4 py-2 ${
-                        isCurrentUser ? "bg-blue-100 text-blue-900" : "bg-muted"
-                      }`}
-                    >
-                      <div className="mb-1 text-xs font-bold opacity-70" title={message.id}>
-                        {isCurrentUser ? "You" : message.sender.name}
-                      </div>
+                  <div key={message.id}>
+                    <div>
+                      <div title={message.id}>{isCurrentUser ? "You" : message.sender.name}</div>
                       <div>{message.message}</div>
                     </div>
-                    <div className="mt-1 text-[10px] text-slate-400">
-                      {new Date(message.createdAt).toLocaleTimeString()}
-                    </div>
+                    <div>{new Date(message.createdAt).toLocaleTimeString()}</div>
                   </div>
                 );
               })
@@ -94,8 +85,8 @@ function RouteComponent() {
             <div ref={scrollRef} />
           </div>
 
-          <form onSubmit={handleSubmit} className="flex shrink-0 flex-col gap-2 border-t pt-4">
-            <div className="flex gap-2">
+          <form onSubmit={handleSubmit}>
+            <div>
               <Input
                 value={state.message}
                 onChange={(e) =>
@@ -105,10 +96,9 @@ function RouteComponent() {
                   })
                 }
                 placeholder="Type a message..."
-                className="flex-1"
               />
               <Button type="submit" size="icon" disabled={!state.message.trim()}>
-                <Send className="h-4 w-4" />
+                <Send />
               </Button>
             </div>
           </form>

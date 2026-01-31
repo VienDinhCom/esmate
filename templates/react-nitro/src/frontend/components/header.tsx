@@ -7,29 +7,16 @@ export default function Header() {
   const navigate = useNavigate();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
-      <div className="container mx-auto flex h-14 items-center justify-center px-4">
-        <nav className="flex items-center space-x-6 text-base font-medium">
-          <Link
-            to="/"
-            activeOptions={{ exact: true }}
-            className="text-foreground/60 transition-colors hover:text-foreground/80"
-            activeProps={{ className: "font-bold text-foreground" }}
-          >
+    <header>
+      <div>
+        <nav>
+          <Link to="/" activeOptions={{ exact: true }} className="" activeProps={{ className: "" }}>
             Home
           </Link>
-          <Link
-            to="/todos"
-            className="text-foreground/60 transition-colors hover:text-foreground/80"
-            activeProps={{ className: "font-bold text-foreground" }}
-          >
+          <Link to="/todos" className="" activeProps={{ className: "" }}>
             Todos
           </Link>
-          <Link
-            to="/chat"
-            className="text-foreground/60 transition-colors hover:text-foreground/80"
-            activeProps={{ className: "font-bold text-foreground" }}
-          >
+          <Link to="/chat" className="" activeProps={{ className: "" }}>
             Chat
           </Link>
           {session.data?.user ? (
@@ -39,16 +26,12 @@ export default function Header() {
                 await authClient.signOut();
                 navigate({ to: "/" });
               }}
-              className="text-foreground/60 transition-colors hover:text-foreground/80"
+              className=""
             >
               Sign Out
             </button>
           ) : (
-            <Link
-              to="/auth/sign-in"
-              className="text-foreground/60 transition-colors hover:text-foreground/80"
-              activeProps={{ className: "font-bold text-foreground" }}
-            >
+            <Link to="/auth/sign-in" className="" activeProps={{ className: "" }}>
               Sign In
             </Link>
           )}
