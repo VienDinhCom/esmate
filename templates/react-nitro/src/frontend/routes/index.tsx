@@ -24,7 +24,7 @@ function App() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-linear-to-b from-muted/50 to-background pt-10 pb-20 lg:py-32 lg:pt-20">
+      <section className="relative overflow-hidden bg-linear-to-b from-muted/50 to-background pt-10 pb-10 lg:pt-20 lg:pb-20">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(45%_45%_at_50%_50%,var(--color-primary)_0%,transparent_100%)] opacity-5" />
         <div className="mx-auto max-w-5xl px-4 text-center">
           <div className="mb-8 flex justify-center">
@@ -70,7 +70,7 @@ function App() {
       </section>
 
       {/* The Three Pillars Section */}
-      <section className="py-24">
+      <section className="py-12">
         <div className="mx-auto max-w-6xl px-4">
           <div className="mb-16 text-center">
             <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">The Full-Stack Trinity</h2>
@@ -171,7 +171,7 @@ function App() {
       </section>
 
       {/* Deployment Section */}
-      <section className="bg-muted/30 py-24">
+      <section className="bg-muted/30 py-12">
         <div className="mx-auto max-w-5xl px-4 text-center">
           <div className="mb-8 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary">
             <Globe className="h-8 w-8" />
@@ -203,7 +203,7 @@ function App() {
       </section>
 
       {/* Demo Apps Section */}
-      <section className="py-24">
+      <section className="py-12">
         <div className="mx-auto max-w-5xl px-4">
           <div className="mb-16 text-center">
             <h2 className="mb-4 text-3xl font-bold">See It In Action</h2>
