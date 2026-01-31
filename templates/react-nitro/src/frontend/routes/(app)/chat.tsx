@@ -1,4 +1,3 @@
-import type z from "zod";
 
 import { useImmerState } from "@esmate/react/hooks";
 import { Button } from "@esmate/shadcn/components/ui/button";
@@ -9,8 +8,6 @@ import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useRef } from "react";
 
-import type { MessageSelectSchemaWithSender } from "@/shared/schema";
-
 import { useSubscription } from "@/frontend/hooks";
 import { authClient } from "@/frontend/lib/auth";
 import { orpcClient, orpcQuery } from "@/frontend/lib/orpc";
@@ -20,34 +17,24 @@ export const Route = createFileRoute("/(app)/chat")({
 });
 
 interface State {
-  messages: z.infer<typeof MessageSelectSchemaWithSender>[];
   message: string;
 }
 
 function RouteComponent() {
-  const session = authClient.useSession();
-  const { data: initialMessages } = useSuspenseQuery(orpcQuery.message.list.queryOptions());
-
   const [state, setState] = useImmerState<State>({
-    messages: initialMessages,
     message: "",
   });
 
+  const session = authClient.useSession();
+  const messageListQuery = useSuspenseQuery(orpcQuery.message.list.queryOptions());
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useSubscription({
-    fn: (signal) => orpcClient.message.subscribe({}, { signal }),
-    onData: (message) => {
-      setState((draft) => {
-        // Only add if it doesn't already exist (to avoid duplicates from fetch/subscription overlap)
-        if (!draft.messages.find((m) => m.id === message.id)) {
-          draft.messages.push(message);
-        }
-        return draft;
-      });
+    subscribe: (signal) => orpcClient.message.subscribe({}, { signal }),
+    onData: () => {
+      messageListQuery.refetch();
       setTimeout(() => scrollRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
     },
-    deps: [],
   });
 
   const { mutate: sendMessage } = useMutation(
@@ -69,6 +56,8 @@ function RouteComponent() {
     sendMessage({ message: state.message });
   };
 
+  const messages = messageListQuery.data;
+
   return (
     <div className="flex h-[calc(100vh-4rem)] justify-center py-10">
       <Card className="flex h-full w-full max-w-2xl flex-col shadow-2xl">
@@ -78,10 +67,10 @@ function RouteComponent() {
         </CardHeader>
         <CardContent className="flex min-h-0 flex-1 flex-col gap-4">
           <div className="flex-1 space-y-4 overflow-y-auto pr-4">
-            {state.messages.length === 0 ? (
+            {messages.length === 0 ? (
               <div className="py-10 text-center text-slate-500">No messages yet. Say hello!</div>
             ) : (
-              state.messages.map((message) => {
+              messages.map((message) => {
                 const isCurrentUser = message.userId === session.data?.user.id;
                 return (
                   <div key={message.id} className={`flex flex-col ${isCurrentUser ? "items-end" : "items-start"}`}>
