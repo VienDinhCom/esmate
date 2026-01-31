@@ -31,7 +31,7 @@ function App() {
 
           <Badge variant="secondary" className="mb-6">
             <Sparkles className="mr-1 h-3 w-3" />
-            Modern Full-Stack Development
+            Modern MERN Stack Replacement
           </Badge>
 
           <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
