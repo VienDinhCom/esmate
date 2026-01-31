@@ -28,11 +28,18 @@ function RouteComponent() {
   const messageListQuery = useSuspenseQuery(orpcQuery.message.list.queryOptions());
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const scrollBottom = () => {
+    setTimeout(() => scrollRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
+  };
+
   useSubscription({
     subscribe: (signal) => orpcClient.message.subscribe({}, { signal }),
+    onStarted: () => {
+      scrollBottom();
+    },
     onData: () => {
       messageListQuery.refetch();
-      setTimeout(() => scrollRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
+      scrollBottom();
     },
   });
 
