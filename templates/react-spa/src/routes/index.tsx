@@ -32,7 +32,7 @@ function App() {
             </Badge>
 
             <h1 className="bg-linear-to-r from-foreground via-primary to-foreground bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl">
-              Build Modern Apps with ESMate
+              ESMate React SPA
             </h1>
 
             <p className="mx-auto max-w-2xl text-lg text-muted-foreground sm:text-xl">
