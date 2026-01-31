@@ -28,7 +28,7 @@ function TanStackQueryDemo() {
   });
 
   return (
-    <div className="container mx-auto max-w-screen-xl px-4 py-12">
+    <div className="container mx-auto max-w-7xl px-4 py-12">
       <div className="flex flex-col gap-8">
         {/* Header */}
         <div className="flex flex-col gap-4">

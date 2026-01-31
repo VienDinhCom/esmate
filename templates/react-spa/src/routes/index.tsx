@@ -31,7 +31,7 @@ function App() {
               Modern Create React App Replacement
             </Badge>
 
-            <h1 className="bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl">
+            <h1 className="bg-linear-to-r from-foreground via-primary to-foreground bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl">
               Build Modern Apps with ESMate
             </h1>
 
@@ -64,7 +64,7 @@ function App() {
       <Separator />
 
       {/* Features Section */}
-      <section className="container mx-auto max-w-screen-xl px-4 py-20">
+      <section className="container mx-auto max-w-7xl px-4 py-20">
         <div className="flex flex-col items-center gap-12">
           <div className="flex flex-col items-center gap-4 text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Everything You Need to Ship Fast</h2>
@@ -117,7 +117,7 @@ function App() {
 
       {/* Tech Stack Section */}
       <section className="bg-muted/30 py-20">
-        <div className="container mx-auto max-w-screen-xl px-4">
+        <div className="container mx-auto max-w-7xl px-4">
           <div className="flex flex-col items-center gap-12">
             <div className="flex flex-col items-center gap-4 text-center">
               <Sparkles className="h-8 w-8 text-primary" />
@@ -149,7 +149,7 @@ function App() {
 
       {/* Footer */}
       <footer className="border-t border-border py-8">
-        <div className="container mx-auto max-w-screen-xl px-4 text-center">
+        <div className="container mx-auto max-w-7xl px-4 text-center">
           <p className="text-sm text-muted-foreground">
             Built with ❤️ using <a href="https://github.com/VienDinhCom/esmate">ESMate</a>
           </p>

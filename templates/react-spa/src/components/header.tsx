@@ -1,14 +1,10 @@
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuList,
-} from "@esmate/shadcn/components/ui/navigation-menu";
+import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "@esmate/shadcn/components/ui/navigation-menu";
 import { Link } from "@tanstack/react-router";
 
 export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/60">
-      <div className="container mx-auto flex h-14 max-w-screen-xl items-center px-4">
+      <div className="container mx-auto flex h-14 max-w-7xl items-center px-4">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
