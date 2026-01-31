@@ -7,47 +7,53 @@ import { TodoInsertSchema, TodoSelectSchema } from "@/shared/schema";
 
 export const todo = {
   list: os.output(z.array(TodoSelectSchema)).handler(async ({ context }) => {
-    const auth = await context.authenticate();
+    invariant(context.user, "unauthenticated");
 
-    return db.query.todo.findMany({ where: orm.eq(schema.todo.userId, auth.user.id) });
+    return db.query.todo.findMany({ where: orm.eq(schema.todo.userId, context.user.id) });
   }),
+
   add: os
     .input(TodoInsertSchema)
     .output(TodoSelectSchema)
     .handler(async ({ input, context }) => {
-      const auth = await context.authenticate();
+      invariant(context.user, "unauthenticated");
+
       const [todo] = await db
         .insert(schema.todo)
-        .values({ ...input, userId: auth.user.id })
+        .values({ ...input, userId: context.user.id })
         .returning();
 
       invariant(todo, "could not create todo");
 
       return todo;
     }),
+
   toggle: os
     .input(z.object({ id: z.string() }))
     .output(TodoSelectSchema)
     .handler(async ({ input, context }) => {
-      const auth = await context.authenticate();
+      invariant(context.user, "unauthenticated");
+
       const [todo] = await db
         .update(schema.todo)
         .set({ done: orm.not(schema.todo.done) })
-        .where(orm.and(orm.eq(schema.todo.id, input.id), orm.eq(schema.todo.userId, auth.user.id)))
+        .where(orm.and(orm.eq(schema.todo.id, input.id), orm.eq(schema.todo.userId, context.user.id)))
         .returning();
 
       invariant(todo, "could not toggle todo");
 
       return todo;
     }),
+
   delete: os
     .input(z.object({ id: z.string() }))
     .output(TodoSelectSchema)
     .handler(async ({ input, context }) => {
-      const auth = await context.authenticate();
+      invariant(context.user, "unauthenticated");
+
       const [todo] = await db
         .delete(schema.todo)
-        .where(orm.and(orm.eq(schema.todo.id, input.id), orm.eq(schema.todo.userId, auth.user.id)))
+        .where(orm.and(orm.eq(schema.todo.id, input.id), orm.eq(schema.todo.userId, context.user.id)))
         .returning();
 
       invariant(todo, "could not delete todo");

@@ -2,7 +2,7 @@ import { invariant } from "@esmate/utils";
 import { eventIterator, EventPublisher } from "@orpc/server";
 import { z } from "zod";
 
-import { db, schema } from "@/backend/lib/db";
+import { db, orm, schema } from "@/backend/lib/db";
 import { os } from "@/backend/lib/orpc";
 import { MessageInsertSchema, MessageSelectSchema, MessageSelectSchemaWithSender } from "@/shared/schema";
 
@@ -15,16 +15,17 @@ export const message = {
     .input(MessageInsertSchema)
     .output(MessageSelectSchema)
     .handler(async ({ input, context }) => {
-      const auth = await context.authenticate();
+      invariant(context.user, "unauthenticated");
+
       const [message] = await db
         .insert(schema.message)
-        .values({ ...input, userId: auth.user.id })
+        .values({ ...input, userId: context.user.id })
         .returning();
 
       invariant(message, "could not create message");
 
       const sender = await db.query.user.findFirst({
-        where: (user, { eq }) => eq(user.id, auth.user.id),
+        where: orm.eq(schema.user.id, context.user.id),
       });
 
       invariant(sender, "could not find sender");
@@ -38,12 +39,13 @@ export const message = {
     }),
 
   fetch: os.output(z.array(MessageSelectSchemaWithSender)).handler(async ({ context }) => {
-    await context.authenticate();
+    invariant(context.user, "unauthenticated");
+
     return db.query.message.findMany({ with: { sender: true } });
   }),
 
   feed: os.output(eventIterator(MessageSelectSchemaWithSender)).handler(async function* ({ context }) {
-    await context.authenticate();
+    invariant(context.user, "unauthenticated");
 
     const iterator = publisher.subscribe("sent");
 
