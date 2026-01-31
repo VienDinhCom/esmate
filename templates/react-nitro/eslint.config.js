@@ -8,5 +8,5 @@ export default defineConfig({
     query: true,
     router: true,
   },
-  ignores: ["./src/backend/lib/db/migrations/**/*", "./src/frontend/lib/tanstack/router.ts"],
+  ignores: ["./AGENTS.md", "./src/backend/lib/db/migrations/**/*", "./src/frontend/lib/tanstack/router.ts"],
 });
