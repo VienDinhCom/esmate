@@ -18,9 +18,10 @@ export const task = defineCommand({
       required: false,
     },
   },
-  async run({ args }) {
+  async run({ args, rawArgs }) {
     try {
       const task = pkg.tasks[args.task];
+      const extraArgs = rawArgs.slice(1);
 
       if (!task) {
         consola.error(`Task "${args.task}" not found in package.json`);
@@ -32,9 +33,9 @@ export const task = defineCommand({
       dotenv.config({ quiet: true });
 
       if (isParallel) {
-        execParallelly(task as Record<string, string | string[]>);
+        execParallelly(task as Record<string, string | string[]>, extraArgs);
       } else {
-        execSingly(task as string | string[]);
+        execSingly(task as string | string[], extraArgs);
       }
     } catch (error) {
       consola.error(error);
