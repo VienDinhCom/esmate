@@ -7,6 +7,10 @@ import fs from "node:fs";
 import process from "node:process";
 
 function mapArgs(command: string, args?: string[]): string {
+  if (args?.length === 0) {
+    return command.replace(/\$\d+/g, "");
+  }
+
   args?.forEach((arg, index) => {
     command.replace(`$${index + 1}`, arg);
   });
