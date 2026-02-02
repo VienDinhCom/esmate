@@ -6,18 +6,26 @@ import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import process from "node:process";
 
-export function execSingly(command: string | string[]): void {
-  const cmd = Array.isArray(command) ? command.join(" && ") : command;
+function mapArgs(command: string, args?: string[]): string {
+  args?.forEach((arg, index) => {
+    command.replace(`$${index + 1}`, arg);
+  });
+
+  return command;
+}
+
+export function execSingly(command: string | string[], args?: string[]): void {
+  const cmd = Array.isArray(command) ? command.map((cmd) => mapArgs(cmd, args)).join(" && ") : mapArgs(command, args);
   const { env } = process;
 
   spawnSync(cmd, { shell: true, stdio: "inherit", env });
 }
 
-export async function execParallelly(commands: Record<string, string | string[]>): Promise<void> {
+export async function execParallelly(commands: Record<string, string | string[]>, args?: string[]): Promise<void> {
   const concurrentCommands: ConcurrentlyCommandInput[] = [];
 
   for (const [name, command] of Object.entries(commands)) {
-    const cmd = Array.isArray(command) ? command.join(" && ") : command;
+    const cmd = Array.isArray(command) ? command.map((cmd) => mapArgs(cmd, args)).join(" && ") : mapArgs(command, args);
     const { env } = process;
 
     concurrentCommands.push({ name, command: cmd, env });
