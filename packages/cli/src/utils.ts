@@ -8,12 +8,12 @@ import process from "node:process";
 
 function mapArgs(command: string, args?: string[]): string {
   if (args?.length === 0) {
-    return command.replace(/\$\d+/g, "");
+    command = command.replace(/\$\d+/g, "");
+  } else {
+    args?.forEach((arg, index) => {
+      command = command.replace(`$${index + 1}`, arg);
+    });
   }
-
-  args?.forEach((arg, index) => {
-    command.replace(`$${index + 1}`, arg);
-  });
 
   return command;
 }
