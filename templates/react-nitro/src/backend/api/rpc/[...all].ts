@@ -16,7 +16,7 @@ const handler = new RPCHandler(router, {
 });
 
 export default defineEventHandler(async (event) => {
-  const { matched, response } = await handler.handle(event.req, {
+  const { matched, response } = await handler.handle(event.req as unknown as Request, {
     prefix: "/api/rpc",
     context: await createORPCContext(event),
   });

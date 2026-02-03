@@ -2,7 +2,7 @@ import { z } from "@esmate/shadcn/pkgs/zod";
 import { invariant } from "@esmate/utils";
 import { eventIterator, EventPublisher } from "@orpc/server";
 
-import { db, orm, schema } from "@/backend/database";
+import { createDatabase, orm, schema } from "@/backend/database";
 import { authMiddleware, os } from "@/backend/lib/orpc";
 import { MessageInsertSchema, MessageSelectSchema, MessageSelectSchemaWithSender } from "@/shared/schema";
 
@@ -16,6 +16,8 @@ export const message = {
     .input(MessageInsertSchema)
     .output(MessageSelectSchema)
     .handler(async ({ input, context }) => {
+      const db = createDatabase(context.env);
+
       const [message] = await db
         .insert(schema.message)
         .values({ ...input, userId: context.user.id })
@@ -40,8 +42,14 @@ export const message = {
   list: os
     .use(authMiddleware)
     .output(z.array(MessageSelectSchemaWithSender))
-    .handler(async () => {
-      return db.query.message.findMany({ with: { sender: true } });
+    .handler(async ({ context }) => {
+      const db = createDatabase(context.env);
+
+      return db.query.message.findMany({
+        with: { sender: true },
+        limit: 20,
+        orderBy: orm.asc(schema.message.createdAt),
+      });
     }),
 
   subscribe: os
