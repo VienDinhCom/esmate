@@ -1,7 +1,6 @@
 import { defineConfig } from "drizzle-kit";
+import { env } from "node:process";
 import "dotenv/config";
-
-import { env } from "@/shared/env";
 
 export default defineConfig({
   dialect: "sqlite",
@@ -9,6 +8,6 @@ export default defineConfig({
   out: "./src/backend/database/migrations",
   schema: "./src/backend/database/schema/index.ts",
   dbCredentials: {
-    url: env.DB_FILE_NAME,
+    url: env.DB_FILE_NAME!,
   },
 });
