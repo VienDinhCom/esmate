@@ -5,7 +5,7 @@ import { Input } from "@esmate/shadcn/components/ui/input";
 import { MessageSquare, Send } from "@esmate/shadcn/pkgs/lucide-react";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import { useSubscription } from "@/frontend/hooks";
 import { authClient } from "@/frontend/lib/auth";
@@ -26,20 +26,13 @@ function RouteComponent() {
 
   const session = authClient.useSession();
   const messageListQuery = useSuspenseQuery(orpcQuery.message.list.queryOptions());
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scrollBottom = () => {
-    setTimeout(() => scrollRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
-  };
+  const scrollBottomRef = useScrollBottom(!messageListQuery.isFetching);
 
   useSubscription({
     subscribe: (signal) => orpcClient.message.subscribe({}, { signal }),
-    onStarted: () => {
-      scrollBottom();
-    },
+    onStarted: () => {},
     onData: () => {
       messageListQuery.refetch();
-      scrollBottom();
     },
   });
 
@@ -107,7 +100,7 @@ function RouteComponent() {
                     </div>
                   );
                 })}
-                <div ref={scrollRef} />
+                <div ref={scrollBottomRef} />
               </>
             )}
           </div>
@@ -133,4 +126,16 @@ function RouteComponent() {
       </Card>
     </div>
   );
+}
+
+function useScrollBottom(enabled: boolean) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (enabled) {
+      scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [enabled]);
+
+  return scrollRef;
 }

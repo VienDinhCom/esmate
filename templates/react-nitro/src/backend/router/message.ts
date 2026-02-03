@@ -45,11 +45,13 @@ export const message = {
     .handler(async ({ context }) => {
       const db = createDatabase(context.env);
 
-      return db.query.message.findMany({
+      const messages = await db.query.message.findMany({
         with: { sender: true },
         limit: 20,
-        orderBy: orm.asc(schema.message.createdAt),
+        orderBy: orm.desc(schema.message.createdAt),
       });
+
+      return messages.reverse();
     }),
 
   subscribe: os
