@@ -49,7 +49,7 @@ export const todo = {
       return todo;
     }),
 
-  delete: os
+  remove: os
     .use(authMiddleware)
     .input(z.object({ id: z.string() }))
     .output(TodoSelectSchema)

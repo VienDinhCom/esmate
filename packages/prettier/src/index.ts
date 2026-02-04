@@ -1,13 +1,10 @@
 import type { Config } from "prettier";
 
-import { globbySync } from "globby";
-import path from "node:path";
-
 import type { AstroOptions } from "./plugins/astro";
 import type { SvelteOptions } from "./plugins/svelte";
 import type { TailwindOptions } from "./plugins/tailwind";
 
-import { findRootDir, importPlugin } from "./utils";
+import { importPlugin } from "./utils";
 
 interface Options {
   /**
@@ -54,15 +51,10 @@ export function defineConfig(options: Options, config?: Config): Config {
 
   // Ignores files from formatting.
   {
-    const rootDir = findRootDir();
     const ignores: string[] = ["pnpm-lock.yaml", "package-lock.json"];
 
     if (options?.ignores) {
-      for (const pattern of options.ignores) {
-        const files = globbySync(path.join(rootDir, pattern)).map((file) => file.replace(rootDir + path.sep, ""));
-
-        ignores.push(...files);
-      }
+      ignores.push(...options.ignores);
     }
 
     overrides.push({

@@ -34,8 +34,8 @@ function RouteComponent() {
     }),
   );
 
-  const { mutate: deleteTodo } = useMutation(
-    orpcQuery.todo.delete.mutationOptions({
+  const { mutate: removeTodo } = useMutation(
+    orpcQuery.todo.remove.mutationOptions({
       onSuccess: () => {
         todoListQuery.refetch();
       },
@@ -84,7 +84,7 @@ function RouteComponent() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => deleteTodo({ id: todo.id })}
+                    onClick={() => removeTodo({ id: todo.id })}
                     className="h-8 w-8 opacity-0 transition-opacity group-hover:opacity-100"
                   >
                     <Trash2 className="h-4 w-4 text-destructive" />
