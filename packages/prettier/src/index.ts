@@ -60,7 +60,7 @@ export function defineConfig(options: Options, config?: Config): Config {
     overrides.push({
       files: ignores,
       options: {
-        requirePragma: true,
+        rangeEnd: 0,
       },
     });
   }
