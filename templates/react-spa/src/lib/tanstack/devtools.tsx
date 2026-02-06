@@ -3,6 +3,10 @@ import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
 export function TanStackDevTools() {
+  if (import.meta.env.PROD) {
+    return null;
+  }
+
   return (
     <DevTools
       config={{
