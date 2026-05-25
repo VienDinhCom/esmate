@@ -1,8 +1,8 @@
 # Build scripts: allow only what each runtime needs; rest false so
 # strictDepBuilds (pnpm >=10.26 / 11) passes.
 allowBuilds:
-  esbuild: true
   better-sqlite3: true
+  esbuild: true
   sharp: true
   workerd: false
 

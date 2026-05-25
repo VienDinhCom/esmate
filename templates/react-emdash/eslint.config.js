@@ -5,4 +5,5 @@ export default defineConfig({
   type: "app",
   astro: true,
   react: true,
+  ignores: [".agents/**/*", ".claude/**/*"],
 });

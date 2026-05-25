@@ -7,4 +7,5 @@ export default defineConfig({
     tailwindFunctions: ["cn"],
     tailwindStylesheet: "src/assets/styles/global.css",
   },
+  ignores: [".agents/**/*", ".claude/**/*"],
 });

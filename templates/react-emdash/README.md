@@ -1,6 +1,8 @@
 # EmDash Starter Template
 
-A general-purpose starting point for building sites with [EmDash](https://github.com/emdash-cms/emdash). Runs on any Node.js server with SQLite and local file storage. Includes posts, pages, categories, and tags with minimal styling -- designed as a base you can build on rather than a finished theme.
+A general-purpose starting point for building sites with [EmDash](https://github.com/emdash-cms/emdash). Runs on any
+Node.js server with SQLite and local file storage. Includes posts, pages, categories, and tags with minimal styling --
+designed as a base you can build on rather than a finished theme.
 
 ## What's Included
 
@@ -11,15 +13,15 @@ A general-purpose starting point for building sites with [EmDash](https://github
 
 ## Pages
 
-| Page | Route |
-|---|---|
-| Homepage | `/` |
-| All posts | `/posts` |
-| Single post | `/posts/:slug` |
+| Page             | Route             |
+| ---------------- | ----------------- |
+| Homepage         | `/`               |
+| All posts        | `/posts`          |
+| Single post      | `/posts/:slug`    |
 | Category archive | `/category/:slug` |
-| Tag archive | `/tag/:slug` |
-| Static pages | `/:slug` |
-| 404 | fallback |
+| Tag archive      | `/tag/:slug`      |
+| Static pages     | `/:slug`          |
+| 404              | fallback          |
 
 ## Infrastructure
 
@@ -36,7 +38,7 @@ pnpm bootstrap
 pnpm dev
 ```
 
-Open http://localhost:4321 for the site and http://localhost:4321/_emdash/admin for the CMS.
+Open http://localhost:4321 for the site and http://localhost:4321/\_emdash/admin for the CMS.
 
 ## Want Cloudflare Instead?
 
