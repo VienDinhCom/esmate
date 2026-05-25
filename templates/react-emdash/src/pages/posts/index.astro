@@ -2,7 +2,7 @@
 import { getEmDashCollection, getTermsForEntries } from "emdash";
 import { Image } from "emdash/ui";
 
-import Base from "@/layouts/base.astro";
+import Base from "@/components/layouts/base.astro";
 
 const { entries: posts, cacheHint } = await getEmDashCollection("posts", {
   orderBy: { published_at: "desc" },

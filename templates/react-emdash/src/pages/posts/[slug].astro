@@ -2,7 +2,7 @@
 import { decodeSlug, getEmDashEntry, getEntryTerms, getSeoMeta, getSiteSettings } from "emdash";
 import { Image, PortableText, WidgetArea } from "emdash/ui";
 
-import Base from "@/layouts/base.astro";
+import Base from "@/components/layouts/base.astro";
 import { resolveStarterSiteIdentity } from "@/lib/utils";
 
 const slug = decodeSlug(Astro.params.slug);
