@@ -3,7 +3,7 @@ import { getEmDashCollection, getSiteSettings } from "emdash";
 import { Image } from "emdash/ui";
 
 import Base from "../layouts/base.astro";
-import { resolveStarterSiteIdentity } from "../utils/site-identity";
+import { resolveStarterSiteIdentity } from "../lib/utils";
 
 const { entries: posts, cacheHint } = await getEmDashCollection("posts", {
   orderBy: { published_at: "desc" },

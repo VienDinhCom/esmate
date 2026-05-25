@@ -3,7 +3,7 @@ import { decodeSlug, getEmDashEntry, getSeoMeta, getSiteSettings } from "emdash"
 import { PortableText } from "emdash/ui";
 
 import Base from "../layouts/base.astro";
-import { resolveStarterSiteIdentity } from "../utils/site-identity";
+import { resolveStarterSiteIdentity } from "../lib/utils";
 
 const slug = decodeSlug(Astro.params.slug);
 
