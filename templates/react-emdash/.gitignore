@@ -3,6 +3,7 @@ dist
 .astro
 uploads
 data.db
+.codegraph
 
 # Environment
 .env
