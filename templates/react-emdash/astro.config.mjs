@@ -14,6 +14,9 @@ export default defineConfig({
     layout: "constrained",
     responsiveStyles: true,
   },
+  vite: {
+    plugins: [tailwindcss()],
+  },
   integrations: [
     react(),
     emdash({
@@ -23,7 +26,6 @@ export default defineConfig({
         baseUrl: "/_emdash/api/media/file",
       }),
     }),
-    tailwindcss(),
   ],
   devToolbar: { enabled: false },
 });
