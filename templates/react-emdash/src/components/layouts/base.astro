@@ -4,6 +4,7 @@ import { createPublicPageContext } from "emdash/page";
 import { EmDashBodyEnd, EmDashBodyStart, EmDashHead, WidgetArea } from "emdash/ui";
 import LiveSearch from "emdash/ui/search";
 
+import "../../assets/styles/global.css";
 import { resolveStarterSiteIdentity } from "@/lib/utils";
 
 interface Props {
@@ -50,38 +51,38 @@ const pageCtx = createPublicPageContext({
   <body>
     <EmDashBodyStart page={pageCtx} />
 
-    <header>
-      <nav>
-        <a href="/">
-          {
-            siteLogo ? (
-              <img
-                src={siteLogo.url}
-                alt={siteLogo.alt || siteTitle}
-                style="height:48px;width:auto;margin:-8px 0;display:block;"
-              />
-            ) : (
-              siteTitle
-            )
-          }
+    <header class="sticky top-0 z-10 w-full border-b bg-background">
+      <nav class="mx-auto flex h-14 max-w-5xl items-center gap-6 px-4">
+        <a href="/" class="flex shrink-0 items-center gap-2 font-heading text-base font-semibold">
+          {siteLogo ? <img src={siteLogo.url} alt={siteLogo.alt || siteTitle} class="block h-8 w-auto" /> : siteTitle}
         </a>
-        {
-          menu?.items.map((item) => (
-            <a href={item.url} target={item.target}>
-              {item.label}
-            </a>
-          ))
-        }
-        <LiveSearch placeholder="Search..." collections={["posts", "pages"]} />
+        <div class="flex items-center gap-1">
+          {
+            menu?.items.map((item) => (
+              <a
+                href={item.url}
+                target={item.target}
+                class="inline-flex h-7 shrink-0 items-center justify-center gap-1 rounded-lg px-2.5 text-[0.8rem] font-medium whitespace-nowrap text-muted-foreground transition-all hover:bg-muted hover:text-foreground"
+              >
+                {item.label}
+              </a>
+            ))
+          }
+        </div>
+        <div class="ml-auto">
+          <LiveSearch placeholder="Search..." collections={["posts", "pages"]} />
+        </div>
       </nav>
     </header>
 
-    <main>
+    <main class="mx-auto min-h-[calc(100vh-10rem)] max-w-5xl px-4 py-8">
       <slot />
     </main>
 
-    <footer>
-      <WidgetArea name="sidebar" />
+    <footer class="border-t">
+      <div class="mx-auto max-w-5xl px-4 py-8">
+        <WidgetArea name="sidebar" />
+      </div>
     </footer>
 
     <EmDashBodyEnd page={pageCtx} />

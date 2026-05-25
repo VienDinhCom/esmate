@@ -1,9 +1,23 @@
 ---
 import Base from "@/components/layouts/base.astro";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+
+const { buttonVariants } = await import("@/components/ui/button");
 ---
 
 <Base title="Not Found">
-  <h1>Page not found</h1>
-  <p>The page you're looking for doesn't exist.</p>
-  <a href="/">Go home</a>
+  <div class="flex min-h-[50vh] items-center justify-center">
+    <Card class="w-full max-w-sm">
+      <CardHeader>
+        <CardTitle class="text-center text-2xl">404</CardTitle>
+        <CardDescription class="text-center">Page not found</CardDescription>
+      </CardHeader>
+      <CardContent class="text-center text-muted-foreground">
+        <p>The page you're looking for doesn't exist.</p>
+      </CardContent>
+      <CardFooter class="justify-center">
+        <a href="/" class={buttonVariants({ variant: "default" })}>Go home</a>
+      </CardFooter>
+    </Card>
+  </div>
 </Base>

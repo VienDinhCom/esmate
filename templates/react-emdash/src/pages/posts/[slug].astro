@@ -3,6 +3,8 @@ import { decodeSlug, getEmDashEntry, getEntryTerms, getSeoMeta, getSiteSettings 
 import { Image, PortableText, WidgetArea } from "emdash/ui";
 
 import Base from "@/components/layouts/base.astro";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import { resolveStarterSiteIdentity } from "@/lib/utils";
 
 const slug = decodeSlug(Astro.params.slug);
@@ -41,53 +43,64 @@ const categories = await getEntryTerms("posts", post.data.id, "category");
   image={seo.ogImage}
   content={{ collection: "posts", id: post.data.id, slug }}
 >
-  <article>
+  <article class="prose max-w-none prose-neutral dark:prose-invert">
     {
       post.data.featured_image && (
-        <div {...post.edit.featured_image}>
+        <div {...post.edit.featured_image} class="-mx-4 -mt-4 mb-6 overflow-hidden rounded-t-xl">
           <Image image={post.data.featured_image} />
         </div>
       )
     }
 
-    <h1 {...post.edit.title}>{post.data.title}</h1>
+    <h1 class="not-prose mb-4 font-heading text-3xl font-semibold tracking-tight" {...post.edit.title}>
+      {post.data.title}
+    </h1>
 
-    {
-      post.data.publishedAt && (
-        <time datetime={post.data.publishedAt.toISOString()}>
-          {post.data.publishedAt.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </time>
-      )
-    }
+    <div class="not-prose mb-6 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+      {
+        post.data.publishedAt && (
+          <time datetime={post.data.publishedAt.toISOString()}>
+            {post.data.publishedAt.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </time>
+        )
+      }
 
-    {
-      categories.length > 0 && (
-        <div>
-          {categories.map((c) => (
-            <a href={`/category/${c.slug}`}>{c.label}</a>
-          ))}
-        </div>
-      )
-    }
+      {
+        categories.length > 0 && (
+          <div class="flex flex-wrap gap-2">
+            {categories.map((c) => (
+              <a href={`/category/${c.slug}`}>
+                <Badge variant="outline">{c.label}</Badge>
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
 
     <PortableText value={post.data.content} />
 
     {
       tags.length > 0 && (
-        <div>
-          {tags.map((t) => (
-            <a href={`/tag/${t.slug}`}>{t.label}</a>
-          ))}
-        </div>
+        <>
+          <Separator className="not-prose my-8" />
+          <div class="not-prose flex flex-wrap gap-2">
+            {tags.map((t) => (
+              <a href={`/tag/${t.slug}`}>
+                <Badge variant="secondary">{t.label}</Badge>
+              </a>
+            ))}
+          </div>
+        </>
       )
     }
   </article>
 
-  <aside>
+  <aside class="mt-12">
     <WidgetArea name="sidebar" />
   </aside>
 </Base>
