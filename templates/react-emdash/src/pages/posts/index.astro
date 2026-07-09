@@ -1,0 +1,65 @@
+---
+import { getEmDashCollection, getTermsForEntries } from "emdash";
+import { Image } from "emdash/ui";
+
+import Base from "@/components/layouts/base.astro";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+
+const { entries: posts, cacheHint } = await getEmDashCollection("posts", {
+  orderBy: { published_at: "desc" },
+});
+if (Astro.cache?.enabled) 
+Astro.cache.set(cacheHint);
+
+// Single batched query for tags across every post, instead of calling
+// getEntryTerms() per post (which would be N round-trips).
+const tagsByEntry = await getTermsForEntries(
+  "posts",
+  posts.map((p) => p.data.id),
+  "tag",
+);
+const postsWithTags = posts.map((post) => ({
+  post,
+  tags: tagsByEntry.get(post.data.id) ?? [],
+}));
+---
+
+<Base title="All Posts">
+  <h1 class="mb-8 font-heading text-3xl font-semibold tracking-tight">Posts</h1>
+
+  {
+    postsWithTags.length === 0 ? (
+      <p class="text-muted-foreground">No posts yet.</p>
+    ) : (
+      <div class="grid gap-6">
+        {postsWithTags.map(({ post, tags }) => (
+          <Card>
+            {post.data.featured_image && (
+              <a href={`/posts/${post.id}`}>
+                <Image image={post.data.featured_image} />
+              </a>
+            )}
+            <CardHeader>
+              <CardTitle>
+                <a href={`/posts/${post.id}`} class="text-card-foreground transition-colors hover:text-primary">
+                  {post.data.title}
+                </a>
+              </CardTitle>
+              <CardDescription>{post.data.excerpt}</CardDescription>
+            </CardHeader>
+            {tags.length > 0 && (
+              <CardFooter class="flex-wrap gap-2">
+                {tags.map((t) => (
+                  <a href={`/tag/${t.slug}`}>
+                    <Badge variant="secondary">{t.label}</Badge>
+                  </a>
+                ))}
+              </CardFooter>
+            )}
+          </Card>
+        ))}
+      </div>
+    )
+  }
+</Base>

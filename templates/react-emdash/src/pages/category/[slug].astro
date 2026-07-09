@@ -1,0 +1,50 @@
+---
+import { decodeSlug, getEmDashCollection, getTerm } from "emdash";
+import { Image } from "emdash/ui";
+
+import Base from "@/components/layouts/base.astro";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+
+const slug = decodeSlug(Astro.params.slug);
+const term = slug ? await getTerm("category", slug) : null;
+
+if (!term) {
+  return Astro.redirect("/404");
+}
+
+const { entries: posts } = await getEmDashCollection("posts", {
+  where: { category: term.slug },
+  orderBy: { published_at: "desc" },
+});
+---
+
+<Base title={`${term.label} posts`} description={`Posts in ${term.label}`}>
+  <h1 class="mb-2 font-heading text-3xl font-semibold tracking-tight">{term.label}</h1>
+  <p class="mb-8 text-sm text-muted-foreground">{posts.length} {posts.length === 1 ? "post" : "posts"}</p>
+
+  {
+    posts.length === 0 ? (
+      <p class="text-muted-foreground">No posts in this category yet.</p>
+    ) : (
+      <div class="grid gap-6">
+        {posts.map((post) => (
+          <Card>
+            {post.data.featured_image && (
+              <a href={`/posts/${post.id}`}>
+                <Image image={post.data.featured_image} />
+              </a>
+            )}
+            <CardHeader>
+              <CardTitle>
+                <a href={`/posts/${post.id}`} class="text-card-foreground transition-colors hover:text-primary">
+                  {post.data.title}
+                </a>
+              </CardTitle>
+              {post.data.excerpt && <CardDescription>{post.data.excerpt}</CardDescription>}
+            </CardHeader>
+          </Card>
+        ))}
+      </div>
+    )
+  }
+</Base>

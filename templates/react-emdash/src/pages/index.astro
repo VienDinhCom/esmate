@@ -1,0 +1,66 @@
+---
+import { getEmDashCollection, getSiteSettings } from "emdash";
+import { Image } from "emdash/ui";
+
+import Base from "@/components/layouts/base.astro";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { resolveStarterSiteIdentity } from "@/lib/utils";
+
+const { entries: posts, cacheHint } = await getEmDashCollection("posts", {
+  orderBy: { published_at: "desc" },
+});
+const { siteTitle, siteTagline } = resolveStarterSiteIdentity(await getSiteSettings());
+if (Astro.cache?.enabled) 
+Astro.cache.set(cacheHint);
+---
+
+<Base title={siteTitle} description={siteTagline}>
+  <h1 class="mb-8 font-heading text-3xl font-semibold tracking-tight">Recent Posts</h1>
+
+  {
+    posts.length === 0 ? (
+      <p class="text-muted-foreground">
+        No posts yet.{" "}
+        <a href="/_emdash/admin/content/posts/new" class="text-primary underline-offset-4 hover:underline">
+          Create one
+        </a>
+        .
+      </p>
+    ) : (
+      <div class="grid gap-6">
+        {posts.map((post) => (
+          <Card>
+            {post.data.featured_image && (
+              <a href={`/posts/${post.id}`}>
+                <Image image={post.data.featured_image} />
+              </a>
+            )}
+            <CardHeader>
+              <CardTitle>
+                <a href={`/posts/${post.id}`} class="text-card-foreground transition-colors hover:text-primary">
+                  {post.data.title}
+                </a>
+              </CardTitle>
+              {post.data.publishedAt && (
+                <CardDescription>
+                  <time datetime={post.data.publishedAt.toISOString()}>
+                    {post.data.publishedAt.toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </time>
+                </CardDescription>
+              )}
+            </CardHeader>
+            {post.data.excerpt && (
+              <CardContent>
+                <p>{post.data.excerpt}</p>
+              </CardContent>
+            )}
+          </Card>
+        ))}
+      </div>
+    )
+  }
+</Base>
