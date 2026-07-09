@@ -58,6 +58,7 @@ export function defineConfig(options: Options, ...configs: Linter.Config[]): Ret
   }
 
   // Must come last to avoid conflicts with other configs
+
   if (!options.formatters) {
     restConfigs.push(prettierConfig, {
       rules: { "antfu/consistent-chaining": "off" },
@@ -78,6 +79,7 @@ export function defineConfig(options: Options, ...configs: Linter.Config[]): Ret
         "no-console": ["warn"],
         "node/no-process-env": ["error"],
         "antfu/no-top-level-await": ["off"],
+        "antfu/if-newline": ["off"],
         "perfectionist/sort-imports": [
           "error",
           {
